@@ -139,7 +139,7 @@ function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b-2 border-foreground">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="font-display font-black text-2xl tracking-tighter uppercase" data-testid="nav-logo">
-            Voltio<span className="text-accent">.</span>
+            Píxel<span className="text-accent">.</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-semibold text-sm">
             <a href="#services" className="hover:text-primary transition-colors" data-testid="nav-link-services">Servicios</a>
@@ -196,7 +196,7 @@ function Home() {
                 className="w-full h-full object-cover"
                 data-testid="hero-image"
                 onError={(e) => {
-                  e.currentTarget.src = "https://placehold.co/800x800/002BFF/FFFFFF?text=Voltio+Studio";
+                  e.currentTarget.src = "https://placehold.co/800x800/002BFF/FFFFFF?text=Pixel+Studio";
                 }}
               />
             </div>
@@ -426,7 +426,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { quote: "Increíble nivel de detalle. El sitio no solo se ve de clase mundial, sino que duplicó nuestros leads semanales.", name: "Carlos Mendoza", role: "Fundador, TechNova" },
-              { quote: "Voltio entendió nuestra visión inmediatamente. El sitio es moderno, rápido y nuestros clientes lo notan desde el primer clic.", name: "Sofía Arango", role: "CEO, Aura Fashion" },
+              { quote: "Píxel entendió nuestra visión inmediatamente. El sitio es moderno, rápido y nuestros clientes lo notan desde el primer clic.", name: "Sofía Arango", role: "CEO, Aura Fashion" },
               { quote: "La mejor inversión en marketing del año. Trabajar con ellos es rápido, directo y el resultado es impecable.", name: "Diego Torres", role: "Director, Metrics B2B" }
             ].map((testimonial, i) => (
               <motion.div 
@@ -478,10 +478,10 @@ function Home() {
       <footer className="py-12 px-6 bg-background border-t-2 border-foreground">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="font-display font-black text-2xl tracking-tighter uppercase">
-            Voltio<span className="text-accent">.</span>
+            Píxel<span className="text-accent">.</span>
           </div>
           <p className="font-medium text-muted-foreground text-center md:text-left">
-            © 2024 Estudio Voltio. Diseño radical para marcas latinas.
+            © 2024 Estudio Píxel. Diseño radical para marcas latinas.
           </p>
         </div>
       </footer>
