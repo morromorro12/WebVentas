@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @workspace/web-agency run build",
+  "outputDirectory": "artifacts/web-agency/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null
+}
