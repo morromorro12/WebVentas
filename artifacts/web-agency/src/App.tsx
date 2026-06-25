@@ -89,7 +89,7 @@ const staggerContainer = {
 
 const services = [
   {
-    icon: <Monitor className="w-10 h-10" />,
+    icon: <Monitor className="w-12 h-12" />,
     iconLarge: <Monitor className="w-16 h-16" />,
     title: "Sitios Corporativos",
     tag: "Presencia Digital",
@@ -102,7 +102,7 @@ const services = [
     monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
   },
   {
-    icon: <Smartphone className="w-10 h-10" />,
+    icon: <Smartphone className="w-12 h-12" />,
     iconLarge: <Smartphone className="w-16 h-16" />,
     title: "Landing Pages",
     tag: "Alta Conversión",
@@ -115,7 +115,7 @@ const services = [
     monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
   },
   {
-    icon: <Video className="w-10 h-10" />,
+    icon: <Video className="w-12 h-12" />,
     iconLarge: <Video className="w-16 h-16" />,
     title: "Imágenes y Videos Publicitarios",
     tag: "Contenido Visual",
@@ -243,15 +243,22 @@ function Home() {
                 viewport={{ once: true }}
                 variants={fadeIn}
                 onClick={() => setSelectedService(i)}
-                className="bg-white p-10 brutalist-border hover:brutalist-shadow transition-all duration-300 group text-left w-full cursor-pointer"
+                className="relative bg-white rounded-3xl p-10 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
                 data-testid={`service-card-${i}`}
               >
-                <div className="w-20 h-20 bg-primary/10 border-2 border-primary rounded-none flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors">
+                {/* big background number */}
+                <span className="absolute -bottom-4 -right-2 text-[9rem] font-black text-black/[0.04] leading-none select-none font-display pointer-events-none">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                {/* icon — free floating, no box */}
+                <div className="text-primary mb-7 relative z-10 group-hover:scale-110 transition-transform duration-300 origin-left">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl font-black font-display mb-4">{service.title}</h3>
-                <p className="text-muted-foreground font-medium mb-6">{service.desc}</p>
-                <span className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group-hover:gap-3 transition-all">
+
+                <h3 className="text-2xl font-black font-display mb-3 relative z-10">{service.title}</h3>
+                <p className="text-muted-foreground font-medium mb-7 relative z-10 leading-relaxed">{service.desc}</p>
+                <span className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group-hover:gap-3 transition-all relative z-10">
                   Ver más <ArrowRight className="w-4 h-4" />
                 </span>
               </motion.button>
