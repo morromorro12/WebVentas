@@ -109,7 +109,7 @@ const services = [
     desc: "Embudos de alta conversión diseñados específicamente para tus campañas de anuncios.",
     subtitle: "Diseñada para captar la atención de tus potenciales clientes y convertir visitas en consultas o ventas.",
     body: "Creamos landing pages modernas, rápidas y optimizadas para dispositivos móviles y computadoras, enfocadas en generar resultados reales para tu negocio. Cada proyecto incluye diseño personalizado, formulario de contacto, integración con WhatsApp y optimización básica para buscadores.",
-    features: ["Una página de alto impacto", "Diseño personalizado", "Optimización para móvil", "Formulario de contacto", "Integración con WhatsApp", "Entrega en menos de una semana"],
+    features: ["Una página de alto impacto", "Diseño personalizado", "Optimización para móvil", "Formulario de contacto", "Integración con WhatsApp", "Entrega rápida"],
     price: "$7.900 UYU",
     monthly: "~$500 UYU / mes",
     monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
