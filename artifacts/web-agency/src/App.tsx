@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -144,7 +145,8 @@ function Home() {
           <div className="hidden md:flex items-center gap-8 font-semibold text-sm">
             <a href="#services" className="hover:text-primary transition-colors" data-testid="nav-link-services">Servicios</a>
             <a href="#work" className="hover:text-primary transition-colors" data-testid="nav-link-work">Proyectos</a>
-            <a href="#contact" className="px-6 py-3 bg-primary text-white font-bold uppercase tracking-wide brutalist-border brutalist-shadow" data-testid="nav-cta">
+            <a href="#contact" className="px-6 py-3 bg-primary text-white font-bold uppercase tracking-wide brutalist-border brutalist-shadow inline-flex items-center gap-2" data-testid="nav-cta">
+              <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
               Escribinos
             </a>
           </div>
