@@ -118,12 +118,12 @@ const services = [
   {
     icon: <Video className="w-12 h-12" />,
     iconLarge: <Video className="w-16 h-16" />,
-    title: "Imágenes y Videos Publicitarios",
+    title: "Imágenes, Videos y Diseño",
     tag: "Contenido Visual",
-    desc: "Contenido visual profesional para tus campañas: videos publicitarios, reels y creatividades que generan impacto.",
+    desc: "Contenido visual profesional para tus campañas: videos publicitarios, reels, logos y creatividades que generan impacto.",
     subtitle: "Potenciá la imagen de tu negocio con contenido visual profesional diseñado para captar la atención de tus clientes.",
-    body: "Creamos imágenes publicitarias y videos promocionales de alta calidad para redes sociales, campañas digitales, presentaciones de productos y servicios. Cada pieza se adapta a la identidad de tu marca y está pensada para transmitir un mensaje claro, moderno y atractivo.\n\nIdeal para empresas, emprendedores, comercios y profesionales que buscan destacar en internet con contenido visual impactante.",
-    features: ["Videos publicitarios profesionales", "Reels para redes sociales", "Imágenes creativas para anuncios", "Adaptado a tu identidad de marca", "Edición y postproducción", "Entrega en dos días"],
+    body: "Creamos imágenes publicitarias, videos promocionales y logos de alta calidad para redes sociales, campañas digitales y presentaciones de marca. Cada pieza se adapta a la identidad de tu negocio y está pensada para transmitir un mensaje claro, moderno y atractivo.\n\nIdeal para empresas, emprendedores, comercios y profesionales que buscan destacar en internet con contenido visual impactante.",
+    features: ["Videos publicitarios profesionales", "Reels para redes sociales", "Imágenes creativas para anuncios", "Creación de logos e identidad visual", "Diseño gráfico a medida", "Entrega en dos días"],
     price: "Consultar",
     monthly: null,
     monthlyNote: "El precio varía según cantidad de piezas y características. Contactanos para una cotización.",
@@ -482,9 +482,14 @@ function Home() {
           <div className="font-display font-black text-2xl tracking-tighter uppercase">
             Píxel<span className="text-accent">.</span>
           </div>
-          <p className="font-medium text-muted-foreground text-center md:text-left">
-            © 2024 Estudio Píxel. Diseño radical para marcas latinas.
-          </p>
+          <div className="flex flex-col items-center md:items-end gap-1">
+            <p className="font-medium text-muted-foreground text-center md:text-right">
+              © 2024 Estudio Píxel. Diseño radical para marcas latinas.
+            </p>
+            <a href="mailto:alfonso12.taro@gmail.com" className="text-sm text-primary font-semibold hover:underline">
+              alfonso12.taro@gmail.com
+            </a>
+          </div>
         </div>
       </footer>
     </div>
