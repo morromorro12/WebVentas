@@ -424,7 +424,7 @@ function Home() {
       <section className="py-32 px-6 bg-secondary/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="md:text-7xl font-black font-display mb-6 text-[79px]">Piezas<br/>Creativas.</h2>
+            <h2 className="md:text-7xl font-black font-display mb-6 text-[79px]">Diseño y<br/>Branding.</h2>
             <p className="text-xl text-muted-foreground max-w-xl mx-auto font-medium">
               Diseño gráfico, imágenes publicitarias y contenido visual creado para distintas marcas.
             </p>
@@ -433,11 +433,11 @@ function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {[
               { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528134/899364F2-B5AE-4F9F-8741-4049B8E17A1C_jzbxv9.png", tag: "Diseño Publicitario" },
-              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528094/ChatGPT_Image_6_mar_2026_17_34_32_t5thxc.png", tag: "Identidad de Marca" },
-              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528053/ad_sin_precio_e1epob.png", tag: "Anuncio Digital" },
-              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527987/razas_pequenas_lager_100_kaxukb.png", tag: "Empaque & Producto" },
-              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Lager_senior_100_FINAL_n8srfl.png", tag: "Empaque & Producto" },
-              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Maxine_adulto_final_100_cak23s.png", tag: "Contenido Visual" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528094/ChatGPT_Image_6_mar_2026_17_34_32_t5thxc.png", tag: "Logo" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528053/ad_sin_precio_e1epob.png", tag: "Diseño Publicitario" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527987/razas_pequenas_lager_100_kaxukb.png", tag: "Productos" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Lager_senior_100_FINAL_n8srfl.png", tag: "Productos" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Maxine_adulto_final_100_cak23s.png", tag: "Productos" },
             ].map((piece, i) => (
               <motion.div
                 key={i}
