@@ -203,7 +203,7 @@ function Home() {
             {/* Floating badge */}
             <div className="absolute -bottom-8 -left-8 bg-accent text-white p-6 brutalist-border brutalist-shadow z-20 hidden md:block">
               <div className="font-black text-4xl">100%</div>
-              <div className="font-bold uppercase tracking-wider text-sm">Conversión<br/>Garantizada</div>
+              <div className="font-bold uppercase tracking-wider text-sm">Diseño Profesional<br/>Asegurado</div>
             </div>
           </motion.div>
         </div>
@@ -216,6 +216,8 @@ function Home() {
               <span>Diseño Web</span>
               <Star className="w-6 h-6 text-accent fill-accent" />
               <span>Videos Publicitarios</span>
+              <Star className="w-6 h-6 text-accent fill-accent" />
+              <span>Diseño Digital</span>
               <Star className="w-6 h-6 text-accent fill-accent" />
             </div>
           ))}
