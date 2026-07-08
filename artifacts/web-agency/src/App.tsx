@@ -164,7 +164,7 @@ function Home() {
           >
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 bg-accent/10 border-2 border-accent px-4 py-2 w-fit">
               <Zap className="w-5 h-5 text-accent" />
-              <span className="text-accent font-bold uppercase tracking-wider text-sm">Agencia de Diseño Web</span>
+              <span className="text-accent font-bold uppercase tracking-wider text-sm">DISEÑO DIGITAL Y WEB</span>
             </motion.div>
             
             <motion.h1 variants={fadeIn} className="text-6xl md:text-8xl font-black font-display leading-[0.9] text-balance">
@@ -179,9 +179,7 @@ function Home() {
               <a href="#contact" className="px-8 py-4 bg-primary text-white font-black text-lg uppercase tracking-wide brutalist-border brutalist-shadow flex items-center gap-2" data-testid="hero-cta-primary">
                 Iniciar Proyecto <ArrowRight className="w-5 h-5" />
               </a>
-              <a href="#work" className="px-8 py-4 bg-white text-foreground font-black text-lg uppercase tracking-wide brutalist-border hover:bg-gray-50 transition-colors" data-testid="hero-cta-secondary">
-                Ver Trabajo
-              </a>
+              <a href="#work" className="px-8 py-4 bg-white text-foreground font-black text-lg uppercase tracking-wide brutalist-border hover:bg-gray-50 transition-colors" data-testid="hero-cta-secondary">Ver Proyectos</a>
             </motion.div>
           </motion.div>
 
