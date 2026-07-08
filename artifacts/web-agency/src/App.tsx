@@ -470,9 +470,9 @@ function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { quote: "Increíble nivel de detalle. El sitio no solo se ve de clase mundial, sino que duplicó nuestros leads semanales.", name: "Carlos Mendoza", role: "Fundador, TechNova" },
-              { quote: "Píxel entendió nuestra visión inmediatamente. El sitio es moderno, rápido y nuestros clientes lo notan desde el primer clic.", name: "Sofía Arango", role: "CEO, Aura Fashion" },
-              { quote: "La mejor inversión en marketing del año. Trabajar con ellos es rápido, directo y el resultado es impecable.", name: "Diego Torres", role: "Director, Metrics B2B" }
+              { quote: "No tenía página web ni me manejaba online. Ellos se encargaron de todo y ahora digitalmente tengo una empresa profesional.", name: "Jerónimo D'Alessandro", role: "Gopet", rating: 5 },
+              { quote: "Ya me diseñaron varias etiquetas de productos que antes me llevaba por lo menos una semana. Me lo hicieron en un día y muchísimo más barato. Super recomendado!!", name: "Ana Moroni", role: "Tankin", rating: 5 },
+              { quote: "No me tuve que preocupar ni un momento por mi imagen online y tengo una imagen muy profesional por un costo muy barato. La verdad, les recomiendo antes de que se vuelva una empresa más grande y suba los precios.", name: "Fabricio Goncalvez", role: "Sandy Lane", rating: 4.5 }
             ].map((testimonial, i) => (
               <motion.div 
                 key={i}
@@ -483,7 +483,19 @@ function Home() {
                 className="bg-card/10 p-10 border-2 border-white/20 hover:border-accent hover:-translate-y-2 transition-all duration-300"
                 data-testid={`testimonial-card-${i}`}
               >
-                <Star className="w-10 h-10 text-accent fill-accent mb-6" />
+                <div className="flex gap-1 mb-6" data-testid={`testimonial-rating-${i}`}>
+                  {[0, 1, 2, 3, 4].map((starIndex) => {
+                    const fillAmount = Math.max(0, Math.min(1, testimonial.rating - starIndex));
+                    return (
+                      <div key={starIndex} className="relative w-6 h-6">
+                        <Star className="w-6 h-6 text-white/20 absolute inset-0" />
+                        <div className="absolute inset-0 overflow-hidden" style={{ width: `${fillAmount * 100}%` }}>
+                          <Star className="w-6 h-6 text-accent fill-accent" />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
                 <p className="text-xl font-medium mb-8 text-white/90">"{testimonial.quote}"</p>
                 <div>
                   <div className="font-bold uppercase tracking-wider text-white">{testimonial.name}</div>
