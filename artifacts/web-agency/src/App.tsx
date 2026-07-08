@@ -171,9 +171,8 @@ function Home() {
               Diseño que <br/><span className="text-primary">Convierte.</span>
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-xl text-muted-foreground max-w-xl font-medium">
-              No hacemos plantillas aburridas. Creamos experiencias digitales eléctricas para negocios ambiciosos en toda Latinoamérica que exigen resultados.
-            </motion.p>
+            <motion.p variants={fadeIn} className="text-xl text-muted-foreground max-w-xl font-medium">Creamos la identidad digital de tu negocio con página web moderna, imágenes profesionales y diseños pensados para que te veas mejor, generes confianza y vendas más online.
+</motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-wrap gap-4 pt-4">
               <a href="#contact" className="px-8 py-4 bg-primary text-white font-black text-lg uppercase tracking-wide brutalist-border brutalist-shadow flex items-center gap-2" data-testid="hero-cta-primary">
