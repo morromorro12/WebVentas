@@ -420,6 +420,49 @@ function Home() {
           </div>
         </div>
       </section>
+      {/* Creative Gallery Section */}
+      <section className="py-32 px-6 bg-secondary/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="md:text-7xl font-black font-display mb-6 text-[79px]">Piezas<br/>Creativas.</h2>
+            <p className="text-xl text-muted-foreground max-w-xl mx-auto font-medium">
+              Diseño gráfico, imágenes publicitarias y contenido visual creado para distintas marcas.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528134/899364F2-B5AE-4F9F-8741-4049B8E17A1C_jzbxv9.png", tag: "Diseño Publicitario" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528094/ChatGPT_Image_6_mar_2026_17_34_32_t5thxc.png", tag: "Identidad de Marca" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783528053/ad_sin_precio_e1epob.png", tag: "Anuncio Digital" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527987/razas_pequenas_lager_100_kaxukb.png", tag: "Empaque & Producto" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Lager_senior_100_FINAL_n8srfl.png", tag: "Empaque & Producto" },
+              { img: "https://res.cloudinary.com/dhfwi0myn/image/upload/v1783527986/Maxine_adulto_final_100_cak23s.png", tag: "Contenido Visual" },
+            ].map((piece, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+                className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-shadow duration-300"
+                data-testid={`gallery-item-${i}`}
+              >
+                <img
+                  src={piece.img}
+                  alt={piece.tag}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="absolute bottom-4 left-4 text-white font-bold uppercase tracking-wider text-xs opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                  {piece.tag}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* Testimonials Section */}
       <section className="py-24 px-6 bg-foreground text-background">
         <div className="max-w-7xl mx-auto">
