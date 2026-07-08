@@ -145,7 +145,7 @@ function Home() {
           <div className="hidden md:flex items-center gap-8 font-semibold text-sm">
             <a href="#services" className="hover:text-primary transition-colors" data-testid="nav-link-services">Servicios</a>
             <a href="#work" className="hover:text-primary transition-colors" data-testid="nav-link-work">Proyectos</a>
-            <a href="#contact" className="px-6 py-3 bg-primary text-white font-bold uppercase tracking-wide brutalist-border brutalist-shadow inline-flex items-center gap-2" data-testid="nav-cta">
+            <a href="https://wa.me/59892178756" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-primary text-white font-bold uppercase tracking-wide brutalist-border brutalist-shadow inline-flex items-center gap-2" data-testid="nav-cta">
               <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
               Escribinos
             </a>
@@ -467,7 +467,9 @@ function Home() {
               Escribinos un mensaje sin compromiso y te armamos un boceto para que veas cómo se vería tu proyecto.
             </p>
             <a 
-              href="mailto:hello@estudiovoltio.com" 
+              href="https://wa.me/59892178756" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-4 px-10 py-6 bg-white text-foreground font-black text-xl uppercase tracking-wide brutalist-border hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.4)] transition-all duration-300"
               data-testid="footer-cta"
             >
