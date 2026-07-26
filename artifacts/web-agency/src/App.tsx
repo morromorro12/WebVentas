@@ -101,6 +101,7 @@ const services = [
     price: "$13.900 UYU",
     monthly: "~$650 UYU / mes",
     monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
+    hidePrice: true,
   },
   {
     icon: <Smartphone className="w-12 h-12" />,
@@ -114,6 +115,7 @@ const services = [
     price: "$7.900 UYU",
     monthly: "~$500 UYU / mes",
     monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
+    hidePrice: true,
   },
   {
     icon: <Video className="w-12 h-12" />,
@@ -296,18 +298,20 @@ function Home() {
                 </div>
 
                 {/* price block */}
-                <div className="relative z-10 mt-8">
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Precio del proyecto</p>
-                    <p className="text-white font-black font-display text-3xl">{active.price}</p>
-                    {active.monthly && (
-                      <div className="mt-3 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
-                        <span className="text-white/50 text-xs">{active.monthly} estimado</span>
-                      </div>
-                    )}
+                {!active.hidePrice && (
+                  <div className="relative z-10 mt-8">
+                    <div className="border-t border-white/10 pt-6">
+                      <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Precio del proyecto</p>
+                      <p className="text-white font-black font-display text-3xl">{active.price}</p>
+                      {active.monthly && (
+                        <div className="mt-3 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                          <span className="text-white/50 text-xs">{active.monthly} estimado</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* large icon watermark */}
                 <div className="absolute bottom-6 right-6 text-white/5 pointer-events-none">
