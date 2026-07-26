@@ -347,8 +347,9 @@ function Home() {
 
                 {/* CTA */}
                 <a
-                  href="#contact"
-                  onClick={() => setSelectedService(null)}
+                  href="https://wa.me/59892178756"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-6 flex items-center justify-center gap-2 w-full px-6 py-4 bg-primary text-white font-black uppercase tracking-widest text-sm rounded-xl hover:bg-primary/90 active:scale-[0.98] transition-all duration-150 shadow-lg shadow-primary/30"
                   data-testid="service-modal-cta"
                 >
