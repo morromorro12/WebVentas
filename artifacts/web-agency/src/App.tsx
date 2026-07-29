@@ -50,21 +50,6 @@ function ParticleCanvas({ className }: { className?: string }) {
         ctx.fillStyle = `rgba(0,43,255,${p.o})`;
         ctx.fill();
       }
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x;
-          const dy = pts[i].y - pts[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 130) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(0,43,255,${0.1 * (1 - d / 130)})`;
-            ctx.lineWidth = 0.8;
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.stroke();
-          }
-        }
-      }
       animId = requestAnimationFrame(draw);
     };
     draw();
