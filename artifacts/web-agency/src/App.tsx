@@ -158,8 +158,7 @@ function Home() {
               Diseño que <br/><span className="text-primary">Convierte.</span>
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-base md:text-xl text-muted-foreground max-w-xl font-medium leading-relaxed">Página web, imágenes y diseño profesional para que tu negocio genere confianza y venda más online.
-            </motion.p>
+            <motion.p variants={fadeIn} className="text-base md:text-xl text-muted-foreground max-w-xl font-medium leading-relaxed">Página web, imágenes y diseño, para que tu negocio transmita imagen profesional a primera vista.</motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4">
               <a href="#contact" className="px-6 py-4 bg-primary text-white font-black text-base md:text-lg uppercase tracking-wide brutalist-border brutalist-shadow flex items-center justify-center gap-2 w-full sm:w-auto" data-testid="hero-cta-primary">
