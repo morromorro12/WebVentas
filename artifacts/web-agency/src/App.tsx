@@ -140,32 +140,32 @@ function Home() {
         </div>
       </nav>
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 min-h-[90vh] flex flex-col justify-center relative overflow-hidden">
+      <section className="pt-28 md:pt-40 pb-12 md:pb-20 px-5 md:px-6 min-h-[100svh] md:min-h-[90vh] flex flex-col justify-center relative overflow-hidden">
         <ParticleCanvas className="absolute inset-0 w-full h-full pointer-events-none" />
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
           <motion.div 
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="flex flex-col gap-8 relative z-10"
+            className="flex flex-col gap-5 md:gap-8 relative z-10"
           >
-            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 bg-accent/10 border-2 border-accent px-4 py-2 w-fit">
-              <Zap className="w-5 h-5 text-accent" />
-              <span className="text-accent font-bold uppercase tracking-wider text-sm">DISEÑO DIGITAL Y WEB</span>
+            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 bg-accent/10 border-2 border-accent px-3 py-1.5 md:px-4 md:py-2 w-fit">
+              <Zap className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+              <span className="text-accent font-bold uppercase tracking-wider text-xs md:text-sm">DISEÑO DIGITAL Y WEB</span>
             </motion.div>
             
-            <motion.h1 variants={fadeIn} className="text-6xl md:text-8xl font-black font-display leading-[0.9] text-balance">
+            <motion.h1 variants={fadeIn} className="text-[52px] leading-[0.92] md:text-8xl font-black font-display text-balance">
               Diseño que <br/><span className="text-primary">Convierte.</span>
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-xl text-muted-foreground max-w-xl font-medium">Creamos la identidad digital de tu negocio con página web moderna, imágenes profesionales y diseños pensados para que te veas mejor, generes confianza y vendas más online.
-</motion.p>
+            <motion.p variants={fadeIn} className="text-base md:text-xl text-muted-foreground max-w-xl font-medium leading-relaxed">Página web, imágenes y diseño profesional para que tu negocio genere confianza y venda más online.
+            </motion.p>
             
-            <motion.div variants={fadeIn} className="flex flex-wrap gap-4 pt-4">
-              <a href="#contact" className="px-8 py-4 bg-primary text-white font-black text-lg uppercase tracking-wide brutalist-border brutalist-shadow flex items-center gap-2" data-testid="hero-cta-primary">
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4">
+              <a href="#contact" className="px-6 py-4 bg-primary text-white font-black text-base md:text-lg uppercase tracking-wide brutalist-border brutalist-shadow flex items-center justify-center gap-2 w-full sm:w-auto" data-testid="hero-cta-primary">
                 Iniciar Proyecto <ArrowRight className="w-5 h-5" />
               </a>
-              <a href="#work" className="px-8 py-4 bg-white text-foreground font-black text-lg uppercase tracking-wide brutalist-border hover:bg-gray-50 transition-colors" data-testid="hero-cta-secondary">Ver Proyectos</a>
+              <a href="#work" className="px-6 py-4 bg-white text-foreground font-black text-base md:text-lg uppercase tracking-wide brutalist-border hover:bg-gray-50 transition-colors flex items-center justify-center w-full sm:w-auto" data-testid="hero-cta-secondary">Ver Proyectos</a>
             </motion.div>
           </motion.div>
 
