@@ -1,62 +1,15 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle } from "lucide-react";
+import { ArrowRight, Zap, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle, Workflow } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
-
-function ParticleCanvas({ className }: { className?: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    let animId: number;
-    const COUNT = 55;
-    type P = { x: number; y: number; vx: number; vy: number; r: number; o: number };
-    let pts: P[] = [];
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      pts = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 1.8 + 0.8,
-        o: Math.random() * 0.35 + 0.08,
-      }));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of pts) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,43,255,${p.o})`;
-        ctx.fill();
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={canvasRef} className={className} />;
-}
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -103,6 +56,19 @@ const services = [
     hidePrice: true,
   },
   {
+    icon: <Workflow className="w-12 h-12" />,
+    iconLarge: <Workflow className="w-16 h-16" />,
+    title: "Automatizaciones a Medida",
+    tag: "Procesos Inteligentes",
+    desc: "Automatizamos las tareas repetitivas de tu negocio: ventas por audio, pedidos y procesos internos.",
+    subtitle: "Dejá de perder horas en tareas manuales. Automatizamos lo que tu negocio repite todos los días.",
+    body: "Analizamos cómo trabaja tu negocio y creamos automatizaciones hechas a medida para tu rubro. Por ejemplo: registrar una venta mandando un simple audio, recibir y ordenar los pedidos de forma automática, o generar reportes y avisos sin que nadie tenga que cargarlos a mano.\n\nCada solución se arma según tus necesidades reales y se conecta con las herramientas que ya usás, como WhatsApp, planillas o tu sistema de gestión. El resultado: menos errores, menos trabajo repetitivo y más tiempo para dedicarle a vender.",
+    features: ["Registro de ventas por audio", "Automatización de pedidos", "Procesos internos sin carga manual", "Integración con WhatsApp y planillas", "Reportes y avisos automáticos", "Diseñado para el rubro de tu negocio"],
+    price: "Consultar",
+    monthly: null,
+    monthlyNote: "El precio depende de la complejidad y de la cantidad de procesos a automatizar. Contactanos y armamos una propuesta a tu medida.",
+  },
+  {
     icon: <Video className="w-12 h-12" />,
     iconLarge: <Video className="w-16 h-16" />,
     title: "Imágenes, Videos y Diseño",
@@ -141,7 +107,6 @@ function Home() {
       </nav>
       {/* Hero Section */}
       <section className="pt-28 md:pt-40 pb-12 md:pb-20 px-5 md:px-6 min-h-[100svh] md:min-h-[90vh] flex flex-col justify-center relative overflow-hidden">
-        <ParticleCanvas className="absolute inset-0 w-full h-full pointer-events-none" />
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
           <motion.div 
             initial="hidden"
@@ -210,7 +175,6 @@ function Home() {
       </div>
       {/* Services Section */}
       <section id="services" className="py-24 px-6 bg-secondary/30 relative overflow-hidden">
-        <ParticleCanvas className="absolute inset-0 w-full h-full pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
             <div>
@@ -221,7 +185,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
             {services.map((service, i) => (
               <motion.button
                 key={i}
@@ -230,7 +194,7 @@ function Home() {
                 viewport={{ once: true }}
                 variants={fadeIn}
                 onClick={() => setSelectedService(i)}
-                className="relative bg-white rounded-3xl p-10 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
+                className="relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
                 data-testid={`service-card-${i}`}
               >
                 {/* big background number */}
@@ -361,12 +325,12 @@ function Home() {
                 url: "https://gopet-wine.vercel.app/"
               },
               {
-                img: "/portfolio-sandy.png",
-                title: "Sandy Lane",
-                type: "Sitio Corporativo",
-                desc: "Presencia digital elegante y funcional para una marca de alto nivel.",
-                fallback: "https://placehold.co/1200x800/002BFF/FFFFFF?text=Sandy+Lane",
-                url: "https://sandy-lane.com"
+                img: "/portfolio-puntolimpio.png",
+                title: "Punto Limpio",
+                type: "Catálogo de Pedidos",
+                desc: "Catálogo online de productos de limpieza con carrito y envío del pedido directo por WhatsApp.",
+                fallback: "https://placehold.co/1200x800/002BFF/FFFFFF?text=Punto+Limpio",
+                url: "https://puntolimpio-uy.vercel.app/"
               }
             ].map((work, i) => (
               <motion.div
