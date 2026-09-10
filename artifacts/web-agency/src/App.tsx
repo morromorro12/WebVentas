@@ -28,7 +28,7 @@ const staggerContainer = {
 
 const services = [
   {
-    icon: <Monitor className="w-12 h-12" />,
+    icon: <Monitor className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Monitor className="w-16 h-16" />,
     title: "Sitios Corporativos",
     tag: "Presencia Digital",
@@ -42,7 +42,7 @@ const services = [
     hidePrice: true,
   },
   {
-    icon: <Smartphone className="w-12 h-12" />,
+    icon: <Smartphone className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Smartphone className="w-16 h-16" />,
     title: "Landing Pages",
     tag: "Alta Conversión",
@@ -56,7 +56,7 @@ const services = [
     hidePrice: true,
   },
   {
-    icon: <Workflow className="w-12 h-12" />,
+    icon: <Workflow className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Workflow className="w-16 h-16" />,
     title: "Automatizaciones a Medida",
     tag: "Procesos Inteligentes",
@@ -69,7 +69,7 @@ const services = [
     monthlyNote: "El precio depende de la complejidad y de la cantidad de procesos a automatizar. Contactanos y armamos una propuesta a tu medida.",
   },
   {
-    icon: <Video className="w-12 h-12" />,
+    icon: <Video className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Video className="w-16 h-16" />,
     title: "Imágenes, Videos y Diseño",
     tag: "Contenido Visual",
@@ -174,7 +174,7 @@ function Home() {
         </div>
       </div>
       {/* Services Section */}
-      <section id="services" className="py-24 px-6 bg-secondary/30 relative overflow-hidden">
+      <section id="services" className="py-24 px-4 md:px-6 bg-secondary/30 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
             <div>
@@ -185,7 +185,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8">
             {services.map((service, i) => (
               <motion.button
                 key={i}
@@ -194,22 +194,22 @@ function Home() {
                 viewport={{ once: true }}
                 variants={fadeIn}
                 onClick={() => setSelectedService(i)}
-                className="relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
+                className="relative bg-white rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
                 data-testid={`service-card-${i}`}
               >
                 {/* big background number */}
-                <span className="absolute -bottom-4 -right-2 text-[9rem] font-black text-black/[0.04] leading-none select-none font-display pointer-events-none">
+                <span className="absolute -bottom-4 -right-2 text-[6rem] md:text-[9rem] font-black text-black/[0.04] leading-none select-none font-display pointer-events-none">
                   {String(i + 1).padStart(2, '0')}
                 </span>
 
                 {/* icon — free floating, no box */}
-                <div className="text-primary mb-7 relative z-10 group-hover:scale-110 transition-transform duration-300 origin-left">
+                <div className="text-primary mb-4 md:mb-7 relative z-10 group-hover:scale-110 transition-transform duration-300 origin-left">
                   {service.icon}
                 </div>
 
-                <h3 className="text-2xl font-black font-display mb-3 relative z-10">{service.title}</h3>
-                <p className="text-muted-foreground font-medium mb-7 relative z-10 leading-relaxed">{service.desc}</p>
-                <span className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group-hover:gap-3 transition-all relative z-10">
+                <h3 lang="es" className="text-base md:text-2xl font-black font-display mb-2 md:mb-3 relative z-10 hyphens-auto break-words [hyphenate-limit-chars:10_6_4]">{service.title}</h3>
+                <p className="text-sm md:text-base text-muted-foreground font-medium mb-4 md:mb-7 relative z-10 leading-relaxed line-clamp-4 md:line-clamp-none">{service.desc}</p>
+                <span className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-xs md:text-sm group-hover:gap-3 transition-all relative z-10">
                   Ver más <ArrowRight className="w-4 h-4" />
                 </span>
               </motion.button>
