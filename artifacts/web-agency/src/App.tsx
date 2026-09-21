@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle, Workflow } from "lucide-react";
+import { ArrowRight, Zap, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle, Workflow, Megaphone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import NotFound from "@/pages/not-found";
 
@@ -30,56 +30,69 @@ const services = [
   {
     icon: <Monitor className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Monitor className="w-16 h-16" />,
-    title: "Sitios Corporativos",
-    tag: "Presencia Digital",
-    desc: "Páginas web a medida que transmiten autoridad y convierten visitantes en clientes.",
-    subtitle: "Presentá tu empresa de forma profesional y generá confianza desde el primer momento.",
-    body: "Desarrollamos sitios web corporativos completamente personalizados, con múltiples secciones para mostrar tus servicios, información institucional, portfolio, contacto y todo lo necesario para fortalecer tu presencia digital.\n\nCada sitio está diseñado para adaptarse a cualquier dispositivo, ofrecer una excelente experiencia de usuario y transmitir una imagen profesional de tu marca.",
-    features: ["Diseño 100% personalizado", "Hasta 5 páginas completas", "Adaptado a móvil y escritorio", "Formulario de contacto integrado", "Integración con WhatsApp", "Optimización básica para buscadores"],
+    title: "Páginas Web",
+    tag: "Sitio completo",
+    desc: "El sitio de tu empresa: tus servicios, tus trabajos y tus datos de contacto en un solo lugar.",
+    subtitle: "Para cuando alguien te busca en internet y querés que encuentre algo serio.",
+    body: "Armamos el sitio con las secciones que tu negocio necesite: inicio, servicios, quiénes somos, trabajos hechos y contacto. El diseño se hace en base a tu marca y a lo que vendés, no sobre una plantilla.\n\nSe ve bien en celular y en computadora, y lo dejamos andando con hosting y dominio. Después, si querés cambiar un texto, una foto o un precio, nos escribís y lo hacemos nosotros.",
+    features: ["Diseño hecho desde cero", "Hasta 5 páginas", "Se ve bien en celular", "Formulario de contacto", "Botón de WhatsApp", "Configurado para aparecer en Google"],
     price: "$13.900 UYU",
     monthly: "~$650 UYU / mes",
-    monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
+    monthlyNote: "El mensual cubre hosting, dominio y los cambios chicos que vayas pidiendo. El número exacto lo cerramos cuando hablemos.",
     hidePrice: true,
+  },
+  {
+    icon: <Megaphone className="w-10 h-10 md:w-12 md:h-12" />,
+    iconLarge: <Megaphone className="w-16 h-16" />,
+    title: "Anuncios en Redes",
+    tag: "Instagram y Facebook",
+    desc: "Manejamos tus campañas: probamos varios anuncios, miramos cuál trae consultas y dejamos ese corriendo.",
+    subtitle: "Nos hacemos cargo de la pauta entera: a quién le hablamos, qué le mostramos y dónde va el presupuesto.",
+    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Una vez por mes te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
+    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Reporte mensual con los números"],
+    price: "Consultar",
+    monthly: null,
+    monthlyNote: "Se cobra un fijo mensual por el manejo, aparte de la plata que pongas en la pauta. Depende de cuántas campañas y cuántas piezas lleve por mes.",
   },
   {
     icon: <Smartphone className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Smartphone className="w-16 h-16" />,
     title: "Landing Pages",
-    tag: "Alta Conversión",
-    desc: "Embudos de alta conversión diseñados específicamente para tus campañas de anuncios.",
-    subtitle: "Diseñada para captar la atención de tus potenciales clientes y convertir visitas en consultas o ventas.",
-    body: "Creamos landing pages modernas, rápidas y optimizadas para dispositivos móviles y computadoras, enfocadas en generar resultados reales para tu negocio. Cada proyecto incluye diseño personalizado, formulario de contacto, integración con WhatsApp y optimización básica para buscadores.",
-    features: ["Una página de alto impacto", "Diseño personalizado", "Optimización para móvil", "Formulario de contacto", "Integración con WhatsApp", "Entrega rápida"],
+    tag: "Una sola página",
+    desc: "Una página sola y directa, para que el que llega desde un anuncio te termine escribiendo.",
+    subtitle: "Una página, un objetivo: que te dejen la consulta o te escriban por WhatsApp.",
+    body: "Es una página única y cortita: qué ofrecés, por qué conviene y cómo contactarte. Sin menú ni secciones de más, para que la persona no se distraiga con otra cosa.\n\nCarga rápido en el celular, que es desde donde entra casi todo el mundo, y el botón de WhatsApp queda siempre a mano. Si estás haciendo anuncios, es acá donde conviene mandar la gente.",
+    features: ["Una página enfocada en el contacto", "Diseño hecho desde cero", "Pensada primero para el celular", "Formulario de contacto", "Botón de WhatsApp", "Entrega en pocos días"],
     price: "$7.900 UYU",
     monthly: "~$500 UYU / mes",
-    monthlyNote: "Incluye hosting, dominio y pequeños cambios. El costo exacto se confirma al contactarnos.",
+    monthlyNote: "El mensual cubre hosting, dominio y los cambios chicos que vayas pidiendo. El número exacto lo cerramos cuando hablemos.",
     hidePrice: true,
   },
   {
     icon: <Workflow className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Workflow className="w-16 h-16" />,
-    title: "Automatizaciones a Medida",
-    tag: "Procesos Inteligentes",
-    desc: "Automatizamos las tareas repetitivas de tu negocio: ventas por audio, pedidos y procesos internos.",
-    subtitle: "Dejá de perder horas en tareas manuales. Automatizamos lo que tu negocio repite todos los días.",
-    body: "Analizamos cómo trabaja tu negocio y creamos automatizaciones hechas a medida para tu rubro. Por ejemplo: registrar una venta mandando un simple audio, recibir y ordenar los pedidos de forma automática, o generar reportes y avisos sin que nadie tenga que cargarlos a mano.\n\nCada solución se arma según tus necesidades reales y se conecta con las herramientas que ya usás, como WhatsApp, planillas o tu sistema de gestión. El resultado: menos errores, menos trabajo repetitivo y más tiempo para dedicarle a vender.",
-    features: ["Registro de ventas por audio", "Automatización de pedidos", "Procesos internos sin carga manual", "Integración con WhatsApp y planillas", "Reportes y avisos automáticos", "Diseñado para el rubro de tu negocio"],
+    title: "Automatizaciones",
+    tag: "Tareas repetitivas",
+    desc: "Lo que hacés a mano todos los días, como cargar ventas o pasar pedidos a una planilla, hecho solo.",
+    subtitle: "Si hay algo que repetís todos los días a mano, lo más probable es que se pueda automatizar.",
+    body: "Primero miramos cómo trabajás hoy y en qué se te va el tiempo. Después armamos la automatización para ese caso puntual: mandás un audio y la venta queda registrada, los pedidos entran y se ordenan solos, los avisos y los reportes salen sin que nadie los cargue.\n\nSe conecta con lo que ya usás: WhatsApp, planillas de Google, tu sistema de gestión. No tenés que cambiar de herramienta ni aprender un programa nuevo.",
+    features: ["Registrar ventas mandando un audio", "Pedidos que se ordenan solos", "Reportes y avisos automáticos", "Se conecta con WhatsApp y planillas", "Armado para cómo trabaja tu negocio", "Lo dejamos andando y te lo explicamos"],
     price: "Consultar",
     monthly: null,
-    monthlyNote: "El precio depende de la complejidad y de la cantidad de procesos a automatizar. Contactanos y armamos una propuesta a tu medida.",
+    monthlyNote: "Depende de cuántos procesos haya que automatizar y qué tan enredados estén. Escribinos, lo vemos juntos y te pasamos un número.",
   },
   {
     icon: <Video className="w-10 h-10 md:w-12 md:h-12" />,
     iconLarge: <Video className="w-16 h-16" />,
     title: "Imágenes, Videos y Diseño",
-    tag: "Contenido Visual",
-    desc: "Contenido visual profesional para tus campañas: videos publicitarios, reels, logos y creatividades que generan impacto.",
-    subtitle: "Potenciá la imagen de tu negocio con contenido visual profesional diseñado para captar la atención de tus clientes.",
-    body: "Creamos imágenes publicitarias, videos promocionales y logos de alta calidad para redes sociales, campañas digitales y presentaciones de marca. Cada pieza se adapta a la identidad de tu negocio y está pensada para transmitir un mensaje claro, moderno y atractivo.\n\nIdeal para empresas, emprendedores, comercios y profesionales que buscan destacar en internet con contenido visual impactante.",
-    features: ["Videos publicitarios profesionales", "Reels para redes sociales", "Imágenes creativas para anuncios", "Creación de logos e identidad visual", "Diseño gráfico a medida", "Entrega en dos días"],
+    tag: "Contenido",
+    desc: "Videos, imágenes de producto, etiquetas y logos para tus redes y para tus anuncios.",
+    subtitle: "Las piezas que necesitás para publicar y para pautar, sin tener que contratar a tres personas distintas.",
+    body: "Hacemos videos cortos para redes, imágenes de producto, piezas para anuncios, etiquetas y logos. Todo sigue la misma línea, así tu marca se ve igual en cualquier lado donde aparezca.\n\nSi ya tenés fotos o material nuestro, los usamos. Si no, lo armamos desde cero. Nos mandás lo que necesitás y en general lo tenés en dos días.",
+    features: ["Videos cortos para redes", "Imágenes para anuncios", "Fotos y etiquetas de producto", "Logos e identidad de marca", "Piezas sueltas o por paquete", "En general, entrega en dos días"],
     price: "Consultar",
     monthly: null,
-    monthlyNote: "El precio varía según cantidad de piezas y características. Contactanos para una cotización.",
+    monthlyNote: "El precio depende de cuántas piezas sean y de qué tipo. Pasanos lo que necesitás y te cotizamos.",
   },
 ];
 
@@ -152,8 +165,8 @@ function Home() {
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-8 -left-8 bg-accent text-white p-6 brutalist-border brutalist-shadow z-20 hidden md:block">
-              <div className="font-black text-4xl">100%</div>
-              <div className="font-bold uppercase tracking-wider text-sm">Diseño Profesional<br/>Asegurado</div>
+              <div className="font-black text-4xl">$0</div>
+              <div className="font-bold uppercase tracking-wider text-sm">Primer boceto<br/>sin compromiso</div>
             </div>
           </motion.div>
         </div>
@@ -166,6 +179,8 @@ function Home() {
               <span>Diseño Web</span>
               <Star className="w-6 h-6 text-accent fill-accent" />
               <span>Videos Publicitarios</span>
+              <Star className="w-6 h-6 text-accent fill-accent" />
+              <span>Anuncios en Redes</span>
               <Star className="w-6 h-6 text-accent fill-accent" />
               <span>Diseño Digital</span>
               <Star className="w-6 h-6 text-accent fill-accent" />
@@ -180,12 +195,12 @@ function Home() {
             <div>
               <h2 className="md:text-7xl font-black font-display mb-6 text-[79px]">Nuestros<br/>Servicios.</h2>
               <p className="text-xl text-muted-foreground max-w-md font-medium">
-                Todo lo que necesitas para dominar tu nicho digital. Sin relleno, solo impacto.
+                Tocá cualquiera para ver en detalle qué incluye y cómo lo trabajamos.
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {services.map((service, i) => (
               <motion.button
                 key={i}
@@ -194,7 +209,7 @@ function Home() {
                 viewport={{ once: true }}
                 variants={fadeIn}
                 onClick={() => setSelectedService(i)}
-                className="relative bg-white rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary"
+                className={`relative bg-white rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group text-left w-full cursor-pointer overflow-hidden border-2 border-black/[0.05] hover:border-primary ${i === services.length - 1 && services.length % 2 !== 0 ? "col-span-2 lg:col-span-1" : ""}`}
                 data-testid={`service-card-${i}`}
               >
                 {/* big background number */}
@@ -418,7 +433,7 @@ function Home() {
       {/* Testimonials Section */}
       <section className="py-24 px-6 bg-foreground text-background">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-black font-display mb-16 text-center text-white">Impacto<br/>Real.</h2>
+          <h2 className="text-5xl md:text-7xl font-black font-display mb-16 text-center text-white">Lo que<br/>Dicen.</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -493,7 +508,7 @@ function Home() {
           </div>
           <div className="flex flex-col items-center md:items-end gap-1">
             <p className="font-medium text-muted-foreground text-center md:text-right">
-              © 2024 Estudio Píxel. Diseño radical para marcas latinas.
+              © 2026 Estudio Píxel. Páginas web y diseño, Uruguay.
             </p>
             <a href="mailto:alfonso12.taro@gmail.com" className="text-sm text-primary font-semibold hover:underline">
               alfonso12.taro@gmail.com
