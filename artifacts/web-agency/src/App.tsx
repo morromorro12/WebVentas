@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle, Workflow, Megaphone } from "lucide-react";
 import NotFound from "@/pages/not-found";
 import { Hero } from "@/components/hero";
+import { Statement } from "@/components/statement";
 
 const queryClient = new QueryClient();
 
@@ -93,23 +94,7 @@ function Home() {
   return (
     <div className="min-h-screen w-full bg-background overflow-x-hidden selection:bg-primary selection:text-white">
       <Hero />
-      {/* Ticker Tape */}
-      <div className="w-full overflow-hidden bg-foreground text-background py-4 brutalist-border border-l-0 border-r-0 rotate-1 transform-gpu my-20">
-        <div className="flex whitespace-nowrap animate-[marquee_20s_linear_infinite]">
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="flex items-center gap-8 mx-4 font-display font-black text-2xl uppercase">
-              <span>Diseño Web</span>
-              <Star className="w-6 h-6 text-accent fill-accent" />
-              <span>Videos Publicitarios</span>
-              <Star className="w-6 h-6 text-accent fill-accent" />
-              <span>Anuncios en Redes</span>
-              <Star className="w-6 h-6 text-accent fill-accent" />
-              <span>Diseño Digital</span>
-              <Star className="w-6 h-6 text-accent fill-accent" />
-            </div>
-          ))}
-        </div>
-      </div>
+      <Statement />
       {/* Services Section */}
       <section id="services" className="py-24 px-4 md:px-6 bg-secondary/30 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
