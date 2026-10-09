@@ -1,0 +1,390 @@
+/* Hero, nav y menú de pantalla completa. Mobile first; desde 1024px hay un layout básico de escritorio. */
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/inter-tight-latin-var.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.hero,
+.site-menu {
+  /* Rojo tomado del globo de la imagen (zona iluminada). */
+  --px-red: #f63c12;
+  --px-gutter: 20px;
+  --px-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --px-pad-left: max(var(--px-gutter), env(safe-area-inset-left));
+  --px-pad-right: max(var(--px-gutter), env(safe-area-inset-right));
+  font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #fff;
+  background: #000;
+}
+
+.hero :focus-visible,
+.site-menu :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.hero {
+  /* El titular llena el ancho: "digital, hecha" (la línea más larga) mide 5.03em. */
+  --hero-h1: clamp(2.5rem, (100vw - 2 * var(--px-gutter)) / 5.15, 6rem);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(680px, 100vh);
+  min-height: max(680px, 100svh);
+  overflow: hidden;
+}
+
+/* ---------- Nav ---------- */
+
+.hero-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: calc(env(safe-area-inset-top) + 14px) var(--px-pad-right) 0 var(--px-pad-left);
+}
+
+.hero-logo {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero-logo-dot {
+  color: var(--px-red);
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 200ms var(--px-ease);
+}
+
+.hero-pill:active {
+  transform: scale(0.96);
+}
+
+.hero-pill-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
+}
+
+/* ---------- Imagen ---------- */
+
+/* Ocupa todo el alto que sobra entre el nav y el texto. Si no entra todo en pantalla, la
+   prioridad es: P grande + titular completo en la primera vista; subtítulo y botón pueden
+   quedar a un scroll corto. Por eso el alto mínimo es el que deja entrar el titular
+   (100svh − nav − titular), pero entre 70% y 90% del recorte a todo el ancho. */
+.hero-media {
+  --hero-full: calc(min(100vw, 560px) / 0.8826);
+  position: relative;
+  /* Base 0 (no auto): con base auto Chrome mide el contenedor en 0 y la imagen desaparece. */
+  flex: 1 1 0;
+  min-height: calc(var(--hero-full) * 0.9);
+  min-height: clamp(
+    var(--hero-full) * 0.7,
+    100svh - 66px - env(safe-area-inset-top) - 3.46 * var(--hero-h1),
+    var(--hero-full) * 0.9
+  );
+  container-type: size;
+}
+
+/* Recorte de la imagen alrededor de la P (y 150 a 1215 de 1672px). Usa todo el ancho
+   si entra; en pantallas bajas se achica para que la P nunca quede cortada. */
+.hero-frame {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  width: min(100cqw, 88.26cqh);
+  /* Red de seguridad si un navegador resolviera mal las unidades cq. */
+  min-width: min(60%, 280px);
+  aspect-ratio: 940 / 1065;
+  margin-inline: auto;
+}
+
+/* Degradado sutil para que el titular se lea donde pisa el borde de la P. Está en el
+   contenedor (no se mueve con el parallax) y sigue 48px más abajo: si la P baja con el
+   scroll, entra en negro en vez de quedar plateada detrás del texto. */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -48px;
+  height: calc(32% + 48px);
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0.6) calc(100% - 48px), #000);
+  pointer-events: none;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 24.7%;
+}
+
+/* ---------- Texto ---------- */
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  /* Pisa el borde inferior de la P lo justo: peor contraste del blanco ahí ~4.6:1. */
+  margin-top: calc(var(--hero-h1) * -0.34);
+  padding: 0 var(--px-pad-right) calc(env(safe-area-inset-bottom) + 24px) var(--px-pad-left);
+}
+
+.hero-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: var(--hero-h1);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.hero-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-sub {
+  margin: 16px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.7);
+  text-wrap: pretty;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 24px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--px-red);
+  /* Negro sobre el rojo: 5.6:1 (AA). Blanco daría 3.8:1 y no llega. */
+  color: #000;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: center;
+  transition: transform 200ms var(--px-ease);
+}
+
+.hero-cta:active {
+  transform: scale(0.98);
+}
+
+/* ---------- Menú ---------- */
+
+.site-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 260ms ease, visibility 0s linear 260ms;
+}
+
+.site-menu[data-open] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 320ms ease, visibility 0s;
+}
+
+.site-menu-nav {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 40px var(--px-pad-right) 40px var(--px-pad-left);
+}
+
+.site-menu-nav ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-menu-nav a {
+  display: inline-block;
+  padding: 4px 0;
+  font-size: clamp(3rem, 15vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.site-menu-foot {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 44px;
+  margin-left: var(--px-pad-left);
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.7);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (hover: hover) {
+  .site-menu-nav a,
+  .site-menu-foot {
+    transition: opacity 200ms ease;
+  }
+
+  .site-menu-nav ul:hover a:not(:hover) {
+    opacity: 0.45;
+  }
+}
+
+/* ---------- Movimiento (solo si el usuario no pidió reducirlo) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 0.01 y no 0: con opacity 0 Chrome no registra la imagen como LCP hasta que termina
+     el fundido (~900ms). A simple vista es lo mismo. */
+  .hero-img {
+    opacity: 0.01;
+    transform: scale(1.04);
+    transition: opacity 700ms var(--px-ease), transform 700ms var(--px-ease);
+  }
+
+  .hero[data-ready] .hero-img {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-frame {
+    will-change: transform;
+  }
+
+  .hero-reveal {
+    opacity: 0;
+  }
+
+  .hero[data-ready] .hero-reveal {
+    animation: hero-rise 700ms var(--px-ease) calc(250ms + var(--i, 0) * 90ms) both;
+  }
+
+  .site-menu li,
+  .site-menu-foot {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 450ms var(--px-ease), transform 450ms var(--px-ease);
+  }
+
+  .site-menu[data-open] li,
+  .site-menu[data-open] .site-menu-foot {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(100ms + var(--i, 0) * 70ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-menu,
+  .site-menu[data-open] {
+    transition: none;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Tablet / escritorio: solo para que no se rompa ---------- */
+
+@media (min-width: 640px) {
+  .hero-cta {
+    width: auto;
+    min-width: 320px;
+    display: inline-flex;
+  }
+
+  .hero-sub {
+    max-width: 36ch;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero,
+  .site-menu {
+    --px-gutter: 48px;
+  }
+
+  .hero {
+    --hero-h1: clamp(4rem, 6.4vw, 7rem);
+  }
+
+  .hero-nav {
+    padding-top: 28px;
+  }
+
+  /* La P pasa a la mitad derecha y el texto queda abajo a la izquierda. */
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+
+  /* Acá el texto no pisa la P: sin degradado. */
+  .hero-media::after {
+    display: none;
+  }
+
+  .hero-frame {
+    right: 4vw;
+    bottom: 24px;
+    left: auto;
+    width: min(50cqw, 75.9cqh);
+    min-width: 30%;
+  }
+
+  .hero-copy {
+    margin-top: auto;
+    max-width: 58vw;
+    padding-bottom: 56px;
+  }
+
+  .hero-sub {
+    font-size: 19px;
+  }
+}

@@ -2,20 +2,27 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Píxel. | Web Design</title>
-    <meta name="description" content="Píxel es una agencia de diseño web para negocios ambiciosos en Latinoamérica. Creamos sitios corporativos, landing pages, videos publicitarios y logos que convierten." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <title>Píxel. | Agencia de Marketing Digital</title>
+    <meta name="description" content="Anuncios, contenido y páginas web que traen clientes a tu negocio. Agencia de marketing digital en Uruguay." />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Píxel. — Agencia de Diseño Web" />
-    <meta property="og:description" content="Diseño web estratégico para empresas que quieren liderar su mercado. Sitios corporativos, landing pages y contenido visual de alto impacto." />
+    <meta property="og:title" content="Píxel. | Agencia de Marketing Digital" />
+    <meta property="og:description" content="Anuncios, contenido y páginas web que traen clientes a tu negocio. Agencia de marketing digital en Uruguay." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Píxel. — Agencia de Diseño Web" />
-    <meta name="twitter:description" content="Diseño web estratégico para empresas que quieren liderar su mercado." />
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dhfwi0myn/image/upload/v1782664886/ChatGPT_Image_28_jun_2026_13_35_06_1_rl5bz6.png" />
+    <meta name="twitter:title" content="Píxel. | Agencia de Marketing Digital" />
+    <meta name="twitter:description" content="Anuncios, contenido y páginas web que traen clientes a tu negocio. Agencia de marketing digital en Uruguay." />
+    <!-- Mismo ícono, pedido a Cloudinary en 180px: el original pesa 670 KB. -->
+    <link rel="icon" type="image/png" sizes="180x180" href="https://res.cloudinary.com/dhfwi0myn/image/upload/w_180,h_180,c_fit,f_png/v1782664886/ChatGPT_Image_28_jun_2026_13_35_06_1_rl5bz6.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hero: imagen (LCP) y fuente se piden apenas llega el HTML. imagesizes = HERO_SIZES de src/components/hero.tsx -->
+    <link rel="preload" as="image" type="image/avif" imagesrcset="/images/hero-p-640.avif 640w, /images/hero-p-828.avif 828w, /images/hero-p-940.avif 940w" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
+    <link rel="preload" href="/fonts/inter-tight-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Fuentes del resto de la página (no del hero): se cargan sin bloquear el primer render. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"></noscript>
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
