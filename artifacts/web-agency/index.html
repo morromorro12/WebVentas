@@ -17,9 +17,10 @@
     <link rel="icon" type="image/png" sizes="180x180" href="https://res.cloudinary.com/dhfwi0myn/image/upload/w_180,h_180,c_fit,f_png/v1782664886/ChatGPT_Image_28_jun_2026_13_35_06_1_rl5bz6.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Hero: imagen (LCP) y fuente se piden apenas llega el HTML. imagesizes = HERO_SIZES de src/components/hero.tsx -->
+    <!-- Hero: la imagen (LCP) se pide apenas llega el HTML. imagesizes = HERO_SIZES de src/components/hero.tsx.
+         La fuente Inter Tight NO se precarga: Chrome trata las fuentes precargadas como bloqueantes del
+         primer pintado y a veces lo demoraba ~2s. -->
     <link rel="preload" as="image" type="image/avif" imagesrcset="/images/hero-p-640.avif 640w, /images/hero-p-828.avif 828w, /images/hero-p-940.avif 940w" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
-    <link rel="preload" href="/fonts/inter-tight-latin-var.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Fuentes del resto de la página (no del hero): se cargan sin bloquear el primer render. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"></noscript>
