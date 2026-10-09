@@ -254,7 +254,7 @@ function Home() {
           <div className="space-y-32">
             {[
               {
-                img: "/portfolio-gopet.png",
+                img: "/portfolio-gopet",
                 title: "Go Pet",
                 type: "Landing Page",
                 desc: "Landing page moderna y atractiva para una marca de productos para mascotas.",
@@ -262,7 +262,7 @@ function Home() {
                 url: "https://gopet-wine.vercel.app/"
               },
               {
-                img: "/portfolio-puntolimpio.png",
+                img: "/portfolio-puntolimpio",
                 title: "Punto Limpio",
                 type: "Catálogo de Pedidos",
                 desc: "Catálogo online de productos de limpieza con carrito y envío del pedido directo por WhatsApp.",
@@ -281,11 +281,18 @@ function Home() {
               >
                 <div className="w-full md:w-3/5">
                   <div className="bg-gray-100 brutalist-border brutalist-shadow overflow-hidden group">
+                    {/* loading va antes que src/srcSet: si no, el navegador arranca la descarga antes de ver el lazy */}
                     <img
-                      src={work.img}
+                      loading="lazy"
+                      decoding="async"
+                      srcSet={[640, 1024, 1536].map((w) => `${work.img}-${w}.webp ${w}w`).join(", ")}
+                      sizes="(min-width: 1328px) 740px, (min-width: 768px) 60vw, 100vw"
+                      src={`${work.img}-1024.webp`}
+                      width={1536}
+                      height={1024}
                       alt={work.title}
                       className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
-                      onError={(e) => { e.currentTarget.src = work.fallback; }}
+                      onError={(e) => { e.currentTarget.srcset = ""; e.currentTarget.src = work.fallback; }}
                     />
                   </div>
                 </div>
