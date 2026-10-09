@@ -1,28 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import "./statement.css";
 
-// Cada destinatario con su artículo: el artículo también cambia cuando no concuerda con el anterior.
-const TARGETS = [
-  { article: "las", word: "personas" },
-  { article: "las", word: "marcas" },
-  { article: "los", word: "clientes" },
-  { article: "los", word: "negocios" },
-  { article: "los", word: "usuarios" },
-];
-const ARTICLES = TARGETS.map((t) => t.article);
-const WORDS = TARGETS.map((t) => `${t.word}.`);
-const INTERVAL_MS = 2200;
+const WORDS = ["personas.", "marcas.", "clientes.", "negocios.", "usuarios."];
+const INTERVAL_MS = 1700;
 
-// Texto completo para lectores de pantalla (la parte animada queda oculta para ellos).
-const SPOKEN = "Creamos cosas importantes para las personas, las marcas, los clientes, los negocios y los usuarios.";
+// Texto completo para lectores de pantalla (la parte animada queda oculta para ellos). Sin "l@s",
+// que se leería "l arroba s".
+const SPOKEN = "Creamos cosas importantes para personas, marcas, clientes, negocios y usuarios.";
 
 type Step = { index: number; prev: number };
 
 // Palabras apiladas: la actual se ve; al cambiar, sale hacia arriba y la nueva entra desde abajo.
-// Si el valor no cambia (las → las), el cambio es instantáneo y no se nota.
 function Rotator({ values, step }: { values: string[]; step: Step }) {
   const longest = values.reduce((a, b) => (b.length > a.length ? b : a));
-  const instant = step.prev >= 0 && values[step.prev] === values[step.index];
   return (
     <span className="rotator">
       <span className="rotator-sizer">{longest}</span>
@@ -31,7 +21,6 @@ function Rotator({ values, step }: { values: string[]; step: Step }) {
           key={i}
           className="rotator-item"
           data-state={i === step.index ? "current" : i === step.prev ? "prev" : undefined}
-          data-instant={instant || undefined}
         >
           {value}
         </span>
@@ -53,7 +42,7 @@ export function Statement() {
       window.clearInterval(timer);
       if (!entry.isIntersecting) return;
       timer = window.setInterval(() => {
-        setStep((s) => ({ index: (s.index + 1) % TARGETS.length, prev: s.index }));
+        setStep((s) => ({ index: (s.index + 1) % WORDS.length, prev: s.index }));
       }, INTERVAL_MS);
     });
     observer.observe(section);
@@ -70,9 +59,7 @@ export function Statement() {
         <span aria-hidden="true">
           <span className="statement-line">Creamos cosas</span>
           <span className="statement-line">importantes</span>
-          <span className="statement-line">
-            para <Rotator values={ARTICLES} step={step} />
-          </span>
+          <span className="statement-line">para l@s</span>
           <span className="statement-line statement-accent">
             <Rotator values={WORDS} step={step} />
           </span>

@@ -57,17 +57,13 @@
 .rotator-item[data-state="current"] {
   opacity: 1;
   transform: none;
-  transition: transform 700ms var(--statement-ease), opacity 400ms ease;
+  transition: transform 600ms var(--statement-ease), opacity 350ms ease;
 }
 
 .rotator-item[data-state="prev"] {
   opacity: 0;
   transform: translateY(-110%);
-  transition: transform 700ms var(--statement-ease), opacity 500ms ease;
-}
-
-.rotator-item[data-instant] {
-  transition: none;
+  transition: transform 600ms var(--statement-ease), opacity 450ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
