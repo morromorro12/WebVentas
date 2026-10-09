@@ -4,7 +4,7 @@ import { WHATSAPP_URL } from "@/lib/contact";
 import "./hero.css";
 
 // Cada string es una línea fija del titular (se animan de a una).
-const HEADLINE = ["Agencia de", "marketing", "digital, hecha", "en Uruguay."];
+const HEADLINE = ["Agencia de", "marketing", "digital."];
 
 const MENU_LINKS = [
   { href: "#services", label: "Servicios" },
@@ -23,6 +23,35 @@ const PARALLAX_SPEED = 0.12;
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Convierte cualquier color CSS (rgb, oklch, color-mix…) a [r, g, b, alfa] pintándolo en un canvas.
+const rgbaCache = new Map<string, [number, number, number, number]>();
+let colorCtx: CanvasRenderingContext2D | null = null;
+function toRgba(color: string) {
+  const cached = rgbaCache.get(color);
+  if (cached) return cached;
+  colorCtx ??= document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+  if (!colorCtx) return [0, 0, 0, 0] as const;
+  colorCtx.clearRect(0, 0, 1, 1);
+  colorCtx.fillStyle = "rgba(0, 0, 0, 0)";
+  colorCtx.fillStyle = color;
+  colorCtx.fillRect(0, 0, 1, 1);
+  const [r, g, b, a] = colorCtx.getImageData(0, 0, 1, 1).data;
+  const rgba: [number, number, number, number] = [r, g, b, a / 255];
+  rgbaCache.set(color, rgba);
+  return rgba;
+}
+
+// ¿Es claro lo que pasa por debajo del encabezado en (x, y)? Sube por los padres del
+// elemento que está ahí hasta encontrar un fondo opaco.
+function isLightBehind(x: number, y: number, header: HTMLElement) {
+  const hit = document.elementsFromPoint(x, y).find((el) => !header.contains(el));
+  for (let el: Element | null = hit ?? null; el; el = el.parentElement) {
+    const [r, g, b, a] = toRgba(getComputedStyle(el).backgroundColor);
+    if (a >= 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150;
+  }
+  return true;
+}
+
 function Logo() {
   return (
     <span className="hero-logo">
@@ -37,6 +66,8 @@ export function Hero() {
   const imgRef = useRef<HTMLImageElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const [tone, setTone] = useState<"dark" | "light">("dark");
 
   // Al cerrar con "Cerrar" o Esc el foco vuelve al botón; al tocar un link, no (si no, la página vuelve arriba).
   const closeMenu = useCallback((returnFocus: boolean) => {
@@ -72,9 +103,33 @@ export function Hero() {
     };
   }, []);
 
+  // Encabezado fijo: logo y botón en blanco sobre fondos oscuros y en negro sobre claros.
+  useEffect(() => {
+    const header = headerRef.current;
+    const button = menuButtonRef.current;
+    if (!header || !button) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const { top, height } = button.getBoundingClientRect();
+      setTone(isLightBehind(window.innerWidth / 2, top + height / 2, header) ? "light" : "dark");
+    };
+    const schedule = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <>
-      <section className="hero" data-ready={ready || undefined} aria-labelledby="hero-title">
+      <header ref={headerRef} className="site-header" data-tone={tone}>
         <nav className="hero-nav" aria-label="Principal">
           <Logo />
           <button
@@ -89,7 +144,15 @@ export function Hero() {
             Menú
           </button>
         </nav>
+      </header>
+      {/* Desenfoque progresivo detrás del encabezado: más fuerte arriba, se desvanece hacia abajo. */}
+      <div className="site-header-blur" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
 
+      <section className="hero" data-ready={ready || undefined} aria-labelledby="hero-title">
         <div className="hero-media">
           <div ref={frameRef} className="hero-frame">
             <picture>

@@ -1,4 +1,4 @@
-/* Hero, nav y menú de pantalla completa. Mobile first; desde 1024px hay un layout básico de escritorio. */
+/* Hero, encabezado fijo y menú de pantalla completa. Mobile first; desde 1024px hay un layout básico de escritorio. */
 
 @font-face {
   font-family: "Inter Tight";
@@ -11,6 +11,8 @@
 }
 
 .hero,
+.site-header,
+.site-header-blur,
 .site-menu {
   /* Rojo tomado del globo de la imagen (zona iluminada). */
   --px-red: #f63c12;
@@ -18,21 +20,34 @@
   --px-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --px-pad-left: max(var(--px-gutter), env(safe-area-inset-left));
   --px-pad-right: max(var(--px-gutter), env(safe-area-inset-right));
+  /* Alto del encabezado fijo: margen superior + botón de 44px. */
+  --px-nav-top: 14px;
+  --px-header-h: calc(env(safe-area-inset-top) + var(--px-nav-top) + 44px);
   font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color: #fff;
+}
+
+.hero,
+.site-menu {
   background: #000;
 }
 
 .hero :focus-visible,
+.site-header :focus-visible,
 .site-menu :focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
 
 .hero {
-  /* El titular llena el ancho: "digital, hecha" (la línea más larga) mide 5.03em. */
-  --hero-h1: clamp(2.5rem, (100vw - 2 * var(--px-gutter)) / 5.15, 6rem);
+  /* El titular llena el ancho: "Agencia de" (la línea más larga) mide 4.70em. */
+  --hero-h1: clamp(2.5rem, (100vw - 2 * var(--px-gutter)) / 4.8, 6rem);
+  /* Cuánto sube el titular sobre la imagen, en fracción del tamaño de letra. */
+  --hero-overlap: 0.45;
+  /* El encabezado es fijo: el hero deja su lugar y 18px de aire antes de la P. */
+  --hero-top: calc(var(--px-header-h) + 18px);
   position: relative;
+  padding-top: var(--hero-top);
   display: flex;
   flex-direction: column;
   min-height: max(680px, 100vh);
@@ -40,7 +55,71 @@
   overflow: hidden;
 }
 
-/* ---------- Nav ---------- */
+/* ---------- Encabezado fijo ---------- */
+
+/* Sin fondo propio: queda siempre arriba y deja pasar los clics salvo en el logo y el botón. */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  pointer-events: none;
+  transition: color 300ms ease;
+}
+
+.site-header .hero-nav > * {
+  pointer-events: auto;
+}
+
+/* Sobre secciones claras: logo negro y botón negro con texto blanco. */
+.site-header[data-tone="light"] {
+  color: #000;
+}
+
+.site-header[data-tone="light"] .hero-pill {
+  background: #000;
+  color: #fff;
+}
+
+.site-header[data-tone="light"] :focus-visible {
+  outline-color: #000;
+}
+
+/* Tres capas de desenfoque, de más a menos intensas, que se van apagando hacia abajo. */
+.site-header-blur {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 39;
+  height: calc(var(--px-header-h) + 92px);
+  pointer-events: none;
+}
+
+.site-header-blur > span {
+  position: absolute;
+  inset: 0;
+}
+
+.site-header-blur > span:nth-child(1) {
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  -webkit-mask-image: linear-gradient(#000 15%, transparent 30%);
+  mask-image: linear-gradient(#000 15%, transparent 30%);
+}
+
+.site-header-blur > span:nth-child(2) {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(transparent 0%, #000 15%, #000 30%, transparent 45%);
+  mask-image: linear-gradient(transparent 0%, #000 15%, #000 30%, transparent 45%);
+}
+
+.site-header-blur > span:nth-child(3) {
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(transparent 15%, #000 30%, #000 45%, transparent 60%);
+  mask-image: linear-gradient(transparent 15%, #000 30%, #000 45%, transparent 60%);
+}
+
+/* ---------- Nav (encabezado y menú) ---------- */
 
 .hero-nav {
   position: relative;
@@ -49,7 +128,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: calc(env(safe-area-inset-top) + 14px) var(--px-pad-right) 0 var(--px-pad-left);
+  padding: calc(env(safe-area-inset-top) + var(--px-nav-top)) var(--px-pad-right) 0 var(--px-pad-left);
 }
 
 .hero-logo {
@@ -76,7 +155,7 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   cursor: pointer;
-  transition: transform 200ms var(--px-ease);
+  transition: transform 200ms var(--px-ease), background-color 300ms ease, color 300ms ease;
 }
 
 .hero-pill:active {
@@ -101,9 +180,10 @@
   /* Base 0 (no auto): con base auto Chrome mide el contenedor en 0 y la imagen desaparece. */
   flex: 1 1 0;
   min-height: calc(var(--hero-full) * 0.9);
+  /* 2.4 = 3 líneas de titular × 0.95 − superposición (0.45). */
   min-height: clamp(
     var(--hero-full) * 0.7,
-    100svh - 66px - env(safe-area-inset-top) - 3.46 * var(--hero-h1),
+    100svh - var(--hero-top) - 2.4 * var(--hero-h1) - 8px,
     var(--hero-full) * 0.9
   );
   container-type: size;
@@ -132,7 +212,7 @@
   position: absolute;
   inset: auto 0 -48px;
   height: calc(32% + 48px);
-  background: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0.6) calc(100% - 48px), #000);
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0.7) calc(100% - 48px), #000);
   pointer-events: none;
 }
 
@@ -149,8 +229,9 @@
 .hero-copy {
   position: relative;
   z-index: 1;
-  /* Pisa el borde inferior de la P lo justo: peor contraste del blanco ahí ~4.6:1. */
-  margin-top: calc(var(--hero-h1) * -0.34);
+  /* Pisa apenas el borde inferior de la P (~12-16px); con el degradado, el peor contraste
+     del blanco ahí es ~5.4:1. */
+  margin-top: calc(var(--hero-h1) * var(--hero-overlap) * -1);
   padding: 0 var(--px-pad-right) calc(env(safe-area-inset-bottom) + 24px) var(--px-pad-left);
 }
 
@@ -346,16 +427,15 @@
 
 @media (min-width: 1024px) {
   .hero,
+  .site-header,
+  .site-header-blur,
   .site-menu {
     --px-gutter: 48px;
+    --px-nav-top: 28px;
   }
 
   .hero {
     --hero-h1: clamp(4rem, 6.4vw, 7rem);
-  }
-
-  .hero-nav {
-    padding-top: 28px;
   }
 
   /* La P pasa a la mitad derecha y el texto queda abajo a la izquierda. */
