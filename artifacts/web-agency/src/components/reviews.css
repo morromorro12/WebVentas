@@ -1,72 +1,22 @@
-/* ---------- Capturas y audios de WhatsApp: fijos, para leer y escuchar tranquilo ---------- */
+/* ---------- Audios de clientes ---------- */
 
-/* Celular: todo en una columna. Tablet: las dos capturas lado a lado y los audios abajo.
-   Escritorio: capturas | capturas | audios. */
-.proof-grid {
-  display: grid;
-  gap: 16px;
-  align-items: start;
-}
-
-.proof-shot {
-  display: block;
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 20px;
-  background: #efeae2;
-  cursor: zoom-in;
-  transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), border-color 300ms ease;
-}
-
-.proof-shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-@media (hover: hover) {
-  .proof-shot:hover {
-    border-color: rgb(255 255 255 / 0.3);
-    transform: translateY(-4px);
-  }
-}
-
-.proof-shot:focus-visible,
-.voice-play:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-
-.proof-voices ul {
-  display: grid;
-  gap: 10px;
+/* Celular: uno debajo del otro. Tablet: de a dos. Escritorio: de a tres (3 + 2, la última
+   fila centrada). */
+.voice-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.proof-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 16px 0 14px;
-  color: rgb(255 255 255 / 0.5);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.proof-label svg {
-  width: 16px;
-  height: 16px;
-  color: hsl(var(--accent));
 }
 
 /* ---------- Reproductor ---------- */
 
 .voice {
   display: flex;
+  flex: 1 1 100%;
   align-items: center;
   gap: 14px;
   padding: 12px 18px 12px 12px;
@@ -155,40 +105,18 @@
 }
 
 @media (min-width: 768px) {
-  .proof-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  .voice-list {
+    gap: 16px;
   }
 
-  .proof-voices {
-    grid-column: 1 / -1;
-  }
-
-  .proof-voices ul {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .proof-label {
-    margin-top: 8px;
+  .voice {
+    flex: 0 1 calc((100% - 16px) / 2);
   }
 }
 
 @media (min-width: 1024px) {
-  .proof-grid {
-    grid-template-columns: 1fr 1fr 1.15fr;
-  }
-
-  .proof-voices {
-    grid-column: auto;
-  }
-
-  .proof-voices ul {
-    grid-template-columns: 1fr;
-  }
-
-  .proof-label {
-    margin-top: 0;
+  .voice {
+    flex-basis: calc((100% - 32px) / 3);
   }
 }
 
@@ -284,9 +212,5 @@
   .reviews-group[aria-hidden],
   .reviews-group > [aria-hidden] {
     display: none;
-  }
-
-  .proof-shot {
-    transition: none;
   }
 }

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode, type RefObject } from "react";
-import { Mic, Pause, Play, Star } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Pause, Play, Star } from "lucide-react";
 import "./reviews.css";
 
 const REVIEWS = [
@@ -10,24 +9,13 @@ const REVIEWS = [
 ];
 
 // Audios de clientes sacados de grabaciones de pantalla de WhatsApp, a la velocidad en que se
-// grabaron. "bars" es la onda real de cada audio, 40 barras de 0 a 1.
+// grabaron, del más largo al más corto. "bars" es la onda real de cada audio, 40 barras de 0 a 1.
 const VOICES = [
-  { src: "/audio/resena-voz-2.m4a", duration: 11.23, bars: [0.88, 0.2, 0.91, 0.94, 0.96, 0.9, 0.85, 0.91, 0.94, 0.96, 0.85, 0.87, 0.89, 0.84, 0.91, 0.9, 0.96, 0.27, 0.98, 0.9, 0.89, 0.89, 0.87, 0.81, 0.91, 0.86, 0.91, 0.91, 1.0, 0.97, 0.86, 0.94, 0.86, 0.68, 0.89, 0.94, 1.0, 0.8, 0.84, 0.41] },
   { src: "/audio/resena-voz-5.m4a", duration: 12.82, bars: [1.0, 1.0, 1.0, 0.78, 0.74, 0.12, 0.85, 0.81, 0.65, 0.94, 0.95, 0.8, 0.7, 0.83, 0.8, 0.23, 0.64, 0.96, 0.78, 0.84, 0.89, 0.83, 0.83, 0.75, 0.87, 0.75, 0.74, 0.81, 0.83, 0.85, 0.82, 0.78, 0.85, 0.99, 0.93, 0.41, 0.21, 0.46, 0.86, 0.74] },
   { src: "/audio/resena-voz-4.m4a", duration: 11.83, bars: [0.75, 0.61, 0.8, 1.0, 0.87, 0.54, 0.83, 0.84, 0.71, 0.75, 0.77, 0.76, 0.55, 0.13, 0.12, 0.16, 0.48, 0.83, 0.82, 0.87, 0.61, 0.4, 0.46, 0.14, 0.98, 0.96, 0.83, 0.12, 1.0, 0.8, 0.21, 0.22, 0.29, 1.0, 1.0, 0.74, 0.89, 0.44, 0.12, 0.2] },
+  { src: "/audio/resena-voz-2.m4a", duration: 11.23, bars: [0.88, 0.2, 0.91, 0.94, 0.96, 0.9, 0.85, 0.91, 0.94, 0.96, 0.85, 0.87, 0.89, 0.84, 0.91, 0.9, 0.96, 0.27, 0.98, 0.9, 0.89, 0.89, 0.87, 0.81, 0.91, 0.86, 0.91, 0.91, 1.0, 0.97, 0.86, 0.94, 0.86, 0.68, 0.89, 0.94, 1.0, 0.8, 0.84, 0.41] },
   { src: "/audio/resena-voz-3.m4a", duration: 5.0, bars: [0.12, 0.45, 1.0, 1.0, 0.95, 0.81, 0.87, 0.69, 0.73, 0.7, 0.67, 0.12, 0.75, 0.71, 0.79, 0.75, 0.14, 0.12, 0.79, 0.75, 0.12, 0.76, 0.79, 0.66, 0.69, 0.86, 0.69, 0.82, 0.74, 0.75, 0.65, 0.61, 0.37, 0.31, 0.12, 0.12, 0.12, 0.12, 0.12, 0.61] },
   { src: "/audio/resena-voz-1.m4a", duration: 3.98, bars: [0.12, 0.17, 0.19, 0.3, 0.45, 0.98, 1.0, 0.64, 1.0, 1.0, 0.24, 0.13, 0.35, 0.49, 0.63, 0.57, 0.39, 0.3, 0.32, 0.46, 0.63, 0.43, 0.2, 0.24, 0.18, 0.14, 0.14, 0.14, 0.44, 0.53, 0.29, 0.14, 0.16, 0.14, 0.15, 0.15, 0.17, 0.14, 0.15, 0.12] },
-];
-
-const SHOTS = [
-  {
-    name: "chat-1", width: 1170, height: 1085,
-    alt: "Captura de WhatsApp: un cliente cuenta que la campaña le trajo varios clientes invirtiendo poco y que está consiguiendo clientes de vuelta sin hacer nada.",
-  },
-  {
-    name: "chat-2", width: 1170, height: 1273,
-    alt: "Captura de WhatsApp: un cliente cuenta que en comparación con cómo venía antes ya cambió, y que es un proceso bastante rápido.",
-  },
 ];
 
 type Review = (typeof REVIEWS)[number];
@@ -36,26 +24,6 @@ const formatTime = (seconds: number) => {
   const s = Math.floor(seconds);
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 };
-
-/* ---------- Capturas ---------- */
-
-function Shot({ index, onOpen }: { index: number; onOpen: () => void }) {
-  const shot = SHOTS[index];
-  return (
-    <button type="button" className="proof-shot" onClick={onOpen} aria-label={`Ver en grande. ${shot.alt}`}>
-      <img
-        src={`/images/resenas/${shot.name}-800.webp`}
-        srcSet={`/images/resenas/${shot.name}-544.webp 544w, /images/resenas/${shot.name}-800.webp 800w, /images/resenas/${shot.name}-1170.webp 1170w`}
-        sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, calc(100vw - 48px)"
-        width={shot.width}
-        height={shot.height}
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-    </button>
-  );
-}
 
 /* ---------- Audios ---------- */
 
@@ -253,7 +221,6 @@ function ReviewCard({ review, hidden }: { review: Review; hidden: boolean }) {
 export function Reviews() {
   const voicesRef = useRef<HTMLUListElement>(null);
   const { playing, toggle, play } = useVoicePlayer(voicesRef);
-  const [openShot, setOpenShot] = useState<number | null>(null);
 
   return (
     <section className="py-24 bg-foreground text-white" aria-labelledby="reviews-title">
@@ -262,32 +229,20 @@ export function Reviews() {
           Reseñas.
         </h2>
         <p className="mt-4 mb-12 md:mb-16 text-center text-lg text-white/60">
-          Mensajes reales que nos mandan nuestros clientes por WhatsApp.
+          Audios reales que nos mandan nuestros clientes por WhatsApp.
         </p>
 
-        <div className="proof-grid">
-          {SHOTS.map((_, i) => (
-            <Shot key={i} index={i} onOpen={() => setOpenShot(i)} />
+        <ul ref={voicesRef} className="voice-list">
+          {VOICES.map((_, i) => (
+            <VoicePlayer
+              key={i}
+              index={i}
+              playing={playing === i}
+              onToggle={() => toggle(i)}
+              onSeek={(fraction) => play(i, fraction)}
+            />
           ))}
-
-          <div className="proof-voices">
-            <h3 className="proof-label">
-              <Mic aria-hidden="true" />
-              Audios de clientes
-            </h3>
-            <ul ref={voicesRef}>
-              {VOICES.map((_, i) => (
-                <VoicePlayer
-                  key={i}
-                  index={i}
-                  playing={playing === i}
-                  onToggle={() => toggle(i)}
-                  onSeek={(fraction) => play(i, fraction)}
-                />
-              ))}
-            </ul>
-          </div>
-        </div>
+        </ul>
 
         <h3 className="mt-20 md:mt-24 pt-12 mb-8 border-t border-white/10 text-center text-xs font-bold uppercase tracking-[0.2em] text-white/50">
           Otras reseñas
@@ -299,26 +254,6 @@ export function Reviews() {
         repeats={3}
         render={(review, hidden, key) => <ReviewCard key={key} review={review} hidden={hidden} />}
       />
-
-      <Dialog open={openShot !== null} onOpenChange={(open) => !open && setOpenShot(null)}>
-        <DialogContent
-          className="w-[min(92vw,560px)] max-w-none p-0 overflow-hidden border-0 rounded-2xl gap-0"
-          aria-describedby={undefined}
-        >
-          {openShot !== null && (
-            <>
-              <DialogTitle className="sr-only">Captura de WhatsApp de un cliente</DialogTitle>
-              <img
-                src={`/images/resenas/${SHOTS[openShot].name}-1170.webp`}
-                width={SHOTS[openShot].width}
-                height={SHOTS[openShot].height}
-                alt={SHOTS[openShot].alt}
-                className="block w-full h-auto max-h-[85vh] object-contain bg-[#efeae2]"
-              />
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
