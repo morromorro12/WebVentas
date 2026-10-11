@@ -223,7 +223,7 @@ export function Reviews() {
   const { playing, toggle, play } = useVoicePlayer(voicesRef);
 
   return (
-    <section className="py-24 bg-foreground text-white" aria-labelledby="reviews-title">
+    <section id="reviews" className="py-24 bg-foreground text-white" aria-labelledby="reviews-title">
       <div className="max-w-6xl mx-auto px-6">
         <h2 id="reviews-title" className="text-5xl md:text-7xl font-black font-display text-center">
           Reseñas.

@@ -346,27 +346,41 @@
   letter-spacing: -0.045em;
 }
 
-.site-menu-foot {
-  display: inline-flex;
+/* Botón grande de contacto al pie del menú, igual al del hero. */
+.site-menu-cta {
+  display: flex;
   align-items: center;
-  align-self: flex-start;
-  min-height: 44px;
-  margin-left: var(--px-pad-left);
-  font-size: 17px;
+  justify-content: center;
+  gap: 10px;
+  min-height: 64px;
+  margin: 0 var(--px-pad-right) 0 var(--px-pad-left);
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--px-red);
+  color: #000;
+  font-size: 20px;
   font-weight: 600;
-  color: rgb(255 255 255 / 0.7);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  letter-spacing: -0.01em;
 }
 
+.site-menu-cta svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 300ms var(--px-ease);
+}
+
+
 @media (hover: hover) {
-  .site-menu-nav a,
-  .site-menu-foot {
+  .site-menu-nav a {
     transition: opacity 200ms ease;
   }
 
   .site-menu-nav ul:hover a:not(:hover) {
     opacity: 0.45;
+  }
+
+  .site-menu-cta:hover svg {
+    transform: rotate(45deg);
   }
 }
 
@@ -399,14 +413,14 @@
   }
 
   .site-menu li,
-  .site-menu-foot {
+  .site-menu-cta {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 450ms var(--px-ease), transform 450ms var(--px-ease);
   }
 
   .site-menu[data-open] li,
-  .site-menu[data-open] .site-menu-foot {
+  .site-menu[data-open] .site-menu-cta {
     opacity: 1;
     transform: none;
     transition-delay: calc(100ms + var(--i, 0) * 70ms);
@@ -486,5 +500,12 @@
 
   .hero-sub {
     font-size: 19px;
+  }
+
+  .site-menu-cta {
+    align-self: flex-start;
+    min-height: 72px;
+    padding: 0 44px;
+    font-size: 22px;
   }
 }

@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
-import { X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/contact";
 import "./hero.css";
 
 // Cada string es una línea fija del titular (se animan de a una).
 const HEADLINE = ["Agencia de", "marketing", "digital."];
 
+// En el orden en que aparecen en la página; el contacto va como botón aparte.
 const MENU_LINKS = [
-  { href: "#services", label: "Servicios" },
+  { href: "#services", label: "Soluciones" },
   { href: "#work", label: "Proyectos" },
-  { href: "#contact", label: "Contacto" },
+  { href: "#reviews", label: "Reseñas" },
 ];
 
 // Tiene que coincidir con el preload de index.html para no bajar la imagen dos veces.
@@ -271,10 +272,10 @@ function SiteMenu({ open, onClose }: { open: boolean; onClose: (returnFocus: boo
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="site-menu-foot"
+        className="site-menu-cta"
         style={{ "--i": MENU_LINKS.length } as CSSProperties}
       >
-        Escribinos por WhatsApp
+        Contactanos <ArrowUpRight aria-hidden="true" />
       </a>
     </div>
   );

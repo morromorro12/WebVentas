@@ -3,12 +3,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import NotFound from "@/pages/not-found";
 import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { Services } from "@/components/services";
 import { Reviews } from "@/components/reviews";
+import { Contact, Manifesto } from "@/components/closing";
 
 const queryClient = new QueryClient();
 
@@ -132,33 +133,8 @@ function Home() {
         </div>
       </section>
       <Reviews />
-      {/* CTA / Contact Section */}
-      <section id="contact" className="py-32 px-6 bg-primary text-white border-y-2 border-foreground">
-        <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-6xl md:text-9xl font-black font-display mb-8 tracking-tighter leading-none">
-              ¿Listo para<br/>Empezar?
-            </h2>
-            <p className="text-xl md:text-2xl font-medium mb-12 text-white/80 max-w-2xl">
-              Escribinos un mensaje sin compromiso y te armamos un boceto para que veas cómo se vería tu proyecto.
-            </p>
-            <a 
-              href="https://wa.me/59892178756" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-4 px-10 py-6 bg-white text-foreground font-black text-xl uppercase tracking-wide brutalist-border hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.4)] transition-all duration-300"
-              data-testid="footer-cta"
-            >
-              <MessageCircle className="w-7 h-7" /> Escribinos
-            </a>
-          </motion.div>
-        </div>
-      </section>
+      <Contact />
+      <Manifesto />
       {/* Footer */}
       <footer className="py-12 px-6 bg-background border-t-2 border-foreground">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">

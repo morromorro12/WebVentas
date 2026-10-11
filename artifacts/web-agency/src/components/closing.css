@@ -1,0 +1,195 @@
+/* Cierre de la página: el bloque rojo de contacto y la cita sobre Píxel. Misma tipografía, rojo y
+   botones que el hero (Inter Tight se declara en hero.css). */
+
+.contact,
+.manifesto {
+  --cl-red: #f63c12;
+  --cl-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --cl-gutter: 20px;
+  padding-right: max(var(--cl-gutter), env(safe-area-inset-right));
+  padding-left: max(var(--cl-gutter), env(safe-area-inset-left));
+  color: #0a0a0a;
+  font-family: "Inter Tight", "Inter Tight Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Arial, sans-serif;
+}
+
+.contact-inner,
+.manifesto-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---------- ¿Listo para empezar? ---------- */
+
+.contact {
+  padding-top: clamp(96px, 24vw, 176px);
+  padding-bottom: clamp(56px, 12vw, 96px);
+  background: var(--cl-red);
+}
+
+.contact-title {
+  margin: 0;
+  font-family: inherit;
+  /* "¿Listo para" (la línea más larga) mide 4.47em: en el celular ocupa casi todo el ancho. */
+  font-size: clamp(3.25rem, (100vw - 2 * var(--cl-gutter)) / 4.6, 10rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.contact-title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.contact-row {
+  display: grid;
+  gap: 28px;
+  margin-top: clamp(48px, 12vw, 96px);
+  padding-top: 24px;
+  border-top: 1px solid rgb(0 0 0 / 0.22);
+}
+
+/* Negro sobre el rojo: 5.6:1. */
+.contact-text {
+  max-width: 34ch;
+  margin: 0;
+  font-size: clamp(1.125rem, 4.6vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 64px;
+  padding: 0 32px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color 250ms ease, color 250ms ease, transform 200ms var(--cl-ease);
+}
+
+.contact-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 300ms var(--cl-ease);
+}
+
+.contact-btn:active {
+  transform: scale(0.98);
+}
+
+.contact-btn:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .contact-btn:hover {
+    background: #fff;
+    color: #0a0a0a;
+  }
+
+  .contact-btn:hover svg {
+    transform: rotate(45deg);
+  }
+}
+
+/* ---------- Cita sobre Píxel ---------- */
+
+.manifesto {
+  padding-top: clamp(80px, 22vw, 160px);
+  padding-bottom: clamp(80px, 20vw, 144px);
+  background: #fff;
+}
+
+.manifesto-quote {
+  display: block;
+  width: clamp(44px, 12vw, 72px);
+  fill: var(--cl-red);
+}
+
+.manifesto-quote-close {
+  margin-top: 4px;
+  margin-left: auto;
+  transform: rotate(180deg);
+}
+
+.manifesto-text {
+  margin: clamp(16px, 4vw, 28px) 0 0;
+  /* "tecnología" (la palabra más larga) mide 4.1em. */
+  font-size: clamp(2.75rem, (100vw - 2 * var(--cl-gutter)) / 5.4, 5.75rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+/* Gris claro hasta que le toca (--fill de 0 a 1, lo maneja el scroll). */
+.manifesto-word {
+  color: rgb(10 10 10 / calc(0.16 + 0.84 * var(--fill, 1)));
+  transition: color 150ms linear;
+}
+
+/* El mismo botón negro de las tarjetas de Soluciones, pero más grande. */
+.manifesto-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 60px;
+  margin: 24px 0 0 auto;
+  padding: 0 32px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color 250ms ease, color 250ms ease, transform 200ms var(--cl-ease);
+}
+
+.manifesto-btn:active {
+  transform: scale(0.97);
+}
+
+.manifesto-btn:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .manifesto-btn:hover {
+    background: var(--cl-red);
+    color: #000;
+  }
+}
+
+/* ---------- Escritorio ---------- */
+
+@media (min-width: 1024px) {
+  .contact,
+  .manifesto {
+    --cl-gutter: 48px;
+  }
+
+  /* Texto a la izquierda y botón a la derecha. */
+  .contact-row {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 48px;
+  }
+
+  .contact-btn {
+    min-height: 72px;
+    padding: 0 40px;
+    font-size: 20px;
+  }
+}
