@@ -6,8 +6,8 @@ const PROJECTS = [
   {
     img: "/portfolio-gopet",
     title: "Go Pet",
-    type: "Landing page",
-    desc: "Landing page moderna y atractiva para una marca de productos para mascotas.",
+    type: "Catálogo de productos",
+    desc: "Catálogo online de alimento para mascotas, con envío a domicilio y pedidos directo por WhatsApp.",
     fallback: "https://placehold.co/1200x800/111827/FFFFFF?text=Go+Pet",
     url: "https://gopet-wine.vercel.app/",
   },

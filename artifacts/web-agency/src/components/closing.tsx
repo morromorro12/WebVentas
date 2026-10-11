@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from "react";
-import { ArrowUpRight } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
 import "./closing.css";
 
 const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;
@@ -107,5 +107,67 @@ export function Manifesto() {
         </a>
       </div>
     </section>
+  );
+}
+
+/* ---------- Pie de página ---------- */
+
+const EMAIL = "alfonso12.taro@gmail.com";
+// 59892178756 → +598 92 178 756
+const PHONE = `+${WHATSAPP_NUMBER.slice(0, 3)} ${WHATSAPP_NUMBER.slice(3, 5)} ${WHATSAPP_NUMBER.slice(5, 8)} ${WHATSAPP_NUMBER.slice(8)}`;
+
+const FOOTER_LINKS = [
+  { href: "#services", label: "Servicios" },
+  { href: "#work", label: "Proyectos" },
+  { href: "#reviews", label: "Reseñas" },
+];
+
+export function Footer() {
+  const toTop = () => {
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+  };
+
+  return (
+    <footer className="footer">
+      <div className="footer-inner">
+        <div className="footer-cols">
+          <div>
+            <h2 className="footer-label">Contacto</h2>
+            <ul>
+              <li>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  WhatsApp {PHONE}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              </li>
+            </ul>
+          </div>
+          <nav aria-label="Secciones">
+            <h2 className="footer-label">Secciones</h2>
+            <ul>
+              {FOOTER_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <p className="footer-wordmark" aria-hidden="true">
+          PÍXEL<span>.</span>
+        </p>
+
+        <div className="footer-bottom">
+          <p>© 2025 Estudio Píxel. Agencia de diseño y marketing digital, Uruguay.</p>
+          <button type="button" className="footer-top" onClick={toTop}>
+            Volver arriba <ArrowUp aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </footer>
   );
 }

@@ -1,0 +1,138 @@
+/* Diseño y branding: sigue a Últimos proyectos sobre el mismo blanco, separada por una línea
+   fina. Título grande, texto corto y piezas cuadradas con su etiqueta debajo. */
+
+.gallery {
+  --gl-gutter: 20px;
+  --gl-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  padding: 0 max(var(--gl-gutter), env(safe-area-inset-right)) clamp(96px, 22vw, 168px)
+    max(var(--gl-gutter), env(safe-area-inset-left));
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.gallery-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: clamp(64px, 16vw, 120px);
+  border-top: 1px solid rgb(10 10 10 / 0.14);
+}
+
+/* ---------- Encabezado ---------- */
+
+.gallery-head {
+  display: grid;
+  gap: 20px;
+  margin-bottom: clamp(40px, 10vw, 72px);
+}
+
+.gallery-title {
+  margin: 0;
+  font-family: inherit;
+  /* En el celular va en dos líneas; "branding." (la más larga) mide 3.98em. */
+  font-size: clamp(3.25rem, (100vw - 2 * var(--gl-gutter)) / 5, 9rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.gallery-lead {
+  max-width: 34ch;
+  margin: 0;
+  color: rgb(10 10 10 / 0.6);
+  font-size: 17px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* ---------- Piezas ---------- */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery-item figure {
+  margin: 0;
+}
+
+.gallery-media {
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f4f2ee;
+  aspect-ratio: 1;
+}
+
+.gallery-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms var(--gl-ease);
+}
+
+.gallery-item figcaption {
+  margin-top: 12px;
+  color: rgb(10 10 10 / 0.6);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (hover: hover) {
+  .gallery-item:hover .gallery-media img {
+    transform: scale(1.05);
+  }
+}
+
+/* ---------- Escritorio ---------- */
+
+@media (min-width: 1024px) {
+  .gallery {
+    --gl-gutter: 48px;
+  }
+
+  .gallery-head {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 48px;
+  }
+
+  .gallery-lead {
+    margin-bottom: 0.6em;
+    font-size: 19px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+  }
+
+  .gallery-media {
+    border-radius: 28px;
+  }
+
+  .gallery-item figcaption {
+    margin-top: 16px;
+    font-size: 15px;
+  }
+}
+
+/* ---------- Movimiento (solo si el usuario no pidió reducirlo) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .gallery-item {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .gallery-item[data-visible] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 600ms var(--gl-ease) var(--delay, 0ms),
+      transform 600ms var(--gl-ease) var(--delay, 0ms);
+  }
+}

@@ -1,8 +1,9 @@
-/* Cierre de la página: el bloque rojo de contacto y la cita sobre Píxel. Misma tipografía, rojo y
-   botones que el hero (Inter Tight se declara en hero.css). */
+/* Cierre de la página: el bloque rojo de contacto, la cita sobre Píxel y el pie de página. Misma
+   tipografía, rojo y botones que el hero (Inter Tight se declara en index.css). */
 
 .contact,
-.manifesto {
+.manifesto,
+.footer {
   --cl-red: #f63c12;
   --cl-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --cl-gutter: 20px;
@@ -14,7 +15,8 @@
 }
 
 .contact-inner,
-.manifesto-inner {
+.manifesto-inner,
+.footer-inner {
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -171,12 +173,138 @@
   }
 }
 
+/* ---------- Pie de página ---------- */
+
+.footer {
+  padding-top: clamp(64px, 16vw, 112px);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 28px);
+  background: #000;
+  color: #fff;
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 24px;
+}
+
+.footer-label {
+  margin: 0 0 14px;
+  color: rgb(255 255 255 / 0.45);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-cols ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-cols a {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  transition: color 200ms ease;
+}
+
+/* En el celular el contacto ocupa todo el ancho (el mail es largo). */
+.footer-cols > div:first-child {
+  grid-column: 1 / -1;
+}
+
+/* Logo gigante de lado a lado: "PÍXEL." mide 2.66em. */
+.footer-wordmark {
+  margin: clamp(56px, 14vw, 112px) 0 0;
+  font-size: calc((100vw - 2 * var(--cl-gutter)) / 2.7);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.footer-wordmark span {
+  color: var(--cl-red);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgb(255 255 255 / 0.14);
+  color: rgb(255 255 255 / 0.55);
+  font-size: 14px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.footer-top svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 250ms var(--cl-ease);
+}
+
+.footer a:focus-visible,
+.footer-top:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .footer-cols a:hover {
+    color: var(--cl-red);
+  }
+
+  .footer-top:hover svg {
+    transform: translateY(-3px);
+  }
+}
+
 /* ---------- Escritorio ---------- */
 
 @media (min-width: 1024px) {
   .contact,
-  .manifesto {
+  .manifesto,
+  .footer {
     --cl-gutter: 48px;
+  }
+
+  .footer-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer-cols > div:first-child {
+    grid-column: span 2;
+  }
+
+  .footer-wordmark {
+    font-size: min(calc((100vw - 2 * var(--cl-gutter)) / 2.7), 1280px / 2.7);
   }
 
   /* Texto a la izquierda y botón a la derecha. */

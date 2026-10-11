@@ -195,7 +195,7 @@ function Rating({ value }: { value: number }) {
           <div key={starIndex} className="relative w-3.5 h-3.5">
             <Star className="w-3.5 h-3.5 text-white/20 absolute inset-0" />
             <div className="absolute inset-0 overflow-hidden" style={{ width: `${fillAmount * 100}%` }}>
-              <Star className="w-3.5 h-3.5 text-accent fill-accent" />
+              <Star className="w-3.5 h-3.5 text-[#f63c12] fill-[#f63c12]" />
             </div>
           </div>
         );
@@ -223,14 +223,14 @@ export function Reviews() {
   const { playing, toggle, play } = useVoicePlayer(voicesRef);
 
   return (
-    <section id="reviews" className="py-24 bg-foreground text-white" aria-labelledby="reviews-title">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 id="reviews-title" className="text-5xl md:text-7xl font-black font-display text-center">
-          Reseñas.
-        </h2>
-        <p className="mt-4 mb-12 md:mb-16 text-center text-lg text-white/60">
-          Audios reales que nos mandan nuestros clientes por WhatsApp.
-        </p>
+    <section id="reviews" className="reviews" aria-labelledby="reviews-title">
+      <div className="reviews-inner">
+        <header className="reviews-head">
+          <h2 id="reviews-title" className="reviews-title">
+            Reseñas.
+          </h2>
+          <p className="reviews-lead">Audios reales que nos mandan nuestros clientes por WhatsApp.</p>
+        </header>
 
         <ul ref={voicesRef} className="voice-list">
           {VOICES.map((_, i) => (
@@ -244,9 +244,7 @@ export function Reviews() {
           ))}
         </ul>
 
-        <h3 className="mt-20 md:mt-24 pt-12 mb-8 border-t border-white/10 text-center text-xs font-bold uppercase tracking-[0.2em] text-white/50">
-          Otras reseñas
-        </h3>
+        <h3 className="reviews-more">Otras reseñas</h3>
       </div>
 
       <Marquee

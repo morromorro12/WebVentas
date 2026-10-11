@@ -1,5 +1,5 @@
 /* Frase grande debajo del hero con el destinatario rotando. Usa la misma tipografía que el hero
-   (Inter Tight se declara en hero.css). */
+   (Inter Tight se declara en index.css). */
 
 .statement {
   --statement-ease: cubic-bezier(0.22, 0.61, 0.36, 1);

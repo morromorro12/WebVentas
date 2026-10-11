@@ -10,20 +10,24 @@
     <meta property="og:title" content="Píxel. | Agencia de Marketing Digital" />
     <meta property="og:description" content="Anuncios, contenido y páginas web que traen clientes a tu negocio. Agencia de marketing digital en Uruguay." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pixel-website.com/" />
+    <meta property="og:locale" content="es_UY" />
+    <!-- Vista previa al compartir el link (WhatsApp, Instagram, etc.): 1200x630. -->
+    <meta property="og:image" content="https://www.pixel-website.com/opengraph.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Píxel. Agencia de marketing digital." />
+    <link rel="canonical" href="https://www.pixel-website.com/" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.pixel-website.com/opengraph.jpg" />
     <meta name="twitter:title" content="Píxel. | Agencia de Marketing Digital" />
     <meta name="twitter:description" content="Anuncios, contenido y páginas web que traen clientes a tu negocio. Agencia de marketing digital en Uruguay." />
     <!-- Mismo ícono, pedido a Cloudinary en 180px: el original pesa 670 KB. -->
     <link rel="icon" type="image/png" sizes="180x180" href="https://res.cloudinary.com/dhfwi0myn/image/upload/w_180,h_180,c_fit,f_png/v1782664886/ChatGPT_Image_28_jun_2026_13_35_06_1_rl5bz6.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Hero: la imagen (LCP) se pide apenas llega el HTML. imagesizes = HERO_SIZES de src/components/hero.tsx.
          La fuente Inter Tight NO se precarga: Chrome trata las fuentes precargadas como bloqueantes del
          primer pintado y a veces lo demoraba ~2s. -->
     <link rel="preload" as="image" type="image/avif" imagesrcset="/images/hero-p-640.avif 640w, /images/hero-p-828.avif 828w, /images/hero-p-940.avif 940w" imagesizes="(min-width: 1024px) 50vw, 100vw" fetchpriority="high">
-    <!-- Fuentes del resto de la página (no del hero): se cargan sin bloquear el primer render. -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"></noscript>
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -37,12 +41,13 @@
     fbq('init', '1487876526446275');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1487876526446275&ev=PageView&noscript=1"
-    /></noscript>
     <!-- End Meta Pixel Code -->
   </head>
   <body>
+    <!-- Meta Pixel sin JavaScript: el <img> no puede ir dentro de <noscript> en el <head>. -->
+    <noscript><img height="1" width="1" style="display:none" alt=""
+    src="https://www.facebook.com/tr?id=1487876526446275&ev=PageView&noscript=1"
+    /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

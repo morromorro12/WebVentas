@@ -42,15 +42,19 @@ function toRgba(color: string) {
   return rgba;
 }
 
-// ¿Es claro lo que pasa por debajo del encabezado en (x, y)? Sube por los padres del
-// elemento que está ahí hasta encontrar un fondo opaco.
-function isLightBehind(x: number, y: number, header: HTMLElement) {
+type Tone = "dark" | "light" | "accent";
+
+// ¿Qué hay por debajo del encabezado en (x, y)? Sube por los padres del elemento que está ahí
+// hasta encontrar un fondo opaco: el rojo de la marca, claro u oscuro.
+function toneBehind(x: number, y: number, header: HTMLElement): Tone {
   const hit = document.elementsFromPoint(x, y).find((el) => !header.contains(el));
   for (let el: Element | null = hit ?? null; el; el = el.parentElement) {
     const [r, g, b, a] = toRgba(getComputedStyle(el).backgroundColor);
-    if (a >= 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150;
+    if (a < 0.5) continue;
+    if (r > 200 && g < 110 && b < 90) return "accent";
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150 ? "light" : "dark";
   }
-  return true;
+  return "light";
 }
 
 function Logo() {
@@ -68,7 +72,7 @@ export function Hero() {
   const frameRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
-  const [tone, setTone] = useState<"dark" | "light">("dark");
+  const [tone, setTone] = useState<Tone>("dark");
 
   // Al cerrar con "Cerrar" o Esc el foco vuelve al botón; al tocar un link, no (si no, la página vuelve arriba).
   const closeMenu = useCallback((returnFocus: boolean) => {
@@ -113,7 +117,7 @@ export function Hero() {
     const update = () => {
       raf = 0;
       const { top, height } = button.getBoundingClientRect();
-      setTone(isLightBehind(window.innerWidth / 2, top + height / 2, header) ? "light" : "dark");
+      setTone(toneBehind(window.innerWidth / 2, top + height / 2, header));
     };
     const schedule = () => {
       if (!raf) raf = window.requestAnimationFrame(update);
