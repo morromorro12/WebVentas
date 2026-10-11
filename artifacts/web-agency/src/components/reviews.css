@@ -42,10 +42,187 @@
   animation-play-state: paused;
 }
 
+/* La segunda cinta va para el otro lado. */
+.reviews-marquee[data-reverse] .reviews-track {
+  animation-direction: reverse;
+}
+
 @keyframes reviews-scroll {
   to {
     transform: translateX(-50%);
   }
+}
+
+/* ---------- Segunda cinta: capturas y audios de WhatsApp ---------- */
+
+.reviews-chats {
+  --chat-h: 240px;
+}
+
+.chat-card {
+  flex: none;
+  height: var(--chat-h);
+  overflow: hidden;
+  border-radius: 16px;
+  background: #efeae2;
+}
+
+.chat-shot button {
+  display: block;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.chat-shot img {
+  display: block;
+  width: auto;
+  height: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chat-card :focus-visible {
+  outline: 2px solid #111b21;
+  outline-offset: -2px;
+}
+
+.chat-voice {
+  display: flex;
+  flex-direction: column;
+  width: var(--reviews-card);
+  padding: 14px;
+  color: #111b21;
+}
+
+/* Como la etiqueta de fecha de WhatsApp. */
+.chat-chip {
+  align-self: center;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 1px 0.5px rgb(11 20 26 / 0.13);
+  color: #54656f;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.voice-bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto 0;
+  padding: 10px 12px 8px 6px;
+  border-radius: 0 12px 12px 12px;
+  background: #fff;
+  box-shadow: 0 1px 0.5px rgb(11 20 26 / 0.13);
+}
+
+/* Piquito del globo, arriba a la izquierda. */
+.voice-bubble::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px;
+  border-top: 10px solid #fff;
+  border-left: 8px solid transparent;
+}
+
+.voice-play {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #54656f;
+  cursor: pointer;
+}
+
+.voice-play svg {
+  width: 26px;
+  height: 26px;
+}
+
+.voice-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.voice-wave {
+  position: relative;
+  height: 26px;
+}
+
+.voice-bars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.voice-bars > span {
+  width: 2px;
+  min-height: 3px;
+  border-radius: 1px;
+  background: #b9c2c8;
+}
+
+.voice-bars-played {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc((1 - var(--progress, 0)) * 100%) 0 0);
+}
+
+.voice-bars-played > span {
+  background: #4b5c66;
+}
+
+.voice-dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--progress, 0) * 100%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #53bdeb;
+  transform: translate(-50%, -50%);
+}
+
+.voice-time {
+  color: #667781;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.voice-avatar {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #dfe5e7;
+  color: #fff;
+}
+
+.voice-avatar > svg:first-child {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+.voice-avatar-mic {
+  position: absolute;
+  bottom: -2px;
+  left: -4px;
+  width: 18px;
+  height: 18px;
+  color: #53bdeb;
 }
 
 @media (min-width: 768px) {
@@ -55,9 +232,21 @@
     /* ~40px/s. */
     --reviews-pace: 10.5s;
   }
+
+  .reviews-chats {
+    --chat-h: 320px;
+  }
+
+  .chat-voice {
+    padding: 18px 20px;
+  }
+
+  .voice-bars > span {
+    width: 3px;
+  }
 }
 
-/* Sin movimiento: una sola tanda de reseñas que se recorre deslizando a mano. */
+/* Sin movimiento: una sola tanda de cada cinta, que se recorre deslizando a mano. */
 @media (prefers-reduced-motion: reduce) {
   .reviews-marquee {
     overflow-x: auto;
@@ -72,12 +261,12 @@
     animation: none;
   }
 
-  .reviews-card {
+  .reviews-group > li {
     scroll-snap-align: start;
   }
 
   .reviews-group[aria-hidden],
-  .reviews-card[aria-hidden] {
+  .reviews-group > [aria-hidden] {
     display: none;
   }
 }
