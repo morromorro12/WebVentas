@@ -196,7 +196,7 @@ export function Services() {
       <div className="services-inner">
         <header className="services-head">
           <h2 id="services-title" className="services-title">
-            Soluciones.
+            Nuestros servicios.
           </h2>
         </header>
 

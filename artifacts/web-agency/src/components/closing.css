@@ -113,7 +113,7 @@
 
 .manifesto-quote {
   display: block;
-  width: clamp(44px, 12vw, 72px);
+  width: clamp(40px, 10vw, 60px);
   fill: var(--cl-red);
 }
 
@@ -125,8 +125,7 @@
 
 .manifesto-text {
   margin: clamp(16px, 4vw, 28px) 0 0;
-  /* "tecnología" (la palabra más larga) mide 4.1em. */
-  font-size: clamp(2.75rem, (100vw - 2 * var(--cl-gutter)) / 5.4, 5.75rem);
+  font-size: clamp(2.25rem, (100vw - 2 * var(--cl-gutter)) / 7, 4.5rem);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.05em;

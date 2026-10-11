@@ -1,0 +1,227 @@
+/* Últimos proyectos: título grande y tarjetas con la captura, el número en rojo y una flecha,
+   con la misma tipografía y rojo que el hero (Inter Tight se declara en hero.css). */
+
+.work {
+  --wk-red: #f63c12;
+  --wk-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --wk-gutter: 20px;
+  --wk-line: rgb(10 10 10 / 0.14);
+  padding: clamp(96px, 22vw, 168px) max(var(--wk-gutter), env(safe-area-inset-right)) clamp(96px, 22vw, 168px)
+    max(var(--wk-gutter), env(safe-area-inset-left));
+  background: #fff;
+  color: #0a0a0a;
+  font-family: "Inter Tight", "Inter Tight Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Arial, sans-serif;
+}
+
+.work-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---------- Encabezado ---------- */
+
+.work-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: clamp(40px, 11vw, 88px);
+}
+
+.work-title {
+  margin: 0;
+  font-family: inherit;
+  /* "proyectos." (la línea más larga en el celular) mide 4.43em. */
+  font-size: clamp(3.25rem, (100vw - 2 * var(--wk-gutter)) / 5, 9rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+/* Cantidad de proyectos, chiquita arriba a la derecha del título. */
+.work-count {
+  margin: 0.3em 0 0;
+  color: var(--wk-red);
+  font-size: clamp(15px, 2vw, 22px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Proyectos ---------- */
+
+.work-list {
+  display: grid;
+  gap: clamp(56px, 14vw, 64px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-link {
+  display: block;
+  color: inherit;
+}
+
+.work-link:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 6px;
+  border-radius: 28px;
+}
+
+.work-media {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #f4f2ee;
+  aspect-ratio: 3 / 2;
+}
+
+.work-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms var(--wk-ease);
+}
+
+/* Número | nombre | flecha; abajo el tipo, la descripción y "Ver sitio". */
+.work-info {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 14px;
+  margin-top: 22px;
+}
+
+.work-num {
+  color: var(--wk-red);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.work-name {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(2rem, 8.6vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.work-arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(10 10 10 / 0.2);
+  border-radius: 50%;
+  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease, transform 400ms var(--wk-ease);
+}
+
+.work-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.work-type {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 16px;
+  padding: 6px 12px;
+  border: 1px solid var(--wk-line);
+  border-radius: 999px;
+  color: rgb(10 10 10 / 0.7);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.work-desc {
+  grid-column: 1 / -1;
+  max-width: 44ch;
+  margin: 14px 0 0;
+  color: rgb(10 10 10 / 0.62);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.work-cta {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 14px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+@media (hover: hover) {
+  .work-link:hover .work-media img {
+    transform: scale(1.04);
+  }
+
+  .work-link:hover .work-arrow {
+    border-color: var(--wk-red);
+    background: var(--wk-red);
+    color: #000;
+    transform: rotate(45deg);
+  }
+
+  .work-link:hover .work-cta {
+    color: var(--wk-red);
+  }
+}
+
+/* ---------- Escritorio: dos columnas, la segunda un poco más abajo ---------- */
+
+@media (min-width: 1024px) {
+  .work {
+    --wk-gutter: 48px;
+  }
+
+  .work-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  .work-item:nth-child(even) {
+    margin-top: 120px;
+  }
+
+  .work-media {
+    border-radius: 32px;
+  }
+
+  .work-link:focus-visible {
+    border-radius: 36px;
+  }
+
+  .work-info {
+    margin-top: 28px;
+  }
+
+  .work-name {
+    font-size: clamp(2.5rem, 3.6vw, 3.5rem);
+  }
+
+  .work-arrow {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* ---------- Movimiento (solo si el usuario no pidió reducirlo) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .work-item {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .work-item[data-visible] {
+    opacity: 1;
+    transform: none;
+    transition: opacity 800ms var(--wk-ease), transform 800ms var(--wk-ease);
+  }
+}

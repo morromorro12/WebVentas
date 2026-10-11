@@ -1,4 +1,4 @@
-/* Soluciones: título y tarjetas claras que se apilan al bajar, sobre negro y con la
+/* Nuestros servicios: título y tarjetas claras que se apilan al bajar, sobre negro y con la
    misma tipografía, rojo y botones que el hero (Inter Tight se declara en hero.css). El
    detalle se abre a pantalla completa en el celular y como panel lateral en escritorio. */
 
@@ -34,7 +34,7 @@
 .services-title {
   margin: 0;
   font-family: inherit;
-  /* "Soluciones." mide 4.84em: en el celular ocupa casi todo el ancho. */
+  /* En el celular va en dos líneas; "servicios." (la más larga) mide 3.99em. */
   font-size: clamp(3.5rem, (100vw - 2 * var(--sv-gutter)) / 5, 9rem);
   font-weight: 700;
   line-height: 0.9;

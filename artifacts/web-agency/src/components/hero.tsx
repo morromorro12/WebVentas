@@ -8,7 +8,7 @@ const HEADLINE = ["Agencia de", "marketing", "digital."];
 
 // En el orden en que aparecen en la página; el contacto va como botón aparte.
 const MENU_LINKS = [
-  { href: "#services", label: "Soluciones" },
+  { href: "#services", label: "Servicios" },
   { href: "#work", label: "Proyectos" },
   { href: "#reviews", label: "Reseñas" },
 ];
