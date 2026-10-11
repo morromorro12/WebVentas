@@ -22,9 +22,6 @@
 /* ---------- Encabezado ---------- */
 
 .work-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
   margin-bottom: clamp(40px, 11vw, 88px);
 }
 
@@ -36,15 +33,6 @@
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.05em;
-}
-
-/* Cantidad de proyectos, chiquita arriba a la derecha del título. */
-.work-count {
-  margin: 0.3em 0 0;
-  color: var(--wk-red);
-  font-size: clamp(15px, 2vw, 22px);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Proyectos ---------- */

@@ -51,9 +51,6 @@ export function Work() {
           <h2 id="work-title" className="work-title">
             Últimos proyectos.
           </h2>
-          <p className="work-count" aria-hidden="true">
-            ({pad(PROJECTS.length)})
-          </p>
         </header>
 
         <ul ref={listRef} className="work-list">
