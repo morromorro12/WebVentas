@@ -198,9 +198,6 @@ export function Services() {
           <h2 id="services-title" className="services-title">
             Soluciones.
           </h2>
-          <p className="services-lead">
-            Estrategia, diseño y tecnología. Todo lo que tu negocio necesita para vender más.
-          </p>
         </header>
 
         {/* Las tarjetas se apilan al bajar: cada una se queda arriba y la siguiente la tapa. */}

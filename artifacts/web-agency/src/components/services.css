@@ -1,4 +1,4 @@
-/* Soluciones: título, frase y tarjetas claras que se apilan al bajar, sobre negro y con la
+/* Soluciones: título y tarjetas claras que se apilan al bajar, sobre negro y con la
    misma tipografía, rojo y botones que el hero (Inter Tight se declara en hero.css). El
    detalle se abre a pantalla completa en el celular y como panel lateral en escritorio. */
 
@@ -39,16 +39,6 @@
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.05em;
-}
-
-.services-lead {
-  max-width: 17em;
-  margin: 0.9em 0 0;
-  font-size: clamp(1.75rem, 8.4vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  text-wrap: balance;
 }
 
 /* ---------- Tarjetas ---------- */
