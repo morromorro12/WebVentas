@@ -6,6 +6,8 @@ import "./services.css";
 
 type Service = {
   title: string;
+  // Frase corta en negrita de la tarjeta.
+  tagline: string;
   tag: string;
   desc: string;
   subtitle: string;
@@ -19,7 +21,20 @@ type Service = {
 
 const SERVICES: Service[] = [
   {
-    title: "Páginas Web",
+    title: "Anuncios en redes",
+    tagline: "Campañas que traen consultas.",
+    tag: "Instagram y Facebook",
+    desc: "Manejamos tus campañas: probamos varios anuncios, miramos cuál trae consultas y dejamos ese corriendo.",
+    subtitle: "Nos hacemos cargo de la pauta entera: a quién le hablamos, qué le mostramos y dónde va el presupuesto.",
+    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Una vez por mes te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
+    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Reporte mensual con los números"],
+    price: "Consultar",
+    monthly: null,
+    monthlyNote: "Se cobra un fijo mensual por el manejo, aparte de la plata que pongas en la pauta. Depende de cuántas campañas y cuántas piezas lleve por mes.",
+  },
+  {
+    title: "Páginas web",
+    tagline: "Tu negocio, serio en internet.",
     tag: "Sitio completo",
     desc: "El sitio de tu empresa: tus servicios, tus trabajos y tus datos de contacto en un solo lugar.",
     subtitle: "Para cuando alguien te busca en internet y querés que encuentre algo serio.",
@@ -31,30 +46,8 @@ const SERVICES: Service[] = [
     hidePrice: true,
   },
   {
-    title: "Anuncios en Redes",
-    tag: "Instagram y Facebook",
-    desc: "Manejamos tus campañas: probamos varios anuncios, miramos cuál trae consultas y dejamos ese corriendo.",
-    subtitle: "Nos hacemos cargo de la pauta entera: a quién le hablamos, qué le mostramos y dónde va el presupuesto.",
-    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Una vez por mes te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
-    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Reporte mensual con los números"],
-    price: "Consultar",
-    monthly: null,
-    monthlyNote: "Se cobra un fijo mensual por el manejo, aparte de la plata que pongas en la pauta. Depende de cuántas campañas y cuántas piezas lleve por mes.",
-  },
-  {
-    title: "Landing Pages",
-    tag: "Una sola página",
-    desc: "Una página sola y directa, para que el que llega desde un anuncio te termine escribiendo.",
-    subtitle: "Una página, un objetivo: que te dejen la consulta o te escriban por WhatsApp.",
-    body: "Es una página única y cortita: qué ofrecés, por qué conviene y cómo contactarte. Sin menú ni secciones de más, para que la persona no se distraiga con otra cosa.\n\nCarga rápido en el celular, que es desde donde entra casi todo el mundo, y el botón de WhatsApp queda siempre a mano. Si estás haciendo anuncios, es acá donde conviene mandar la gente.",
-    features: ["Una página enfocada en el contacto", "Diseño hecho desde cero", "Pensada primero para el celular", "Formulario de contacto", "Botón de WhatsApp", "Entrega en pocos días"],
-    price: "$7.900 UYU",
-    monthly: "~$500 UYU / mes",
-    monthlyNote: "El mensual cubre hosting, dominio y los cambios chicos que vayas pidiendo. El número exacto lo cerramos cuando hablemos.",
-    hidePrice: true,
-  },
-  {
     title: "Automatizaciones",
+    tagline: "Lo repetitivo, que se haga solo.",
     tag: "Tareas repetitivas",
     desc: "Lo que hacés a mano todos los días, como cargar ventas o pasar pedidos a una planilla, hecho solo.",
     subtitle: "Si hay algo que repetís todos los días a mano, lo más probable es que se pueda automatizar.",
@@ -65,7 +58,8 @@ const SERVICES: Service[] = [
     monthlyNote: "Depende de cuántos procesos haya que automatizar y qué tan enredados estén. Escribinos, lo vemos juntos y te pasamos un número.",
   },
   {
-    title: "Imágenes, Videos y Diseño",
+    title: "Imágenes, videos y diseño",
+    tagline: "Tu marca, igual en todos lados.",
     tag: "Contenido",
     desc: "Videos, imágenes de producto, etiquetas y logos para tus redes y para tus anuncios.",
     subtitle: "Las piezas que necesitás para publicar y para pautar, sin tener que contratar a tres personas distintas.",
@@ -113,7 +107,7 @@ function ServiceDetail({
           aria-describedby={undefined}
           data-testid="service-modal"
           onCloseAutoFocus={(e) => {
-            // Vuelve a la fila del último servicio visto (puede no ser el que se abrió).
+            // Vuelve a la tarjeta del último servicio visto (puede no ser la que se abrió).
             e.preventDefault();
             onClosed(shown);
           }}
@@ -130,7 +124,7 @@ function ServiceDetail({
           {/* key: al pasar a otro servicio el contenido entra de nuevo y arranca desde arriba. */}
           <div key={shown} className="sv-panel-body">
             <p className="sv-tag">{service.tag}</p>
-            <Dialog.Title className="sv-panel-title">{service.title}</Dialog.Title>
+            <Dialog.Title className="sv-panel-title">{service.title}.</Dialog.Title>
             <p className="sv-panel-sub">{service.subtitle}</p>
 
             <div className="sv-panel-text">
@@ -195,25 +189,7 @@ function ServiceDetail({
 
 export function Services() {
   const [selected, setSelected] = useState<number | null>(null);
-  const [visible, setVisible] = useState(false);
-  const listRef = useRef<HTMLUListElement>(null);
-  const rowRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  // Las filas entran una tras otra la primera vez que la lista aparece en pantalla.
-  useEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setVisible(true);
-        observer.disconnect();
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(list);
-    return () => observer.disconnect();
-  }, []);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   return (
     <section id="services" className="services" aria-labelledby="services-title">
@@ -222,42 +198,48 @@ export function Services() {
           <h2 id="services-title" className="services-title">
             Soluciones.
           </h2>
-          <p className="services-lead">Tocá cualquiera para ver qué incluye y cómo lo trabajamos.</p>
+          <p className="services-lead">
+            Estrategia, diseño y tecnología. Todo lo que tu negocio necesita para vender más.
+          </p>
         </header>
 
-        <ul ref={listRef} className="services-list" data-visible={visible || undefined}>
+        {/* Las tarjetas se apilan al bajar: cada una se queda arriba y la siguiente la tapa. */}
+        <ol className="sv-cards">
           {SERVICES.map((service, i) => (
-            <li key={service.title} className="services-item" style={{ "--i": i } as CSSProperties}>
-              <button
-                ref={(el) => {
-                  rowRefs.current[i] = el;
-                }}
-                type="button"
-                className="services-row"
-                onClick={() => setSelected(i)}
-                aria-haspopup="dialog"
-                data-testid={`service-card-${i}`}
-              >
-                <span className="services-num" aria-hidden="true">
-                  {pad(i + 1)}
-                </span>
-                <span lang="es" className="services-name">
-                  {service.title}
-                </span>
-                <span className="services-desc">{service.desc}</span>
-                <span className="services-arrow" aria-hidden="true">
-                  <ArrowRight />
-                </span>
-              </button>
+            <li key={service.title} className="sv-card" style={{ "--i": i } as CSSProperties}>
+              <span className="sv-card-num" aria-hidden="true">
+                {pad(i + 1)}
+              </span>
+              <h3 lang="es" className="sv-card-title">
+                {service.title}.
+              </h3>
+              <div className="sv-card-body">
+                <p className="sv-card-tagline">{service.tagline}</p>
+                <p className="sv-card-desc">{service.desc}</p>
+                {/* Toda la tarjeta es clickeable (el ::after del botón la cubre). */}
+                <button
+                  ref={(el) => {
+                    buttonRefs.current[i] = el;
+                  }}
+                  type="button"
+                  className="sv-card-btn"
+                  onClick={() => setSelected(i)}
+                  aria-haspopup="dialog"
+                  aria-label={`Ver qué incluye ${service.title}`}
+                  data-testid={`service-card-${i}`}
+                >
+                  Ver qué incluye <ArrowRight aria-hidden="true" />
+                </button>
+              </div>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
 
       <ServiceDetail
         index={selected}
         onChange={setSelected}
-        onClosed={(i) => rowRefs.current[i]?.focus({ preventScroll: true })}
+        onClosed={(i) => buttonRefs.current[i]?.focus({ preventScroll: true })}
       />
     </section>
   );

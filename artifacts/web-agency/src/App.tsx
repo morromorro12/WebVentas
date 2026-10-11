@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 function Home() {
   return (
-    <div className="min-h-screen w-full bg-background overflow-x-hidden selection:bg-primary selection:text-white">
+    <div className="min-h-screen w-full bg-background overflow-x-clip selection:bg-primary selection:text-white">
       <Hero />
       <Statement />
       <Services />

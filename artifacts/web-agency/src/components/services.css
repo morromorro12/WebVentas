@@ -1,6 +1,6 @@
-/* Soluciones: lista numerada sobre negro, con la misma tipografía, rojo y botones que el hero
-   (Inter Tight se declara en hero.css). El detalle se abre a pantalla completa en el celular
-   y como panel lateral en escritorio. */
+/* Soluciones: título, frase y tarjetas claras que se apilan al bajar, sobre negro y con la
+   misma tipografía, rojo y botones que el hero (Inter Tight se declara en hero.css). El
+   detalle se abre a pantalla completa en el celular y como panel lateral en escritorio. */
 
 .services,
 .sv-overlay,
@@ -28,9 +28,7 @@
 /* ---------- Encabezado ---------- */
 
 .services-head {
-  display: grid;
-  gap: 20px;
-  margin-bottom: clamp(48px, 12vw, 104px);
+  margin-bottom: clamp(40px, 11vw, 88px);
 }
 
 .services-title {
@@ -44,116 +42,142 @@
 }
 
 .services-lead {
-  max-width: 30ch;
-  margin: 0;
-  color: rgb(255 255 255 / 0.6);
-  font-size: 17px;
-  line-height: 1.45;
-  text-wrap: pretty;
+  max-width: 17em;
+  margin: 0.9em 0 0;
+  font-size: clamp(1.75rem, 8.4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
-/* ---------- Lista ---------- */
+/* ---------- Tarjetas ---------- */
 
-.services-list {
+.sv-cards {
+  /* Debajo del encabezado fijo y de su desenfoque, para que la tarjeta pegada se vea nítida. */
+  --stack-top: calc(env(safe-area-inset-top) + 96px);
+  --stack-step: 12px;
+  display: grid;
+  gap: 16px;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--sv-line);
   list-style: none;
 }
 
-.services-item {
-  border-bottom: 1px solid var(--sv-line);
+.sv-card {
+  --card-pad: 24px;
+  position: relative;
+  padding: 32px var(--card-pad) 28px;
+  border-radius: 28px;
+  background: #f4f2ee;
+  box-shadow: 0 -14px 40px rgb(0 0 0 / 0.35);
+  color: #0a0a0a;
+  transition: transform 200ms var(--sv-ease);
 }
 
-/* Celular y tablet: número arriba, nombre con la flecha al lado y la descripción abajo. */
-.services-row {
-  display: grid;
-  grid-template-areas:
-    "num num"
-    "name arrow"
-    "desc desc";
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: 16px;
-  width: 100%;
-  padding: 26px 0 28px;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: opacity 300ms ease;
+/* Se apilan solo si la pantalla es lo bastante alta para ver la tarjeta entera pegada arriba;
+   si no, quedan una debajo de la otra. */
+@media (min-height: 640px) {
+  .sv-card {
+    position: sticky;
+    top: calc(var(--stack-top) + var(--i, 0) * var(--stack-step));
+  }
 }
 
-.services-row:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 4px;
-}
-
-.services-num {
-  grid-area: num;
-  margin-bottom: 10px;
+.sv-card-num {
+  display: block;
   color: var(--sv-red);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: clamp(2.25rem, 10vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
-.services-name {
-  grid-area: name;
-  /* "Automatizaciones" (la palabra más larga) mide 7.6em: tiene que entrar sin cortarse al
-     lado de la flecha. */
-  font-size: clamp(1.75rem, (100vw - 2 * var(--sv-gutter) - 60px) / 8, 4.5rem);
+.sv-card-title {
+  margin: 20px 0 0;
+  font-family: inherit;
+  /* "Automatizaciones." mide ~7.9em: tiene que entrar en una línea dentro de la tarjeta. */
+  font-size: clamp(2.25rem, (100vw - 2 * var(--sv-gutter) - 2 * var(--card-pad)) / 8, 5.5rem);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  transition: transform 400ms var(--sv-ease);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
 }
 
-.services-desc {
-  grid-area: desc;
-  max-width: 52ch;
-  margin-top: 12px;
-  color: rgb(255 255 255 / 0.58);
-  font-size: 15px;
+.sv-card-body {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.sv-card-tagline {
+  margin: 0;
+  font-size: clamp(1.375rem, 5.8vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.sv-card-desc {
+  max-width: 40ch;
+  margin: 0;
+  color: rgb(10 10 10 / 0.62);
+  font-size: 16px;
   line-height: 1.5;
   text-wrap: pretty;
 }
 
-.services-arrow {
-  display: grid;
-  grid-area: arrow;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgb(255 255 255 / 0.28);
-  border-radius: 50%;
-  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease, transform 400ms var(--sv-ease);
+.sv-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  margin-top: 10px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
-.services-arrow svg {
-  width: 18px;
-  height: 18px;
+/* Toda la tarjeta responde al click. */
+.sv-card-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
 }
 
-.services-row:active .services-arrow {
-  transform: scale(0.92);
+.sv-card-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 250ms var(--sv-ease);
 }
 
-/* Con mouse: la fila apuntada se destaca y el resto se apaga, como en el menú. */
+.sv-card-btn:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 3px;
+}
+
+/* El efecto de apretar va en la tarjeta y no en el botón: si el botón se transformara, su
+   ::after dejaría de cubrir la tarjeta a mitad del click y el click se perdería. */
+.sv-card:active {
+  transform: scale(0.985);
+}
+
 @media (hover: hover) {
-  .services-list:hover .services-row:not(:hover) {
-    opacity: 0.4;
-  }
-
-  .services-row:hover .services-name {
-    transform: translateX(10px);
-  }
-
-  .services-row:hover .services-arrow {
-    border-color: var(--sv-red);
+  .sv-card:hover .sv-card-btn {
     background: var(--sv-red);
     color: #000;
-    transform: rotate(-45deg);
+  }
+
+  .sv-card:hover .sv-card-btn svg {
+    transform: translateX(4px);
   }
 }
 
@@ -254,7 +278,7 @@
 .sv-panel-title {
   margin: 0;
   font-family: inherit;
-  font-size: clamp(2.5rem, (100vw - 2 * var(--sv-gutter)) / 7.8, 4.25rem);
+  font-size: clamp(2.25rem, (100vw - 2 * var(--sv-gutter)) / 8.2, 4.25rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.045em;
@@ -442,46 +466,47 @@
     --sv-gutter: 48px;
   }
 
-  .services-head {
-    grid-template-columns: 1fr auto;
+  .sv-cards {
+    --stack-top: 120px;
+    --stack-step: 16px;
+    gap: 24px;
+  }
+
+  /* Número arriba; título a la izquierda y el texto a la derecha. */
+  .sv-card {
+    --card-pad: 56px;
+    display: grid;
+    grid-template-areas:
+      "num num"
+      "title body";
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     align-items: end;
-    gap: 48px;
+    column-gap: 64px;
+    padding: 48px var(--card-pad) 56px;
+    border-radius: 40px;
   }
 
-  .services-lead {
-    margin-bottom: 0.6em;
-    font-size: 19px;
+  .sv-card-btn::after {
+    border-radius: 40px;
   }
 
-  /* Una fila por servicio: número | nombre | descripción | flecha. */
-  .services-row {
-    grid-template-areas: "num name desc arrow";
-    grid-template-columns: 72px minmax(0, 1fr) minmax(0, 340px) 56px;
-    column-gap: 32px;
-    padding: 36px 0;
+  .sv-card-num {
+    grid-area: num;
   }
 
-  .services-num {
-    align-self: start;
-    margin: 0.85em 0 0;
+  .sv-card-title {
+    grid-area: title;
+    margin-top: 32px;
+    font-size: clamp(3rem, 5vw, 5.5rem);
   }
 
-  .services-name {
-    font-size: clamp(2.5rem, 4.6vw, 4.5rem);
-  }
-
-  .services-desc {
+  .sv-card-body {
+    grid-area: body;
     margin-top: 0;
   }
 
-  .services-arrow {
-    width: 56px;
-    height: 56px;
-  }
-
-  .services-arrow svg {
-    width: 22px;
-    height: 22px;
+  .sv-card-desc {
+    font-size: 17px;
   }
 
   .sv-panel {
@@ -517,18 +542,6 @@
 /* ---------- Movimiento (solo si el usuario no pidió reducirlo) ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
-  .services-item {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  .services-list[data-visible] .services-item {
-    opacity: 1;
-    transform: none;
-    transition: opacity 700ms var(--sv-ease), transform 700ms var(--sv-ease);
-    transition-delay: calc(var(--i, 0) * 80ms);
-  }
-
   .sv-overlay[data-state="open"] {
     animation: sv-fade-in 300ms ease;
   }
