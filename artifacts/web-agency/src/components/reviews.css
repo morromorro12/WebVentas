@@ -1,0 +1,83 @@
+/* Cinta de reseñas que se desliza sin fin. La pista tiene dos mitades iguales y se corre
+   exactamente una mitad por vuelta: al reiniciar queda en el mismo lugar y no se ve el salto. */
+
+.reviews-marquee {
+  --reviews-gap: 16px;
+  --reviews-card: 272px;
+  /* Segundos que tarda en pasar cada tarjeta: ~30px/s, lento para poder leer. */
+  --reviews-pace: 9.5s;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.reviews-track {
+  display: flex;
+  width: max-content;
+  animation: reviews-scroll calc(var(--count) * var(--reviews-pace)) linear infinite;
+}
+
+/* El padding derecho hace de espacio entre una mitad y la otra, así las dos miden lo mismo. */
+.reviews-group {
+  display: flex;
+  gap: var(--reviews-gap);
+  margin: 0;
+  padding: 0 var(--reviews-gap) 0 0;
+  list-style: none;
+}
+
+.reviews-card {
+  flex: none;
+  width: var(--reviews-card);
+}
+
+/* Se frena con el mouse encima o mientras se mantiene el dedo apretado. */
+@media (hover: hover) {
+  .reviews-marquee:hover .reviews-track {
+    animation-play-state: paused;
+  }
+}
+
+.reviews-marquee[data-paused] .reviews-track {
+  animation-play-state: paused;
+}
+
+@keyframes reviews-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .reviews-marquee {
+    --reviews-gap: 24px;
+    --reviews-card: 400px;
+    /* ~40px/s. */
+    --reviews-pace: 10.5s;
+  }
+}
+
+/* Sin movimiento: una sola tanda de reseñas que se recorre deslizando a mano. */
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 24px;
+    padding-inline: 24px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .reviews-track {
+    animation: none;
+  }
+
+  .reviews-card {
+    scroll-snap-align: start;
+  }
+
+  .reviews-group[aria-hidden],
+  .reviews-card[aria-hidden] {
+    display: none;
+  }
+}

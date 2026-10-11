@@ -5,10 +5,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { ArrowRight, Smartphone, Video, Monitor, MessageCircle, Star, CheckCircle, Workflow, Megaphone } from "lucide-react";
+import { ArrowRight, Smartphone, Video, Monitor, MessageCircle, CheckCircle, Workflow, Megaphone } from "lucide-react";
 import NotFound from "@/pages/not-found";
 import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
+import { Reviews } from "@/components/reviews";
 
 const queryClient = new QueryClient();
 
@@ -344,49 +345,7 @@ function Home() {
           </div>
         </div>
       </section>
-      {/* Testimonials Section */}
-      <section className="py-24 px-6 bg-foreground text-background">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-black font-display mb-16 text-center text-white">Lo que<br/>Dicen.</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { quote: "No tenía página web ni me manejaba online. Ellos se encargaron de todo y ahora digitalmente tengo una empresa profesional.", name: "Jerónimo D'Alessandro", role: "Gopet", rating: 5 },
-              { quote: "Ya me diseñaron varias etiquetas de productos que antes me llevaba por lo menos una semana. Me lo hicieron en un día y muchísimo más barato. Super recomendado!!", name: "Ana Moroni", role: "Tankin", rating: 5 },
-              { quote: "No me tuve que preocupar ni un momento por mi imagen online y tengo una imagen muy profesional por un costo muy barato. La verdad, les recomiendo antes de que se vuelva una empresa más grande y suba los precios.", name: "Fabricio Goncalvez", role: "Sandy Lane", rating: 4.5 }
-            ].map((testimonial, i) => (
-              <motion.div 
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-                className="bg-card/10 p-10 border-2 border-white/20 hover:border-accent hover:-translate-y-2 transition-all duration-300"
-                data-testid={`testimonial-card-${i}`}
-              >
-                <div className="flex gap-1 mb-6" data-testid={`testimonial-rating-${i}`}>
-                  {[0, 1, 2, 3, 4].map((starIndex) => {
-                    const fillAmount = Math.max(0, Math.min(1, testimonial.rating - starIndex));
-                    return (
-                      <div key={starIndex} className="relative w-6 h-6">
-                        <Star className="w-6 h-6 text-white/20 absolute inset-0" />
-                        <div className="absolute inset-0 overflow-hidden" style={{ width: `${fillAmount * 100}%` }}>
-                          <Star className="w-6 h-6 text-accent fill-accent" />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <p className="text-xl font-medium mb-8 text-white/90">"{testimonial.quote}"</p>
-                <div>
-                  <div className="font-bold uppercase tracking-wider text-white">{testimonial.name}</div>
-                  <div className="text-sm text-white/60 mt-1">{testimonial.role}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Reviews />
       {/* CTA / Contact Section */}
       <section id="contact" className="py-32 px-6 bg-primary text-white border-y-2 border-foreground">
         <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -422,7 +381,7 @@ function Home() {
           </div>
           <div className="flex flex-col items-center md:items-end gap-1">
             <p className="font-medium text-muted-foreground text-center md:text-right">
-              © 2026 Estudio Píxel. Páginas web y diseño, Uruguay.
+              © 2025 Estudio Píxel. Agencia de diseño y marketing digital, Uruguay.
             </p>
             <a href="mailto:alfonso12.taro@gmail.com" className="text-sm text-primary font-semibold hover:underline">
               alfonso12.taro@gmail.com
