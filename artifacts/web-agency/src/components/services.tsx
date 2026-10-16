@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ChevronsLeft } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_URL } from "@/lib/contact";
@@ -9,7 +9,7 @@ type Service = {
   title: string;
   // Frase corta en negrita de la tarjeta.
   tagline: string;
-  desc: string;
+  desc?: string;
   // La tarjeta se desliza y del otro lado aparece la tabla de planes.
   plans?: boolean;
 };
@@ -17,8 +17,7 @@ type Service = {
 const SERVICES: Service[] = [
   {
     title: "Anuncios en redes",
-    tagline: "Campañas que traen consultas.",
-    desc: "Diseñamos tus anuncios para Instagram y Facebook, probamos cuál trae más clientes y lo dejamos corriendo.",
+    tagline: "Campañas que te traen clientes.",
     plans: true,
   },
   {
@@ -63,7 +62,7 @@ function ServiceText({ service, index, children }: { service: Service; index: nu
       </h3>
       <div className="sv-card-body">
         <p className="sv-card-tagline">{service.tagline}</p>
-        <p className="sv-card-desc">{service.desc}</p>
+        {service.desc && <p className="sv-card-desc">{service.desc}</p>}
         {children}
       </div>
     </>
@@ -75,6 +74,8 @@ function ServiceText({ service, index, children }: { service: Service; index: nu
 function AdsCard({ service, index }: { service: Service; index: number }) {
   const cardRef = useRef<HTMLLIElement>(null);
   const swipeRef = useRef<HTMLDivElement>(null);
+  const frontRef = useRef<HTMLDivElement>(null);
+  const plansRef = useRef<HTMLDivElement>(null);
   const openRef = useRef<HTMLButtonElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
   const [page, setPage] = useState(0);
@@ -85,6 +86,33 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
     setPage(next);
     swipe.scrollTo({ left: next * swipe.clientWidth, behavior: smooth && !reducedMotion() ? "smooth" : "auto" });
   };
+
+  // La tarjeta mide lo que su frente y crece hasta el alto de la tabla a medida que se desliza.
+  useLayoutEffect(() => {
+    const swipe = swipeRef.current;
+    const front = frontRef.current;
+    const plans = plansRef.current;
+    if (!swipe || !front || !plans) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const progress = Math.min(1, Math.max(0, swipe.scrollLeft / swipe.clientWidth));
+      const height = front.offsetHeight + (plans.offsetHeight - front.offsetHeight) * progress;
+      swipe.style.height = `${height}px`;
+    };
+    const schedule = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+    update();
+    swipe.addEventListener("scroll", schedule, { passive: true });
+    const resize = new ResizeObserver(schedule);
+    [swipe, front, plans].forEach((el) => resize.observe(el));
+    return () => {
+      swipe.removeEventListener("scroll", schedule);
+      resize.disconnect();
+      window.cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // La cara visible se fija cuando el deslizamiento termina, no a mitad de camino.
   useEffect(() => {
@@ -144,11 +172,8 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
       data-testid={`service-card-${index}`}
     >
       <div ref={swipeRef} className="sv-swipe">
-        <div className="sv-face" inert={page !== 0}>
+        <div ref={frontRef} className="sv-face" inert={page !== 0}>
           <ServiceText service={service} index={index}>
-            <p className="sv-from">
-              Planes desde <strong>$3.000</strong> por mes
-            </p>
             <div className="sv-actions">
               <button
                 ref={openRef}
@@ -169,7 +194,7 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
           </ServiceText>
         </div>
 
-        <div className="sv-plans" inert={page !== 1} role="group" aria-label="Planes de anuncios">
+        <div ref={plansRef} className="sv-plans" inert={page !== 1} role="group" aria-label="Planes de anuncios">
           <div className="sv-plans-top">
             <button
               ref={backRef}

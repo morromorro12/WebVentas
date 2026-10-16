@@ -42,9 +42,6 @@
   --stack-top: calc(env(safe-area-inset-top) + 96px);
   --stack-step: 12px;
   display: grid;
-  /* Todas del alto de la más alta (la de anuncios, por la tabla): así al apilarse ninguna
-     asoma por debajo de la que la tapa. */
-  grid-auto-rows: 1fr;
   gap: 16px;
   margin: 0;
   padding: 0;
@@ -64,15 +61,15 @@
 }
 
 /* Se apilan solo si la pantalla es lo bastante alta para ver la tarjeta entera pegada arriba;
-   si no, quedan una debajo de la otra. */
-@media (min-height: 700px) {
-  .sv-card {
+   si no, quedan una debajo de la otra. La de anuncios no se apila: crece al mostrar los planes
+   y asomaría por debajo de las que la tapan. */
+@media (min-height: 640px) {
+  .sv-card:not(.sv-card-ads) {
     position: sticky;
     top: calc(var(--stack-top) + var(--i, 0) * var(--stack-step));
   }
 }
 
-/* Número arriba; título y texto abajo. */
 .sv-face {
   --card-pad: 24px;
   display: flex;
@@ -92,8 +89,7 @@
 }
 
 .sv-card-title {
-  margin: auto 0 0;
-  padding-top: 20px;
+  margin: 20px 0 0;
   font-family: inherit;
   /* "Automatizaciones." mide ~7.9em: tiene que entrar en una línea dentro de la tarjeta. */
   font-size: clamp(2.25rem, (100vw - 2 * var(--sv-gutter) - 2 * var(--card-pad)) / 8, 5.5rem);
@@ -172,10 +168,13 @@
 
 /* ---------- Anuncios: tarjeta que se desliza ---------- */
 
+/* El alto lo pone el código (de frente a tabla según cuánto se deslizó); sin scroll vertical
+   propio, así arrastrar hacia arriba o abajo sigue moviendo la página. */
 .sv-swipe {
   display: flex;
-  flex: 1;
+  align-items: flex-start;
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -190,17 +189,6 @@
   min-width: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-}
-
-.sv-from {
-  margin: 4px 0 0;
-  color: rgb(10 10 10 / 0.62);
-  font-size: 15px;
-}
-
-.sv-from strong {
-  color: #0a0a0a;
-  font-weight: 700;
 }
 
 .sv-actions {
@@ -294,7 +282,6 @@
   text-transform: uppercase;
 }
 
-/* Lugar arriba para la etiqueta "Recomendado", que sobresale de la columna negra. */
 .sv-plans-table {
   grid-area: table;
   align-self: center;
@@ -328,15 +315,7 @@
     border-radius: 40px;
   }
 
-  /* En notebooks bajas la tarjeta pegada no entraría entera: van una debajo de la otra. */
-  @media (max-height: 799px) {
-    .sv-card {
-      position: relative;
-      top: auto;
-    }
-  }
-
-  /* Número arriba; título a la izquierda y el texto a la derecha, los dos abajo. */
+  /* Número arriba; título a la izquierda y el texto a la derecha. */
   .sv-face {
     --card-pad: 56px;
     display: grid;
@@ -344,7 +323,6 @@
       "num num"
       "title body";
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
     align-items: end;
     column-gap: 64px;
     padding: 48px var(--card-pad) 56px;
@@ -352,13 +330,11 @@
 
   .sv-card-num {
     grid-area: num;
-    align-self: start;
   }
 
   .sv-card-title {
     grid-area: title;
     margin-top: 32px;
-    padding-top: 0;
     font-size: clamp(3rem, 5vw, 5.5rem);
   }
 

@@ -1,159 +1,139 @@
 /* Tabla de planes de anuncios (va dentro de la tarjeta "Anuncios en redes", del lado que
-   aparece al deslizar). El plan recomendado va en una columna negra. */
+   aparece al deslizar). */
 
 .pl-table,
 .pl-pop {
   --pl-red: #f63c12;
   --pl-green: #16a34a;
-  --pl-line: rgb(10 10 10 / 0.09);
   font-family: "Inter Tight", "Inter Tight Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Arial, sans-serif;
 }
 
 .pl-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  table-layout: fixed;
   color: #0a0a0a;
 }
 
-/* Las tres columnas de planes, iguales ("Crecimiento" entra justo); la de los nombres de fila
-   se queda con el resto. */
-.pl-col {
-  width: 21.5%;
+/* Celular: tres columnas iguales; el nombre de la fila ocupa las tres, arriba de los valores. */
+.pl-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  column-gap: 4px;
 }
 
-.pl-table th,
-.pl-table td {
-  padding: 9px 2px;
-  vertical-align: middle;
+.pl-row + .pl-row {
+  border-top: 1px solid rgb(10 10 10 / 0.09);
 }
 
-.pl-table tbody tr > *,
-.pl-table tfoot tr > * {
-  border-top: 1px solid var(--pl-line);
+.pl-corner {
+  display: none;
 }
 
-.pl-table th[scope="row"] {
-  padding-right: 6px;
-  font-size: 13px;
+.pl-label {
+  grid-column: 1 / -1;
+  padding: 12px 0 2px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: -0.01em;
-  text-align: left;
   text-wrap: pretty;
 }
 
-.pl-table td {
+/* "profundo": resaltado suave, sin gritar. */
+.pl-em {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: linear-gradient(transparent 55%, rgb(246 60 18 / 0.24) 55%);
+  font-weight: 700;
+}
+
+.pl-cell {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  padding: 4px 0 10px;
   text-align: center;
 }
 
-/* ---------- Encabezado: nombre y precio de cada plan ---------- */
+.pl-cell-all {
+  grid-column: 1 / -1;
+}
 
-.pl-table thead th {
-  position: relative;
-  padding: 14px 2px 10px;
-  font-weight: 400;
+/* ---------- Encabezado: etiqueta, nombre y precio de cada plan ---------- */
+
+.pl-plan {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: stretch;
+  padding-bottom: 14px;
   text-align: center;
-  vertical-align: bottom;
+}
+
+.pl-tag {
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgb(10 10 10 / 0.08);
+  color: rgb(10 10 10 / 0.7);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Negro sobre el rojo: 5.6:1. */
+.pl-tag[data-recommended] {
+  background: var(--pl-red);
+  color: #000;
 }
 
 .pl-name {
-  display: block;
-  color: rgb(10 10 10 / 0.6);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .pl-price {
-  display: block;
-  margin-top: 4px;
-  font-size: 16px;
+  margin-top: 6px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
   font-variant-numeric: tabular-nums;
 }
 
 .pl-per {
-  display: block;
   margin-top: 3px;
   color: rgb(10 10 10 / 0.5);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-}
-
-/* Sobresale arriba de la columna negra. Negro sobre el rojo: 5.6:1. */
-.pl-chip {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  padding: 3px 7px;
-  border-radius: 999px;
-  background: var(--pl-red);
-  color: #000;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  transform: translate(-50%, -50%);
-}
-
-/* ---------- Columna del recomendado ---------- */
-
-.pl-table .pl-hl {
-  --pl-line: rgb(255 255 255 / 0.12);
-  background: #0a0a0a;
-  color: #fff;
-}
-
-.pl-hl .pl-name,
-.pl-hl .pl-per,
-.pl-hl .pl-from {
-  color: rgb(255 255 255 / 0.6);
-}
-
-.pl-table thead .pl-hl {
-  border-radius: 14px 14px 0 0;
-}
-
-.pl-table tfoot .pl-hl {
-  border-radius: 0 0 14px 14px;
 }
 
 /* ---------- Valores ---------- */
 
 .pl-count {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .pl-text {
-  display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.2;
-}
-
-.pl-from {
-  display: block;
-  color: rgb(10 10 10 / 0.5);
-  font-size: 10px;
-  font-weight: 500;
 }
 
 .pl-icon {
   display: inline-grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: var(--pl-red);
   color: #fff;
-  vertical-align: middle;
 }
 
 .pl-icon[data-included] {
@@ -161,30 +141,23 @@
 }
 
 .pl-icon svg {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   stroke-width: 3.25;
 }
 
-/* ---------- Inversión en anuncios y su "?" ---------- */
-
-.pl-spend {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
+/* ---------- El "?" de la inversión en anuncios ---------- */
 
 .pl-help {
   position: relative;
   display: grid;
-  flex: none;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #0a0a0a;
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -195,7 +168,7 @@
 .pl-help::after {
   content: "";
   position: absolute;
-  inset: -12px;
+  inset: -7px;
 }
 
 .pl-help:active {
@@ -204,7 +177,7 @@
 
 .pl-help:focus-visible {
   outline: 2px solid #0a0a0a;
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 @media (hover: hover) {
@@ -255,44 +228,54 @@
   }
 }
 
-/* ---------- Escritorio: más aire y letra más grande ---------- */
+/* ---------- Escritorio: el nombre de la fila en su columna, a la izquierda ---------- */
 
 @media (min-width: 1024px) {
-  .pl-col {
-    width: 20%;
+  .pl-row {
+    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+    column-gap: 16px;
   }
 
-  .pl-table th,
-  .pl-table td {
-    padding: 11px 8px;
+  .pl-corner {
+    display: block;
   }
 
-  .pl-table th[scope="row"] {
-    padding-left: 0;
+  .pl-label {
+    grid-column: auto;
+    padding: 14px 0;
     font-size: 16px;
     font-weight: 500;
   }
 
-  .pl-table thead th {
-    padding: 20px 8px 14px;
+  .pl-cell {
+    min-height: 0;
+    padding: 14px 0;
+  }
+
+  .pl-cell-all {
+    grid-column: 2 / -1;
+  }
+
+  .pl-plan {
+    padding-bottom: 18px;
+  }
+
+  .pl-tag {
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    font-size: 11px;
   }
 
   .pl-name {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .pl-price {
-    margin-top: 6px;
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .pl-per {
     font-size: 12px;
-  }
-
-  .pl-chip {
-    padding: 5px 12px;
-    font-size: 11px;
   }
 
   .pl-count {
@@ -303,10 +286,6 @@
     font-size: 15px;
   }
 
-  .pl-from {
-    font-size: 12px;
-  }
-
   .pl-icon {
     width: 26px;
     height: 26px;
@@ -315,13 +294,5 @@
   .pl-icon svg {
     width: 15px;
     height: 15px;
-  }
-
-  .pl-table thead .pl-hl {
-    border-radius: 20px 20px 0 0;
-  }
-
-  .pl-table tfoot .pl-hl {
-    border-radius: 0 0 20px 20px;
   }
 }
