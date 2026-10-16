@@ -1,560 +1,327 @@
-/* Planes de anuncios: en el celular, carrusel deslizable con el recomendado al centro y un
-   selector arriba; en escritorio, las tres tarjetas lado a lado. Misma tipografía, rojo y
-   botones que el resto del sitio (Inter Tight se declara en index.css). */
+/* Tabla de planes de anuncios (va dentro de la tarjeta "Anuncios en redes", del lado que
+   aparece al deslizar). El plan recomendado va en una columna negra. */
 
-.plans,
-.plans-pop {
+.pl-table,
+.pl-pop {
   --pl-red: #f63c12;
   --pl-green: #16a34a;
-  --pl-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --pl-line: rgb(10 10 10 / 0.09);
   font-family: "Inter Tight", "Inter Tight Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Arial, sans-serif;
 }
 
-.plans {
-  --pl-gutter: 20px;
-  padding: clamp(96px, 22vw, 168px) 0;
-  background: #f4f2ee;
+.pl-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
   color: #0a0a0a;
 }
 
-.plans-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 max(var(--pl-gutter), env(safe-area-inset-right)) 0 max(var(--pl-gutter), env(safe-area-inset-left));
-  box-sizing: content-box;
+/* Las tres columnas de planes, iguales ("Crecimiento" entra justo); la de los nombres de fila
+   se queda con el resto. */
+.pl-col {
+  width: 21.5%;
 }
 
-/* ---------- Encabezado ---------- */
-
-.plans-head {
-  display: grid;
-  gap: 20px;
-  margin-bottom: clamp(36px, 9vw, 72px);
+.pl-table th,
+.pl-table td {
+  padding: 9px 2px;
+  vertical-align: middle;
 }
 
-.plans-title {
-  margin: 0;
-  font-family: inherit;
-  /* En el celular va en dos líneas; "anuncios." (la más larga) mide ~4.3em. */
-  font-size: clamp(3.25rem, (100vw - 2 * var(--pl-gutter)) / 5, 9rem);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+.pl-table tbody tr > *,
+.pl-table tfoot tr > * {
+  border-top: 1px solid var(--pl-line);
 }
 
-.plans-lead {
-  max-width: 38ch;
-  margin: 0;
-  color: rgb(10 10 10 / 0.62);
-  font-size: 17px;
-  line-height: 1.45;
-  text-wrap: pretty;
-}
-
-/* ---------- Selector (solo carrusel) ---------- */
-
-.plans-switch {
-  /* Mismo ancho que las tarjetas del carrusel. */
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(100% - 56px, 400px);
-  margin: 0 auto 8px;
-  padding: 4px;
-  border-radius: 999px;
-  background: rgb(10 10 10 / 0.07);
-}
-
-/* La pastilla negra se desliza hasta el plan que está en el centro. */
-.plans-switch::before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc((100% - 8px) / 3);
-  border-radius: 999px;
-  background: #0a0a0a;
-  transform: translateX(calc(var(--active, 0) * 100%));
-  transition: transform 400ms var(--pl-ease);
-}
-
-.plans-switch button {
-  position: relative;
-  min-width: 0;
-  min-height: 44px;
-  padding: 0 4px;
-  border-radius: 999px;
-  color: rgb(10 10 10 / 0.6);
-  font-size: 14px;
+.pl-table th[scope="row"] {
+  padding-right: 6px;
+  font-size: 13px;
   font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.01em;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color 300ms ease;
-}
-
-.plans-switch button[aria-pressed="true"] {
-  color: #fff;
-}
-
-.plans-switch button:focus-visible {
-  outline: 2px solid #0a0a0a;
-  outline-offset: 2px;
-}
-
-/* ---------- Carrusel ---------- */
-
-.plans-track {
-  --card-w: min(100% - 56px, 400px);
-  --gap: 12px;
-  position: relative;
-  display: flex;
-  gap: var(--gap);
-  margin: 0;
-  /* Aire arriba y abajo para que no se corte la sombra de las tarjetas. */
-  padding: 20px 0 32px;
-  list-style: none;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.plans-track::-webkit-scrollbar {
-  display: none;
-}
-
-/* Espacio a los costados para que la primera y la última también puedan quedar centradas. */
-.plans-track::before,
-.plans-track::after {
-  content: "";
-  flex: 0 0 calc((100% - var(--card-w)) / 2 - var(--gap));
-}
-
-/* ---------- Tarjeta ---------- */
-
-.plans-card {
-  --muted: rgb(10 10 10 / 0.55);
-  --line: rgb(10 10 10 / 0.1);
-  position: relative;
-  display: flex;
-  flex: 0 0 var(--card-w);
-  flex-direction: column;
-  min-width: 0;
-  padding: 28px 22px 22px;
-  border: 1px solid rgb(10 10 10 / 0.06);
-  border-radius: 28px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 20px 40px -24px rgb(0 0 0 / 0.22);
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-}
-
-/* El recomendado: negro, con un brillo rojo arriba. */
-.plans-card[data-recommended] {
-  --muted: rgb(255 255 255 / 0.55);
-  --line: rgb(255 255 255 / 0.14);
-  border-color: #0a0a0a;
-  background: radial-gradient(120% 55% at 100% 0%, rgb(246 60 18 / 0.32), transparent 62%), #0a0a0a;
-  box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.55);
-  color: #fff;
-}
-
-.plans-name {
-  margin: 0;
-  font-family: inherit;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.045em;
-}
-
-.plans-kicker {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-/* Arriba a la derecha, a la altura de "Plan", así el nombre usa todo el ancho.
-   Negro sobre el rojo: 5.6:1. */
-.plans-badge {
-  position: absolute;
-  top: 22px;
-  right: 18px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  background: var(--pl-red);
-  color: #000;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.plans-blurb {
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.45;
+  text-align: left;
   text-wrap: pretty;
 }
 
-.plans-price {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 8px;
-  margin: 28px 0 0;
+.pl-table td {
+  text-align: center;
 }
 
-/* "$10.000" y "UYU / mes" tienen que entrar en una línea también en un celular de 360px. */
-.plans-amount {
-  font-size: clamp(2.75rem, 13.5vw, 3.25rem);
+/* ---------- Encabezado: nombre y precio de cada plan ---------- */
+
+.pl-table thead th {
+  position: relative;
+  padding: 14px 2px 10px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.pl-name {
+  display: block;
+  color: rgb(10 10 10 / 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pl-price {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
-.plans-per {
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* Inversión en anuncios: va aparte, por eso en un recuadro propio debajo del precio.
-   Arriba el nombre con el "?"; abajo "Se paga aparte" y el monto. */
-.plans-spend {
-  display: grid;
-  grid-template-areas:
-    "label label"
-    "note value";
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 6px 12px;
-  margin-top: 20px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgb(10 10 10 / 0.045);
-}
-
-.plans-card[data-recommended] .plans-spend {
-  background: rgb(255 255 255 / 0.07);
-}
-
-.plans-spend-label {
-  display: inline-flex;
-  grid-area: label;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.plans-spend-value {
-  grid-area: value;
-  color: var(--muted);
-  font-size: 13px;
+.pl-per {
+  display: block;
+  margin-top: 3px;
+  color: rgb(10 10 10 / 0.5);
+  font-size: 10px;
   font-weight: 500;
-  white-space: nowrap;
 }
 
-.plans-spend-value strong {
-  color: #0a0a0a;
-  font-size: 17px;
+/* Sobresale arriba de la columna negra. Negro sobre el rojo: 5.6:1. */
+.pl-chip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--pl-red);
+  color: #000;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
 }
 
-.plans-card[data-recommended] .plans-spend-value strong {
+/* ---------- Columna del recomendado ---------- */
+
+.pl-table .pl-hl {
+  --pl-line: rgb(255 255 255 / 0.12);
+  background: #0a0a0a;
   color: #fff;
 }
 
-.plans-spend-note {
-  grid-area: note;
-  color: var(--muted);
-  font-size: 13px;
+.pl-hl .pl-name,
+.pl-hl .pl-per,
+.pl-hl .pl-from {
+  color: rgb(255 255 255 / 0.6);
 }
 
-/* El "?": un círculo chico, con el área de toque agrandada a 44px. */
-.plans-help {
+.pl-table thead .pl-hl {
+  border-radius: 14px 14px 0 0;
+}
+
+.pl-table tfoot .pl-hl {
+  border-radius: 0 0 14px 14px;
+}
+
+/* ---------- Valores ---------- */
+
+.pl-count {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pl-text {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pl-from {
+  display: block;
+  color: rgb(10 10 10 / 0.5);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.pl-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pl-red);
+  color: #fff;
+  vertical-align: middle;
+}
+
+.pl-icon[data-included] {
+  background: var(--pl-green);
+}
+
+.pl-icon svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 3.25;
+}
+
+/* ---------- Inversión en anuncios y su "?" ---------- */
+
+.pl-spend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pl-help {
   position: relative;
   display: grid;
   flex: none;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #0a0a0a;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
-  transition: background-color 200ms ease, color 200ms ease, transform 200ms var(--pl-ease);
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
-.plans-help::after {
+/* Área de toque de 44px. */
+.pl-help::after {
   content: "";
   position: absolute;
-  inset: -11px;
+  inset: -12px;
 }
 
-.plans-card[data-recommended] .plans-help {
-  background: #fff;
-  color: #0a0a0a;
-}
-
-.plans-help:active {
+.pl-help:active {
   transform: scale(0.9);
 }
 
-.plans-help:focus-visible {
-  outline: 2px solid currentColor;
+.pl-help:focus-visible {
+  outline: 2px solid #0a0a0a;
   outline-offset: 2px;
 }
 
-.plans-card[data-recommended] .plans-help:focus-visible,
-.plans-card[data-recommended] .plans-cta:focus-visible {
-  outline-color: #fff;
-}
-
-/* ---------- Qué incluye ---------- */
-
-.plans-features {
-  display: grid;
-  gap: 14px;
-  margin: 24px 0 28px;
-  padding: 24px 0 0;
-  border-top: 1px solid var(--line);
-  list-style: none;
-}
-
-.plans-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.plans-features strong {
-  font-weight: 700;
-}
-
-/* Lo que no incluye queda más apagado, con la cruz roja. */
-.plans-features li:not([data-included]) {
-  color: var(--muted);
-}
-
-.plans-icon {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  margin-top: -1px;
-  border-radius: 50%;
-  background: var(--pl-green);
-  color: #fff;
-}
-
-.plans-icon svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 3;
-}
-
-.plans-features li:not([data-included]) .plans-icon {
-  background: var(--pl-red);
-}
-
-/* ---------- Botón ---------- */
-
-.plans-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 56px;
-  margin-top: auto;
-  padding: 0 24px;
-  border-radius: 999px;
-  background: #0a0a0a;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  transition: background-color 250ms ease, color 250ms ease, transform 200ms var(--pl-ease);
-}
-
-.plans-cta svg {
-  width: 18px;
-  height: 18px;
-  transition: transform 300ms var(--pl-ease);
-}
-
-/* El mismo botón rojo del hero: negro sobre el rojo da 5.6:1. */
-.plans-card[data-recommended] .plans-cta {
-  background: var(--pl-red);
-  color: #000;
-}
-
-.plans-cta:active {
-  transform: scale(0.98);
-}
-
-.plans-cta:focus-visible {
-  outline: 2px solid #0a0a0a;
-  outline-offset: 3px;
-}
-
 @media (hover: hover) {
-  .plans-cta:hover {
-    background: var(--pl-red);
-    color: #000;
-  }
-
-  .plans-card[data-recommended] .plans-cta:hover {
-    background: #fff;
-  }
-
-  .plans-cta:hover svg {
-    transform: translateX(4px);
-  }
-
-  .plans-help:hover {
+  .pl-help:hover {
     background: var(--pl-red);
     color: #000;
   }
 }
 
-/* ---------- Explicación del "?" ---------- */
-
-.plans-pop {
+.pl-pop {
   z-index: 80;
-  width: min(300px, calc(100vw - 32px));
-  padding: 16px 18px;
+  width: min(280px, calc(100vw - 32px));
+  padding: 14px 16px;
   border: 1px solid rgb(255 255 255 / 0.12);
-  border-radius: 16px;
+  border-radius: 14px;
   background: #1a1a1a;
   box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.5);
   color: rgb(255 255 255 / 0.72);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.45;
   outline: none;
 }
 
-.plans-pop p {
+.pl-pop p {
   margin: 0;
 }
 
-.plans-pop .plans-pop-title {
-  margin-bottom: 6px;
+.pl-pop .pl-pop-title {
+  margin-bottom: 4px;
   color: #fff;
-  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.01em;
 }
 
-.plans-pop-arrow {
+.pl-pop-arrow {
   fill: #1a1a1a;
 }
 
-/* ---------- Escritorio: las tres a la vista ---------- */
-
-@media (min-width: 1024px) {
-  .plans {
-    --pl-gutter: 48px;
-  }
-
-  .plans-head {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 48px;
-  }
-
-  .plans-lead {
-    max-width: 34ch;
-    margin-bottom: 0.6em;
-    font-size: 19px;
-  }
-
-  .plans-switch {
-    display: none;
-  }
-
-  .plans-track {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 max(var(--pl-gutter), env(safe-area-inset-right)) 0 max(var(--pl-gutter), env(safe-area-inset-left));
-    box-sizing: content-box;
-    overflow: visible;
-  }
-
-  .plans-track::before,
-  .plans-track::after {
-    display: none;
-  }
-
-  .plans-card {
-    padding: 40px 36px 36px;
-    border-radius: 32px;
-  }
-
-  .plans-badge {
-    top: 34px;
-    right: 30px;
-  }
-
-  .plans-name {
-    font-size: 2.25rem;
-  }
-
-  /* Siempre dos líneas de alto, así precios y filas quedan alineados entre las tres. */
-  .plans-blurb {
-    min-height: 2.9em;
-  }
-
-  .plans-amount {
-    font-size: 4rem;
-  }
-}
-
-/* ---------- Movimiento (solo si el usuario no pidió reducirlo) ---------- */
-
 @media (prefers-reduced-motion: no-preference) {
-  .plans-card {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  .plans-track[data-visible] .plans-card {
-    opacity: 1;
-    transform: none;
-    transition: opacity 800ms var(--pl-ease), transform 800ms var(--pl-ease);
-    transition-delay: calc(var(--i, 0) * 90ms);
-  }
-
-  .plans-pop[data-state="open"] {
-    animation: plans-pop-in 220ms var(--pl-ease);
+  .pl-pop[data-state="open"] {
+    animation: pl-pop-in 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 }
 
-@keyframes plans-pop-in {
+@keyframes pl-pop-in {
   from {
     opacity: 0;
     transform: translateY(6px) scale(0.97);
+  }
+}
+
+/* ---------- Escritorio: más aire y letra más grande ---------- */
+
+@media (min-width: 1024px) {
+  .pl-col {
+    width: 20%;
+  }
+
+  .pl-table th,
+  .pl-table td {
+    padding: 11px 8px;
+  }
+
+  .pl-table th[scope="row"] {
+    padding-left: 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .pl-table thead th {
+    padding: 20px 8px 14px;
+  }
+
+  .pl-name {
+    font-size: 14px;
+  }
+
+  .pl-price {
+    margin-top: 6px;
+    font-size: 28px;
+  }
+
+  .pl-per {
+    font-size: 12px;
+  }
+
+  .pl-chip {
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  .pl-count {
+    font-size: 20px;
+  }
+
+  .pl-text {
+    font-size: 15px;
+  }
+
+  .pl-from {
+    font-size: 12px;
+  }
+
+  .pl-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .pl-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .pl-table thead .pl-hl {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .pl-table tfoot .pl-hl {
+    border-radius: 0 0 20px 20px;
   }
 }

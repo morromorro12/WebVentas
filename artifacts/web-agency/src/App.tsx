@@ -6,7 +6,6 @@ import { Services } from "@/components/services";
 import { Work } from "@/components/work";
 import { Gallery } from "@/components/gallery";
 import { Reviews } from "@/components/reviews";
-import { Plans } from "@/components/plans";
 import { Contact, Footer, Manifesto } from "@/components/closing";
 
 function Home() {
@@ -18,7 +17,6 @@ function Home() {
       <Work />
       <Gallery />
       <Reviews />
-      <Plans />
       <Contact />
       <Manifesto />
       <Footer />

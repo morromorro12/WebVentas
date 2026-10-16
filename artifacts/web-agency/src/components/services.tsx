@@ -1,207 +1,205 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { ArrowLeft, ArrowRight, ChevronsLeft } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { PlansTable } from "@/components/plans";
 import "./services.css";
 
 type Service = {
   title: string;
   // Frase corta en negrita de la tarjeta.
   tagline: string;
-  tag: string;
   desc: string;
-  subtitle: string;
-  body: string;
-  features: string[];
-  price: string;
-  monthly: string | null;
-  monthlyNote: string;
-  hidePrice?: boolean;
-  // Muestra el botón que lleva a la sección de planes.
-  plansLink?: boolean;
+  // La tarjeta se desliza y del otro lado aparece la tabla de planes.
+  plans?: boolean;
 };
 
 const SERVICES: Service[] = [
   {
     title: "Anuncios en redes",
     tagline: "Campañas que traen consultas.",
-    tag: "Instagram y Facebook",
-    desc: "Manejamos tus campañas: probamos varios anuncios, miramos cuál trae consultas y dejamos ese corriendo.",
-    subtitle: "Nos hacemos cargo de la pauta entera: a quién le hablamos, qué le mostramos y dónde va el presupuesto.",
-    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Según el plan, una vez por mes o cada 15 días te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
-    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Resumen de resultados con los números"],
-    price: "Desde $3.000 UYU / mes",
-    monthly: null,
-    monthlyNote: "Hay tres planes según cuántos anuncios necesites por mes. La inversión en anuncios, lo que se le paga a Instagram y Facebook, va aparte.",
-    plansLink: true,
+    desc: "Diseñamos tus anuncios para Instagram y Facebook, probamos cuál trae más clientes y lo dejamos corriendo.",
+    plans: true,
   },
   {
     title: "Páginas web",
     tagline: "Tu negocio, serio en internet.",
-    tag: "Sitio completo",
     desc: "El sitio de tu empresa: tus servicios, tus trabajos y tus datos de contacto en un solo lugar.",
-    subtitle: "Para cuando alguien te busca en internet y querés que encuentre algo serio.",
-    body: "Armamos el sitio con las secciones que tu negocio necesite: inicio, servicios, quiénes somos, trabajos hechos y contacto. El diseño se hace en base a tu marca y a lo que vendés, no sobre una plantilla.\n\nSe ve bien en celular y en computadora, y lo dejamos andando con hosting y dominio. Después, si querés cambiar un texto, una foto o un precio, nos escribís y lo hacemos nosotros.",
-    features: ["Diseño hecho desde cero", "Hasta 5 páginas", "Se ve bien en celular", "Formulario de contacto", "Botón de WhatsApp", "Configurado para aparecer en Google"],
-    price: "$13.900 UYU",
-    monthly: "~$650 UYU / mes",
-    monthlyNote: "El mensual cubre hosting, dominio y los cambios chicos que vayas pidiendo. El número exacto lo cerramos cuando hablemos.",
-    hidePrice: true,
   },
   {
     title: "Automatizaciones",
     tagline: "Lo repetitivo, que se haga solo.",
-    tag: "Tareas repetitivas",
     desc: "Lo que hacés a mano todos los días, como cargar ventas o pasar pedidos a una planilla, hecho solo.",
-    subtitle: "Si hay algo que repetís todos los días a mano, lo más probable es que se pueda automatizar.",
-    body: "Primero miramos cómo trabajás hoy y en qué se te va el tiempo. Después armamos la automatización para ese caso puntual: mandás un audio y la venta queda registrada, los pedidos entran y se ordenan solos, los avisos y los reportes salen sin que nadie los cargue.\n\nSe conecta con lo que ya usás: WhatsApp, planillas de Google, tu sistema de gestión. No tenés que cambiar de herramienta ni aprender un programa nuevo.",
-    features: ["Registrar ventas mandando un audio", "Pedidos que se ordenan solos", "Reportes y avisos automáticos", "Se conecta con WhatsApp y planillas", "Armado para cómo trabaja tu negocio", "Lo dejamos andando y te lo explicamos"],
-    price: "Consultar",
-    monthly: null,
-    monthlyNote: "Depende de cuántos procesos haya que automatizar y qué tan enredados estén. Escribinos, lo vemos juntos y te pasamos un número.",
   },
   {
     title: "Imágenes, videos y diseño",
     tagline: "Tu marca, igual en todos lados.",
-    tag: "Contenido",
     desc: "Videos, imágenes de producto, etiquetas y logos para tus redes y para tus anuncios.",
-    subtitle: "Las piezas que necesitás para publicar y para pautar, sin tener que contratar a tres personas distintas.",
-    body: "Hacemos videos cortos para redes, imágenes de producto, piezas para anuncios, etiquetas y logos. Todo sigue la misma línea, así tu marca se ve igual en cualquier lado donde aparezca.\n\nSi ya tenés fotos o material nuestro, los usamos. Si no, lo armamos desde cero. Nos mandás lo que necesitás y en general lo tenés en dos días.",
-    features: ["Videos cortos para redes", "Imágenes para anuncios", "Fotos y etiquetas de producto", "Logos e identidad de marca", "Piezas sueltas o por paquete", "En general, entrega en dos días"],
-    price: "Consultar",
-    monthly: null,
-    monthlyNote: "El precio depende de cuántas piezas sean y de qué tipo. Pasanos lo que necesitás y te cotizamos.",
   },
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-// El mensaje de WhatsApp ya llega con el servicio elegido.
-const whatsappFor = (service: Service) =>
-  `${WHATSAPP_URL}?text=${encodeURIComponent(`Hola! Quiero consultar por ${service.title}.`)}`;
+const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;
 
-// Detalle de un servicio: pantalla completa en el celular y panel lateral en escritorio.
-function ServiceDetail({
-  index,
-  onChange,
-  onClosed,
-  onPlans,
-}: {
-  index: number | null;
-  onChange: (index: number | null) => void;
-  onClosed: (index: number) => void;
-  onPlans: () => void;
-}) {
-  // Mantiene el último servicio mientras corre la animación de cierre.
-  const [shown, setShown] = useState(index ?? 0);
+const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function ConsultButton({ href, label }: { href: string; label: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="sv-card-btn" aria-label={label}>
+      <FaWhatsapp aria-hidden="true" /> Consultar
+    </a>
+  );
+}
+
+function ServiceText({ service, index, children }: { service: Service; index: number; children: ReactNode }) {
+  return (
+    <>
+      <span className="sv-card-num" aria-hidden="true">
+        {pad(index + 1)}
+      </span>
+      <h3 lang="es" className="sv-card-title">
+        {service.title}.
+      </h3>
+      <div className="sv-card-body">
+        <p className="sv-card-tagline">{service.tagline}</p>
+        <p className="sv-card-desc">{service.desc}</p>
+        {children}
+      </div>
+    </>
+  );
+}
+
+/* Anuncios en redes: dos caras en un carrusel horizontal. Se pasa deslizando con el dedo o con
+   los botones "Ver planes" / "Volver"; la cara que no se ve queda inerte (fuera del tab). */
+function AdsCard({ service, index }: { service: Service; index: number }) {
+  const cardRef = useRef<HTMLLIElement>(null);
+  const swipeRef = useRef<HTMLDivElement>(null);
+  const openRef = useRef<HTMLButtonElement>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const [page, setPage] = useState(0);
+
+  const go = (next: number, smooth = true) => {
+    const swipe = swipeRef.current;
+    if (!swipe) return;
+    setPage(next);
+    swipe.scrollTo({ left: next * swipe.clientWidth, behavior: smooth && !reducedMotion() ? "smooth" : "auto" });
+  };
+
+  // La cara visible se fija cuando el deslizamiento termina, no a mitad de camino.
   useEffect(() => {
-    if (index !== null) setShown(index);
-  }, [index]);
+    const swipe = swipeRef.current;
+    if (!swipe) return;
+    let timer = 0;
+    const onScroll = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => setPage(Math.round(swipe.scrollLeft / swipe.clientWidth)), 120);
+    };
+    swipe.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      swipe.removeEventListener("scroll", onScroll);
+      window.clearTimeout(timer);
+    };
+  }, []);
 
-  const service = SERVICES[shown];
-  const prev = (shown - 1 + SERVICES.length) % SERVICES.length;
-  const next = (shown + 1) % SERVICES.length;
-  const showPrice = !service.hidePrice && service.price !== "Consultar";
+  // "Planes" del menú (#plans) abre la tarjeta directamente del lado de los planes.
+  useEffect(() => {
+    const showPlans = () => go(1, false);
+    if (window.location.hash === "#plans") showPlans();
+    const onHash = () => window.location.hash === "#plans" && showPlans();
+    const onClick = (e: MouseEvent) => {
+      if ((e.target as Element | null)?.closest?.('a[href="#plans"]')) showPlans();
+    };
+    window.addEventListener("hashchange", onHash);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("hashchange", onHash);
+      document.removeEventListener("click", onClick);
+    };
+  }, []);
+
+  // La primera vez que la tarjeta aparece entera, se corre un poco para mostrar que se desliza.
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        card.setAttribute("data-hint", "");
+        observer.disconnect();
+      },
+      { threshold: 0.7 },
+    );
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <Dialog.Root open={index !== null} onOpenChange={(open) => !open && onChange(null)}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="sv-overlay" />
-        <Dialog.Content
-          className="sv-panel"
-          aria-describedby={undefined}
-          data-testid="service-modal"
-          onCloseAutoFocus={(e) => {
-            // Vuelve a la tarjeta del último servicio visto (puede no ser la que se abrió).
-            e.preventDefault();
-            onClosed(shown);
-          }}
-        >
-          <div className="sv-panel-top">
-            <span className="sv-panel-count">
-              {pad(shown + 1)} <span>/ {pad(SERVICES.length)}</span>
-            </span>
-            <Dialog.Close className="sv-pill">
-              Cerrar <X aria-hidden="true" />
-            </Dialog.Close>
-          </div>
-
-          {/* key: al pasar a otro servicio el contenido entra de nuevo y arranca desde arriba. */}
-          <div key={shown} className="sv-panel-body">
-            <p className="sv-tag">{service.tag}</p>
-            <Dialog.Title className="sv-panel-title">{service.title}.</Dialog.Title>
-            <p className="sv-panel-sub">{service.subtitle}</p>
-
-            <div className="sv-panel-text">
-              {service.body.split("\n\n").map((para, j) => (
-                <p key={j}>{para}</p>
-              ))}
-            </div>
-
-            <h3 className="sv-label">Qué incluye</h3>
-            <ul className="sv-features">
-              {service.features.map((feature) => (
-                <li key={feature}>
-                  <Check aria-hidden="true" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-
-            <div className="sv-note">
-              <h3 className="sv-label">Cómo se cobra</h3>
-              {showPrice && (
-                <p className="sv-price">
-                  {service.price}
-                  {service.monthly && <span> + {service.monthly}</span>}
-                </p>
-              )}
-              <p>{service.monthlyNote}</p>
-              {service.plansLink && (
-                <button type="button" className="sv-note-link" onClick={onPlans}>
-                  Ver los planes <ArrowRight aria-hidden="true" />
-                </button>
-              )}
-            </div>
-
-            <nav className="sv-pager" aria-label="Otros servicios">
-              <button type="button" onClick={() => onChange(prev)}>
-                <span className="sv-pager-dir">
-                  <ArrowLeft aria-hidden="true" /> Anterior
-                </span>
-                <span className="sv-pager-name">{SERVICES[prev].title}</span>
+    <li
+      ref={cardRef}
+      id="plans"
+      className="sv-card sv-card-ads"
+      data-page={page}
+      style={{ "--i": index } as CSSProperties}
+      data-testid={`service-card-${index}`}
+    >
+      <div ref={swipeRef} className="sv-swipe">
+        <div className="sv-face" inert={page !== 0}>
+          <ServiceText service={service} index={index}>
+            <p className="sv-from">
+              Planes desde <strong>$3.000</strong> por mes
+            </p>
+            <div className="sv-actions">
+              <button
+                ref={openRef}
+                type="button"
+                className="sv-card-btn"
+                onClick={() => {
+                  go(1);
+                  window.requestAnimationFrame(() => backRef.current?.focus({ preventScroll: true }));
+                }}
+                data-testid="ads-show-plans"
+              >
+                Ver planes <ArrowRight aria-hidden="true" />
               </button>
-              <button type="button" onClick={() => onChange(next)}>
-                <span className="sv-pager-dir">
-                  Siguiente <ArrowRight aria-hidden="true" />
-                </span>
-                <span className="sv-pager-name">{SERVICES[next].title}</span>
-              </button>
-            </nav>
-          </div>
+              <span className="sv-hint" aria-hidden="true">
+                <ChevronsLeft /> Deslizá
+              </span>
+            </div>
+          </ServiceText>
+        </div>
 
-          <div className="sv-panel-cta">
-            <a
-              href={whatsappFor(service)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sv-cta"
-              data-testid="service-modal-cta"
+        <div className="sv-plans" inert={page !== 1} role="group" aria-label="Planes de anuncios">
+          <div className="sv-plans-top">
+            <button
+              ref={backRef}
+              type="button"
+              className="sv-back"
+              onClick={() => {
+                go(0);
+                window.requestAnimationFrame(() => openRef.current?.focus({ preventScroll: true }));
+              }}
             >
-              Consultar por WhatsApp
-            </a>
+              <ArrowLeft aria-hidden="true" /> Volver
+            </button>
+            <span className="sv-plans-label">Planes de anuncios</span>
           </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          <div className="sv-plans-table">
+            <PlansTable />
+          </div>
+          <div className="sv-plans-cta">
+            <ConsultButton
+              href={whatsappWith("Hola! Quiero consultar por los planes de anuncios.")}
+              label="Consultar por los planes de anuncios por WhatsApp"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
   );
 }
 
 export function Services() {
-  const [selected, setSelected] = useState<number | null>(null);
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const toPlans = useRef(false);
-
   return (
     <section id="services" className="services" aria-labelledby="services-title">
       <div className="services-inner">
@@ -213,57 +211,29 @@ export function Services() {
 
         {/* Las tarjetas se apilan al bajar: cada una se queda arriba y la siguiente la tapa. */}
         <ol className="sv-cards">
-          {SERVICES.map((service, i) => (
-            <li key={service.title} className="sv-card" style={{ "--i": i } as CSSProperties}>
-              <span className="sv-card-num" aria-hidden="true">
-                {pad(i + 1)}
-              </span>
-              <h3 lang="es" className="sv-card-title">
-                {service.title}.
-              </h3>
-              <div className="sv-card-body">
-                <p className="sv-card-tagline">{service.tagline}</p>
-                <p className="sv-card-desc">{service.desc}</p>
-                {/* Toda la tarjeta es clickeable (el ::after del botón la cubre). */}
-                <button
-                  ref={(el) => {
-                    buttonRefs.current[i] = el;
-                  }}
-                  type="button"
-                  className="sv-card-btn"
-                  onClick={() => setSelected(i)}
-                  aria-haspopup="dialog"
-                  aria-label={`Ver qué incluye ${service.title}`}
-                  data-testid={`service-card-${i}`}
-                >
-                  Ver qué incluye <ArrowRight aria-hidden="true" />
-                </button>
-              </div>
-            </li>
-          ))}
+          {SERVICES.map((service, i) =>
+            service.plans ? (
+              <AdsCard key={service.title} service={service} index={i} />
+            ) : (
+              <li
+                key={service.title}
+                className="sv-card"
+                style={{ "--i": i } as CSSProperties}
+                data-testid={`service-card-${i}`}
+              >
+                <div className="sv-face">
+                  <ServiceText service={service} index={i}>
+                    <ConsultButton
+                      href={whatsappWith(`Hola! Quiero consultar por ${service.title}.`)}
+                      label={`Consultar por ${service.title} por WhatsApp`}
+                    />
+                  </ServiceText>
+                </div>
+              </li>
+            ),
+          )}
         </ol>
       </div>
-
-      <ServiceDetail
-        index={selected}
-        onChange={setSelected}
-        onPlans={() => {
-          toPlans.current = true;
-          setSelected(null);
-        }}
-        onClosed={(i) => {
-          if (!toPlans.current) {
-            buttonRefs.current[i]?.focus({ preventScroll: true });
-            return;
-          }
-          toPlans.current = false;
-          // Un cuadro después, cuando el diálogo ya le devolvió el scroll a la página.
-          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          window.requestAnimationFrame(() =>
-            document.getElementById("plans")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }),
-          );
-        }}
-      />
     </section>
   );
 }
