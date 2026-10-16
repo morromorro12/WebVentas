@@ -130,20 +130,12 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
     };
   }, []);
 
-  // "Planes" del menú (#plans) abre la tarjeta directamente del lado de los planes.
+  // Un link a #plans abre la tarjeta directamente del lado de los planes.
   useEffect(() => {
-    const showPlans = () => go(1, false);
-    if (window.location.hash === "#plans") showPlans();
-    const onHash = () => window.location.hash === "#plans" && showPlans();
-    const onClick = (e: MouseEvent) => {
-      if ((e.target as Element | null)?.closest?.('a[href="#plans"]')) showPlans();
-    };
+    const onHash = () => window.location.hash === "#plans" && go(1, false);
+    onHash();
     window.addEventListener("hashchange", onHash);
-    document.addEventListener("click", onClick);
-    return () => {
-      window.removeEventListener("hashchange", onHash);
-      document.removeEventListener("click", onClick);
-    };
+    return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
   // La primera vez que la tarjeta aparece entera, se corre un poco para mostrar que se desliza.
