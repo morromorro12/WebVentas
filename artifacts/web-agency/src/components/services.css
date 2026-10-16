@@ -364,6 +364,42 @@
   font-weight: 500;
 }
 
+/* Lleva a la sección de planes (solo en Anuncios en redes). */
+.sv-note-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 16px;
+  padding: 0 20px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease;
+}
+
+.sv-note-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sv-note-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .sv-note-link:hover {
+    border-color: var(--sv-red);
+    background: var(--sv-red);
+    color: #000;
+  }
+}
+
 /* Anterior / siguiente para recorrer los servicios sin cerrar. */
 .sv-pager {
   display: grid;

@@ -11,6 +11,7 @@ const MENU_LINKS = [
   { href: "#services", label: "Servicios" },
   { href: "#work", label: "Proyectos" },
   { href: "#reviews", label: "Reseñas" },
+  { href: "#plans", label: "Planes" },
 ];
 
 // Tiene que coincidir con el preload de index.html para no bajar la imagen dos veces.

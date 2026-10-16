@@ -17,6 +17,8 @@ type Service = {
   monthly: string | null;
   monthlyNote: string;
   hidePrice?: boolean;
+  // Muestra el botón que lleva a la sección de planes.
+  plansLink?: boolean;
 };
 
 const SERVICES: Service[] = [
@@ -26,11 +28,12 @@ const SERVICES: Service[] = [
     tag: "Instagram y Facebook",
     desc: "Manejamos tus campañas: probamos varios anuncios, miramos cuál trae consultas y dejamos ese corriendo.",
     subtitle: "Nos hacemos cargo de la pauta entera: a quién le hablamos, qué le mostramos y dónde va el presupuesto.",
-    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Una vez por mes te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
-    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Reporte mensual con los números"],
-    price: "Consultar",
+    body: "Antes de poner un peso miramos el terreno: quién te compra, qué está haciendo la competencia de tu rubro y qué anuncios les están funcionando hoy. Con eso definimos el mensaje y los públicos a los que vale la pena mostrárselo.\n\nDespués producimos las piezas (imagen, video y texto) y salimos con varias versiones al mismo tiempo. A los pocos días los números muestran cuál rinde: cortamos las que no y movemos el presupuesto a la que sí. Según el plan, una vez por mes o cada 15 días te pasamos qué se gastó, cuántas consultas entraron y cuánto costó cada una.",
+    features: ["Estudio del rubro y de la competencia", "Armado de los públicos", "Creación de las piezas: imagen, video y texto", "Varias versiones compitiendo entre sí", "El presupuesto va a la que mejor rinde", "Resumen de resultados con los números"],
+    price: "Desde $3.000 UYU / mes",
     monthly: null,
-    monthlyNote: "Se cobra un fijo mensual por el manejo, aparte de la plata que pongas en la pauta. Depende de cuántas campañas y cuántas piezas lleve por mes.",
+    monthlyNote: "Hay tres planes según cuántos anuncios necesites por mes. La inversión en anuncios, lo que se le paga a Instagram y Facebook, va aparte.",
+    plansLink: true,
   },
   {
     title: "Páginas web",
@@ -82,10 +85,12 @@ function ServiceDetail({
   index,
   onChange,
   onClosed,
+  onPlans,
 }: {
   index: number | null;
   onChange: (index: number | null) => void;
   onClosed: (index: number) => void;
+  onPlans: () => void;
 }) {
   // Mantiene el último servicio mientras corre la animación de cierre.
   const [shown, setShown] = useState(index ?? 0);
@@ -152,6 +157,11 @@ function ServiceDetail({
                 </p>
               )}
               <p>{service.monthlyNote}</p>
+              {service.plansLink && (
+                <button type="button" className="sv-note-link" onClick={onPlans}>
+                  Ver los planes <ArrowRight aria-hidden="true" />
+                </button>
+              )}
             </div>
 
             <nav className="sv-pager" aria-label="Otros servicios">
@@ -190,6 +200,7 @@ function ServiceDetail({
 export function Services() {
   const [selected, setSelected] = useState<number | null>(null);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const toPlans = useRef(false);
 
   return (
     <section id="services" className="services" aria-labelledby="services-title">
@@ -236,7 +247,22 @@ export function Services() {
       <ServiceDetail
         index={selected}
         onChange={setSelected}
-        onClosed={(i) => buttonRefs.current[i]?.focus({ preventScroll: true })}
+        onPlans={() => {
+          toPlans.current = true;
+          setSelected(null);
+        }}
+        onClosed={(i) => {
+          if (!toPlans.current) {
+            buttonRefs.current[i]?.focus({ preventScroll: true });
+            return;
+          }
+          toPlans.current = false;
+          // Un cuadro después, cuando el diálogo ya le devolvió el scroll a la página.
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.requestAnimationFrame(() =>
+            document.getElementById("plans")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }),
+          );
+        }}
       />
     </section>
   );
