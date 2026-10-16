@@ -221,14 +221,15 @@
   }
 }
 
-/* El lado de los planes: Volver y Consultar arriba, la tabla abajo. */
+/* El lado de los planes: Volver y Consultar arriba, después el texto de la reunión y la tabla. */
 .sv-plans {
   display: grid;
   grid-template-areas:
     "top cta"
+    "intro intro"
     "table table";
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   align-items: center;
   column-gap: 12px;
   padding: 18px 10px 16px;
@@ -284,10 +285,20 @@
   text-transform: uppercase;
 }
 
+.sv-plans-intro {
+  grid-area: intro;
+  margin: 18px 4px 0;
+  color: rgb(10 10 10 / 0.72);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
 .sv-plans-table {
   grid-area: table;
   align-self: center;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .sv-plans-cta {
@@ -359,8 +370,14 @@
     display: block;
   }
 
+  .sv-plans-intro {
+    max-width: 62ch;
+    margin: 24px 0 0;
+    font-size: 17px;
+  }
+
   .sv-plans-table {
-    margin-top: 28px;
+    margin-top: 20px;
   }
 
   .sv-plans-cta .sv-card-btn {

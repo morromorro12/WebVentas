@@ -2,10 +2,10 @@ import * as Popover from "@radix-ui/react-popover";
 import { Check, X } from "lucide-react";
 import "./plans.css";
 
-// `tag` va arriba del nombre; el recomendado lleva la etiqueta roja.
+// El recomendado lleva la etiqueta roja arriba del nombre.
 const PLANS = [
-  { name: "Primeros clientes", price: "$3.200", tag: "Plan más chico" },
-  { name: "Avanzado", price: "$4.500", tag: "Recomendado", recommended: true },
+  { name: "Inicial", price: "$3.200" },
+  { name: "Avanzado", price: "$4.500", recommended: true },
   { name: "Profesional", price: "$9.000" },
 ];
 
@@ -14,7 +14,6 @@ type Value = boolean | string;
 
 // Lo que va entre ** se resalta.
 const ROWS: { label: string; values: Value[] }[] = [
-  { label: "Reunión inicial", values: [true, true, true] },
   { label: "Anuncios creados por mes", values: ["2", "4", "6"] },
   { label: "Testeo **profundo** de anuncios para mejora constante de campaña", values: [false, true, true] },
   // El espacio duro deja "15 días" junto si no entra en una línea.
@@ -83,11 +82,7 @@ export function PlansTable() {
           {PLANS.map((plan) => (
             <th key={plan.name} scope="col">
               <div className="pl-plan">
-                {plan.tag && (
-                  <span className="pl-tag" data-recommended={plan.recommended || undefined}>
-                    {plan.tag}
-                  </span>
-                )}
+                {plan.recommended && <span className="pl-tag">Recomendado</span>}
                 <span className="pl-name">{plan.name}</span>
                 <span className="pl-price">{plan.price}</span>
                 <span className="pl-per">por mes</span>

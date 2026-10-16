@@ -70,30 +70,17 @@
   text-align: center;
 }
 
-/* "Plan más chico" puede ir en dos líneas en el celular; "Recomendado" no, y si es más ancha
-   que la columna sobresale parejo a los dos lados. */
+/* Negro sobre el rojo: 5.6:1. Si es más ancha que la columna, sobresale parejo a los dos lados. */
 .pl-tag {
-  width: fit-content;
-  max-width: 58px;
   margin-bottom: 6px;
   padding: 3px 7px;
-  border-radius: 8px;
-  background: rgb(10 10 10 / 0.08);
-  color: rgb(10 10 10 / 0.7);
+  border-radius: 999px;
+  background: var(--pl-red);
+  color: #000;
   font-size: 9px;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.01em;
-}
-
-/* Negro sobre el rojo: 5.6:1. */
-.pl-tag[data-recommended] {
-  max-width: none;
-  padding: 3px 6px;
-  border-radius: 999px;
-  background: var(--pl-red);
-  color: #000;
-  font-size: 8.5px;
   white-space: nowrap;
 }
 
@@ -261,14 +248,10 @@
     padding: 12px 8px 16px;
   }
 
-  .pl-tag,
-  .pl-tag[data-recommended] {
-    max-width: none;
+  .pl-tag {
     margin-bottom: 10px;
     padding: 5px 12px;
-    border-radius: 999px;
     font-size: 11px;
-    white-space: nowrap;
   }
 
   .pl-name {

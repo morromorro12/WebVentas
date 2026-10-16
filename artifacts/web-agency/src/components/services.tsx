@@ -209,6 +209,10 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
             </button>
             <span className="sv-plans-label">Planes de anuncios</span>
           </div>
+          <p className="sv-plans-intro">
+            Todos los planes arrancan con una reunión donde definimos a quién le querés vender, qué ofrecés, qué decimos
+            en los anuncios y el futuro de la campaña.
+          </p>
           <div className="sv-plans-table">
             <PlansTable />
           </div>
