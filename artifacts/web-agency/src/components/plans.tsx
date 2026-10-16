@@ -66,50 +66,57 @@ function AdSpendHelp() {
   );
 }
 
-/* Comparación de los tres planes de anuncios. Es una tabla (roles ARIA) armada con grilla: en
-   el celular el nombre de cada fila va arriba, a todo el ancho, y los tres valores debajo; en
-   escritorio el nombre va en su propia columna a la izquierda. */
+// Comparación de los tres planes de anuncios: nombres de fila a la izquierda, un plan por columna.
 export function PlansTable() {
   return (
-    <div className="pl-table" role="table" aria-label="Planes de anuncios, precios por mes">
-      <div className="pl-row pl-head" role="row">
-        <span className="pl-corner" role="cell" />
+    <table className="pl-table">
+      <caption className="sr-only">Planes de anuncios, precios por mes</caption>
+      <colgroup>
+        <col />
         {PLANS.map((plan) => (
-          <div key={plan.name} className="pl-plan" role="columnheader">
-            {plan.tag && (
-              <span className="pl-tag" data-recommended={plan.recommended || undefined}>
-                {plan.tag}
-              </span>
-            )}
-            <span className="pl-name">{plan.name}</span>
-            <span className="pl-price">{plan.price}</span>
-            <span className="pl-per">por mes</span>
-          </div>
+          <col key={plan.name} className="pl-col" />
         ))}
-      </div>
-
-      {ROWS.map((row) => (
-        <div key={row.label} className="pl-row" role="row">
-          <div className="pl-label" role="rowheader">
-            {rich(row.label)}
-          </div>
-          {row.values.map((value, i) => (
-            <div key={PLANS[i].name} className="pl-cell" role="cell">
-              <Cell value={value} />
-            </div>
+      </colgroup>
+      <thead>
+        <tr>
+          <td />
+          {PLANS.map((plan) => (
+            <th key={plan.name} scope="col">
+              <div className="pl-plan">
+                {plan.tag && (
+                  <span className="pl-tag" data-recommended={plan.recommended || undefined}>
+                    {plan.tag}
+                  </span>
+                )}
+                <span className="pl-name">{plan.name}</span>
+                <span className="pl-price">{plan.price}</span>
+                <span className="pl-per">por mes</span>
+              </div>
+            </th>
           ))}
-        </div>
-      ))}
-
-      <div className="pl-row" role="row">
-        <div className="pl-label" role="rowheader">
-          Inversión en anuncios
-        </div>
-        {/* Un solo "?", al medio, que explica la inversión para los tres planes. */}
-        <div className="pl-cell pl-cell-all" role="cell" aria-colspan={PLANS.length}>
-          <AdSpendHelp />
-        </div>
-      </div>
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        {ROWS.map((row) => (
+          <tr key={row.label}>
+            <th scope="row">{rich(row.label)}</th>
+            {row.values.map((value, i) => (
+              <td key={PLANS[i].name}>
+                <Cell value={value} />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Inversión en anuncios</th>
+          {/* Un solo "?", al medio, que explica la inversión para los tres planes. */}
+          <td colSpan={PLANS.length}>
+            <AdSpendHelp />
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   );
 }

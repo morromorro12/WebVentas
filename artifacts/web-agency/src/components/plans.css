@@ -10,33 +10,41 @@
 }
 
 .pl-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
   color: #0a0a0a;
 }
 
-/* Celular: tres columnas iguales; el nombre de la fila ocupa las tres, arriba de los valores. */
-.pl-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
-  column-gap: 4px;
+/* Las tres columnas de planes, iguales; la de los nombres de fila se queda con el resto. */
+.pl-col {
+  width: 22%;
 }
 
-.pl-row + .pl-row {
+.pl-table th,
+.pl-table td {
+  padding: 10px 2px;
+  vertical-align: middle;
+}
+
+.pl-table tbody tr > *,
+.pl-table tfoot tr > * {
   border-top: 1px solid rgb(10 10 10 / 0.09);
 }
 
-.pl-corner {
-  display: none;
+.pl-table th[scope="row"] {
+  padding-right: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-align: left;
+  text-wrap: pretty;
 }
 
-.pl-label {
-  grid-column: 1 / -1;
-  padding: 12px 0 2px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  text-wrap: pretty;
+.pl-table td {
+  text-align: center;
 }
 
 /* "profundo": resaltado suave, sin gritar. */
@@ -47,81 +55,82 @@
   font-weight: 700;
 }
 
-.pl-cell {
-  display: grid;
-  place-items: center;
-  min-height: 40px;
-  padding: 4px 0 10px;
-  text-align: center;
-}
-
-.pl-cell-all {
-  grid-column: 1 / -1;
-}
-
 /* ---------- Encabezado: etiqueta, nombre y precio de cada plan ---------- */
+
+.pl-table thead th {
+  padding: 8px 2px 12px;
+  font-weight: 400;
+  vertical-align: bottom;
+}
 
 .pl-plan {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  align-self: stretch;
-  padding-bottom: 14px;
   text-align: center;
 }
 
+/* "Plan más chico" puede ir en dos líneas en el celular; "Recomendado" no, y si es más ancha
+   que la columna sobresale parejo a los dos lados. */
 .pl-tag {
-  margin-bottom: 8px;
-  padding: 4px 8px;
-  border-radius: 999px;
+  width: fit-content;
+  max-width: 58px;
+  margin-bottom: 6px;
+  padding: 3px 7px;
+  border-radius: 8px;
   background: rgb(10 10 10 / 0.08);
   color: rgb(10 10 10 / 0.7);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
+  line-height: 1.2;
   letter-spacing: 0.01em;
-  white-space: nowrap;
 }
 
 /* Negro sobre el rojo: 5.6:1. */
 .pl-tag[data-recommended] {
+  max-width: none;
+  padding: 3px 6px;
+  border-radius: 999px;
   background: var(--pl-red);
   color: #000;
+  font-size: 8.5px;
+  white-space: nowrap;
 }
 
 .pl-name {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
 .pl-price {
-  margin-top: 6px;
-  font-size: 22px;
+  margin-top: 4px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
 .pl-per {
   margin-top: 3px;
   color: rgb(10 10 10 / 0.5);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
 }
 
 /* ---------- Valores ---------- */
 
 .pl-count {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .pl-text {
-  font-size: 13px;
+  display: block;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.2;
 }
@@ -129,11 +138,12 @@
 .pl-icon {
   display: inline-grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--pl-red);
   color: #fff;
+  vertical-align: middle;
 }
 
 .pl-icon[data-included] {
@@ -141,8 +151,8 @@
 }
 
 .pl-icon svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   stroke-width: 3.25;
 }
 
@@ -150,8 +160,9 @@
 
 .pl-help {
   position: relative;
-  display: grid;
+  display: inline-grid;
   place-items: center;
+  vertical-align: middle;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -228,42 +239,36 @@
   }
 }
 
-/* ---------- Escritorio: el nombre de la fila en su columna, a la izquierda ---------- */
+/* ---------- Escritorio: más aire y letra más grande ---------- */
 
 @media (min-width: 1024px) {
-  .pl-row {
-    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
-    column-gap: 16px;
+  .pl-col {
+    width: 20%;
   }
 
-  .pl-corner {
-    display: block;
+  .pl-table th,
+  .pl-table td {
+    padding: 13px 8px;
   }
 
-  .pl-label {
-    grid-column: auto;
-    padding: 14px 0;
+  .pl-table th[scope="row"] {
+    padding-left: 0;
     font-size: 16px;
     font-weight: 500;
   }
 
-  .pl-cell {
-    min-height: 0;
-    padding: 14px 0;
+  .pl-table thead th {
+    padding: 12px 8px 16px;
   }
 
-  .pl-cell-all {
-    grid-column: 2 / -1;
-  }
-
-  .pl-plan {
-    padding-bottom: 18px;
-  }
-
-  .pl-tag {
+  .pl-tag,
+  .pl-tag[data-recommended] {
+    max-width: none;
     margin-bottom: 10px;
     padding: 5px 12px;
+    border-radius: 999px;
     font-size: 11px;
+    white-space: nowrap;
   }
 
   .pl-name {
@@ -271,7 +276,8 @@
   }
 
   .pl-price {
-    font-size: 30px;
+    margin-top: 6px;
+    font-size: 28px;
   }
 
   .pl-per {
