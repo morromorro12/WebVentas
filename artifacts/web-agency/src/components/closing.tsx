@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from "react";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
-import { WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
+import { EMAIL, WHATSAPP_NUMBER, WHATSAPP_URL } from "@/lib/contact";
 import "./closing.css";
 
 const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;
@@ -114,7 +114,6 @@ export function Manifesto() {
 
 /* ---------- Pie de página ---------- */
 
-const EMAIL = "alfonso12.taro@gmail.com";
 // 59892178756 → +598 92 178 756
 const PHONE = `+${WHATSAPP_NUMBER.slice(0, 3)} ${WHATSAPP_NUMBER.slice(3, 5)} ${WHATSAPP_NUMBER.slice(5, 8)} ${WHATSAPP_NUMBER.slice(8)}`;
 
@@ -166,7 +165,14 @@ export function Footer() {
         </p>
 
         <div className="footer-bottom">
-          <p>© 2025 Estudio Píxel. Agencia de diseño y marketing digital, Uruguay.</p>
+          <div className="footer-legal">
+            <p>© 2025 Estudio Píxel. Agencia de diseño y marketing digital, Uruguay.</p>
+            {/* Aviso que piden las condiciones de Meta en cada página con el píxel. */}
+            <p>
+              Esta web usa cookies de Meta para medir y mostrar anuncios.{" "}
+              <a href="/privacidad">Privacidad y cómo desactivarlas</a>
+            </p>
+          </div>
           <button type="button" className="footer-top" onClick={toTop}>
             Volver arriba <ArrowUp aria-hidden="true" />
           </button>

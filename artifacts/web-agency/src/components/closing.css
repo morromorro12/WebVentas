@@ -253,6 +253,18 @@
   margin: 0;
 }
 
+.footer-legal {
+  display: grid;
+  gap: 6px;
+}
+
+.footer-legal a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+
 .footer-top {
   display: inline-flex;
   align-items: center;
@@ -277,7 +289,8 @@
 }
 
 @media (hover: hover) {
-  .footer-cols a:hover {
+  .footer-cols a:hover,
+  .footer-legal a:hover {
     color: var(--cl-red);
   }
 

@@ -1,5 +1,3 @@
-import { WHATSAPP_URL } from "@/lib/contact";
-
 // Eventos del píxel de Meta (el código base está en index.html). Cada evento sale dos veces: por el
 // píxel del navegador y por /api/eventos (Conversions API, desde el servidor), que llega aunque un
 // bloqueador de anuncios frene el píxel. Las dos copias llevan el mismo eventID y Meta cuenta una.
@@ -50,9 +48,10 @@ export function startMetaTracking() {
     else window.addEventListener("load", send, { once: true });
   }
 
-  // Tocar cualquier link de WhatsApp o de mail es un Contact. data-contact dice qué botón fue.
+  // Tocar un link con data-contact (los botones de WhatsApp y el mail del pie) es un Contact;
+  // data-contact dice qué botón fue. El mail de /privacidad no lo lleva: escribir por tus datos no es un cliente.
   document.addEventListener("click", (e) => {
-    const link = (e.target as Element).closest<HTMLAnchorElement>(`a[href^="${WHATSAPP_URL}"], a[href^="mailto:"]`);
+    const link = (e.target as Element).closest<HTMLAnchorElement>("a[data-contact]");
     if (!link) return;
     trackMeta("Contact", {
       content_name: link.dataset.contact,

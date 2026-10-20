@@ -2,5 +2,6 @@
   "buildCommand": "pnpm --filter @workspace/web-agency run build",
   "outputDirectory": "artifacts/web-agency/dist/public",
   "installCommand": "pnpm install",
-  "framework": null
+  "framework": null,
+  "rewrites": [{ "source": "/privacidad", "destination": "/index.html" }]
 }

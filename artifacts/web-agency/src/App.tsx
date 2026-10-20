@@ -1,5 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import NotFound from "@/pages/not-found";
+import Privacy from "@/pages/privacy";
 import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { Services } from "@/components/services";
@@ -28,6 +29,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/privacidad" component={Privacy} />
       <Route component={NotFound} />
     </Switch>
   );
