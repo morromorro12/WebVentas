@@ -39,7 +39,10 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1487876526446275');
-    fbq('track', 'PageView');
+    // src/lib/meta.ts manda una copia de este PageView al servidor con el mismo eventID; así Meta
+    // lo cuenta una sola vez.
+    window.metaPageViewId = window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2);
+    fbq('track', 'PageView', {}, {eventID: window.metaPageViewId});
     </script>
     <!-- End Meta Pixel Code -->
   </head>

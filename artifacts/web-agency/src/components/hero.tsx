@@ -196,6 +196,7 @@ export function Hero() {
             className="hero-cta hero-reveal"
             style={{ "--i": HEADLINE.length + 2 } as CSSProperties}
             data-testid="hero-cta-primary"
+            data-contact="Inicio"
           >
             Escribinos por WhatsApp
           </a>
@@ -278,6 +279,7 @@ function SiteMenu({ open, onClose }: { open: boolean; onClose: (returnFocus: boo
         rel="noopener noreferrer"
         className="site-menu-cta"
         style={{ "--i": MENU_LINKS.length } as CSSProperties}
+        data-contact="Menú"
       >
         Contactanos <ArrowUpRight aria-hidden="true" />
       </a>

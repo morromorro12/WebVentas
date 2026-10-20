@@ -24,6 +24,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className="contact-btn"
             data-testid="footer-cta"
+            data-contact="¿Listo para empezar?"
           >
             Escribinos por WhatsApp <ArrowUpRight aria-hidden="true" />
           </a>
@@ -102,6 +103,7 @@ export function Manifesto() {
           target="_blank"
           rel="noopener noreferrer"
           className="manifesto-btn"
+          data-contact="¿Nuevo proyecto?"
         >
           ¿Nuevo proyecto?
         </a>
@@ -136,12 +138,14 @@ export function Footer() {
             <h2 className="footer-label">Contacto</h2>
             <ul>
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-contact="Pie de página">
                   WhatsApp {PHONE}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                <a href={`mailto:${EMAIL}`} data-contact="Pie de página">
+                  {EMAIL}
+                </a>
               </li>
             </ul>
           </div>

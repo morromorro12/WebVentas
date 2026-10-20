@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type 
 import { ArrowLeft, ArrowRight, ChevronsLeft } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { trackMeta } from "@/lib/meta";
 import { PlansTable } from "@/components/plans";
 import "./services.css";
 
@@ -43,9 +44,17 @@ const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponen
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ConsultButton({ href, label }: { href: string; label: string }) {
+// contact: qué botón fue, para el evento Contact de Meta (src/lib/meta.ts).
+function ConsultButton({ href, label, contact }: { href: string; label: string; contact: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="sv-card-btn" aria-label={label}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="sv-card-btn"
+      aria-label={label}
+      data-contact={contact}
+    >
       <FaWhatsapp aria-hidden="true" /> Consultar
     </a>
   );
@@ -130,6 +139,14 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
     };
   }, []);
 
+  // Ver los planes (con el botón, deslizando o por #plans) es un ViewContent para Meta, una vez por visita.
+  const plansSeenRef = useRef(false);
+  useEffect(() => {
+    if (page !== 1 || plansSeenRef.current) return;
+    plansSeenRef.current = true;
+    trackMeta("ViewContent", { content_name: "Planes de anuncios" });
+  }, [page]);
+
   // Un link a #plans abre la tarjeta directamente del lado de los planes.
   useEffect(() => {
     const onHash = () => window.location.hash === "#plans" && go(1, false);
@@ -212,6 +229,7 @@ function AdsCard({ service, index }: { service: Service; index: number }) {
             <ConsultButton
               href={whatsappWith("Hola! Quiero consultar por los planes de anuncios.")}
               label="Consultar por los planes de anuncios por WhatsApp"
+              contact="Planes de anuncios"
             />
           </div>
         </div>
@@ -247,6 +265,7 @@ export function Services() {
                     <ConsultButton
                       href={whatsappWith(`Hola! Quiero consultar por ${service.title}.`)}
                       label={`Consultar por ${service.title} por WhatsApp`}
+                      contact={service.title}
                     />
                   </ServiceText>
                 </div>
