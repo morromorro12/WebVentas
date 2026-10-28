@@ -55,7 +55,7 @@
   font-weight: 700;
 }
 
-/* ---------- Encabezado: etiqueta, nombre y precio de cada plan ---------- */
+/* ---------- Encabezado: etiqueta, nombre y botón de precio de cada plan ---------- */
 
 .pl-table thead th {
   padding: 8px 2px 12px;
@@ -91,20 +91,47 @@
   letter-spacing: -0.01em;
 }
 
-.pl-price {
-  margin-top: 4px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
+/* "Consultar precio" en lugar del precio: abre WhatsApp. En el celular el texto va en dos líneas,
+   debajo del ícono, para que entre en la columna. */
+.pl-ask {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-top: 8px;
+  padding: 7px 8px;
+  border-radius: 12px;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
-.pl-per {
-  margin-top: 3px;
-  color: rgb(10 10 10 / 0.5);
-  font-size: 10px;
-  font-weight: 500;
+.pl-ask svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+.pl-ask:active {
+  transform: scale(0.95);
+}
+
+.pl-ask:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .pl-ask:hover {
+    background: var(--pl-red);
+    color: #000;
+  }
 }
 
 /* ---------- Valores ---------- */
@@ -258,13 +285,19 @@
     font-size: 15px;
   }
 
-  .pl-price {
-    margin-top: 6px;
-    font-size: 28px;
+  .pl-ask {
+    flex-direction: row;
+    gap: 7px;
+    margin-top: 10px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    white-space: nowrap;
   }
 
-  .pl-per {
-    font-size: 12px;
+  .pl-ask svg {
+    width: 16px;
+    height: 16px;
   }
 
   .pl-count {

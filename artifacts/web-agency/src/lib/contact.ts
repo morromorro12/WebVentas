@@ -2,3 +2,5 @@
 export const WHATSAPP_NUMBER = "59892178756";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 export const EMAIL = "alfonso12.taro@gmail.com";
+// Link de WhatsApp con el mensaje ya escrito.
+export const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;

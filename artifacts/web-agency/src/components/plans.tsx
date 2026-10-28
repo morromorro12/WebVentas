@@ -1,12 +1,14 @@
 import * as Popover from "@radix-ui/react-popover";
 import { Check, X } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { whatsappWith } from "@/lib/contact";
 import "./plans.css";
 
-// El recomendado lleva la etiqueta roja arriba del nombre.
+// El recomendado lleva la etiqueta roja arriba del nombre. Los precios no se muestran: se consultan por WhatsApp.
 const PLANS = [
-  { name: "Inicial", price: "$3.200" },
-  { name: "Avanzado", price: "$4.500", recommended: true },
-  { name: "Profesional", price: "$9.000" },
+  { name: "Inicial" },
+  { name: "Avanzado", recommended: true },
+  { name: "Profesional" },
 ];
 
 // true / false se muestran como tick verde o cruz roja; un texto se muestra tal cual.
@@ -69,7 +71,7 @@ function AdSpendHelp() {
 export function PlansTable() {
   return (
     <table className="pl-table">
-      <caption className="sr-only">Planes de anuncios, precios por mes</caption>
+      <caption className="sr-only">Planes de anuncios</caption>
       <colgroup>
         <col />
         {PLANS.map((plan) => (
@@ -84,8 +86,17 @@ export function PlansTable() {
               <div className="pl-plan">
                 {plan.recommended && <span className="pl-tag">Recomendado</span>}
                 <span className="pl-name">{plan.name}</span>
-                <span className="pl-price">{plan.price}</span>
-                <span className="pl-per">por mes</span>
+                <a
+                  href={whatsappWith(`Hola! Quiero consultar el precio del plan ${plan.name} de anuncios.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pl-ask"
+                  aria-label={`Consultar el precio del plan ${plan.name} por WhatsApp`}
+                  data-contact={`Precio plan ${plan.name}`}
+                >
+                  <FaWhatsapp aria-hidden="true" />
+                  Consultar precio
+                </a>
               </div>
             </th>
           ))}

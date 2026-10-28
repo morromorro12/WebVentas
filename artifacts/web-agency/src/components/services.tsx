@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ChevronsLeft } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { whatsappWith } from "@/lib/contact";
 import { trackMeta } from "@/lib/meta";
 import { PlansTable } from "@/components/plans";
 import "./services.css";
@@ -39,8 +39,6 @@ const SERVICES: Service[] = [
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
-
-const whatsappWith = (text: string) => `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
